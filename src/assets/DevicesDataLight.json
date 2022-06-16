@@ -1,0 +1,54 @@
+[
+    {
+        "id":"001",
+        "name" : "Battery Pack 1",
+        "soc" : 40,
+        "soh" : 90,
+        "packVoltage":34.5,
+        "packCurrent":0,
+        "averageTemperature":26,
+        "chargeDischargeStatus":"idle",
+        "packCondition":"good",
+        "lastOnline": "Date.now()",
+        "timeStamp" : "Date.now()"
+    },
+    {
+        "id":"002",
+        "name" : "Battery Pack 2",
+        "soc" : 45,
+        "soh" : 95,
+        "packVoltage":32.5,
+        "packCurrent":0,
+        "averageTemperature":28,
+        "chargeDischargeStatus":"idle",
+        "packCondition":"good",
+        "lastOnline": "Date.now()",
+        "timeStamp" : "Date.now()"
+    },
+    {
+        "id":"003",
+        "name" : "Battery Pack 3",
+        "soc" : 65,
+        "soh" : 90,
+        "packVoltage":34.9,
+        "packCurrent":0,
+        "averageTemperature":26,
+        "chargeDischargeStatus":"idle",
+        "packCondition":"good",
+        "lastOnline": "Date.now()",
+        "timeStamp" : "Date.now()"
+    },
+    {
+        "id":"004",
+        "name" : "Battery Pack 4",
+        "soc" : 95,
+        "soh" : 90,
+        "packVoltage":36,
+        "packCurrent":0,
+        "averageTemperature":34,
+        "chargeDischargeStatus":"idle",
+        "packCondition":"good",
+        "lastOnline": "Date.now()",
+        "timeStamp" : "Date.now()"
+    }
+]

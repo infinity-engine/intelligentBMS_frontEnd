@@ -1,0 +1,99 @@
+<div class="navigation">
+    <nav aria-label="breadcrumb" class="divider">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Dashboard</li>
+        </ol>
+    </nav>
+</div>
+
+<div *ngIf="isOnOverView;else detailView" class="content">
+    <div class="row" style="margin: 0px;">
+        <div class="col-md-9">
+            <div class="row">
+                <div *ngFor="let device of devices;let i = index;" class="col-lg-5 pack" [routerLink]="['./deviceData',device.id]" (click)="goToPackDetails()">
+                    <div class="row head">
+                        <div class="col-md-8 name">{{device.name}}</div>
+                        <div class="col-md-4 connecion-status">Connected <i class="fa fa-circle"></i></div>
+                    </div>
+                    <div class="row bottom">
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col">
+                                    <circle-progress [percent]="device.soc" [radius]="40" [outerStrokeColor]="'#78C000'"
+                                        [innerStrokeColor]="'#C7E596'" [outerStrokeWidth]="4" [innerStrokeWidth]="2" [subtitle]="'SoC'">
+                                    </circle-progress>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <circle-progress [percent]="device.soh" [radius]="40" [outerStrokeColor]="'green'"
+                                        [innerStrokeColor]="'#C7E596'" [outerStrokeWidth]="4" [innerStrokeWidth]="2" [subtitle]="'SoH'">
+                                    </circle-progress>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 pack-details">
+                            <section class="title">
+                                <div class="row">
+                                    <div class="col-md-8">Description</div>
+                                    <div class="col-md-4">Status</div>
+                                </div>
+                            </section>
+                            <section class="details">
+                                <div class="row">
+                                    <div class="col-md-8">Pack Voltage</div>
+                                    <div class="col-md-4">{{device.packVoltage}}V</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">Pack Current</div>
+                                    <div class="col-md-4">{{device.packCurrent}}A</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">Average Temperature</div>
+                                    <div class="col-md-4">{{device.averageTemperature}}&deg;C</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">Charge/Discharge status</div>
+                                    <div class="col-md-4">{{device.chargeDischargeStatus}}</div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="overall-description">
+                <section class="title">
+                    <h5>Overall Description</h5>
+                </section>
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-10">No. of devices configured</div>
+                        <div class="col-md-2">{{noOfDevices}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10">No. of devices online</div>
+                        <div class="col-md-2">{{noOfDevicesConnected}}</div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #detailView>
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</ng-template>
+
+
+<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" [class]="showToast ? ['fade','show']:['fade','hide']">
+  <div class="d-flex">
+    <div class="toast-body">
+    {{toastMsg}}
+   </div>
+    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" (click)="changeStatus()"></button>
+  </div>
+</div>

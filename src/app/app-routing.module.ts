@@ -1,3 +1,4 @@
+import { BatteryTestComponent } from './components/body/battery-test/battery-test.component';
 import { DeviceDataComponent } from './components/body/dashboard/device-data/device-data.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { DashboardComponent } from './components/body/dashboard/dashboard.component';
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path:'docs',
     component:DocsComponent
+  },
+  {
+    path:'batteryTest',
+    component:BatteryTestComponent
   },
   {
     path:'',

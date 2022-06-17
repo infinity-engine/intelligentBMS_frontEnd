@@ -36,9 +36,22 @@
     box-shadow: 2px 2px 2px 0px rgba(10, 147, 193, 0.783);
     cursor: pointer;
 }
-.toast{
-    position:fixed;
-    align-items: center;
-    right: 10px;
-    bottom: 10px;
+a.disabled{
+    pointer-events: none;
+    cursor:default;
+    text-decoration: none;
+    color:rgba(128, 128, 128, 0.473);
+}
+a.active{
+    text-decoration: none;
+}
+
+.navigation{
+    background-color: rgba(181, 236, 255, 0.154);
+}
+
+.navigation ol{
+    border-left: 4px solid red;
+    vertical-align: middle;
+    padding: 10px 2px;
 }

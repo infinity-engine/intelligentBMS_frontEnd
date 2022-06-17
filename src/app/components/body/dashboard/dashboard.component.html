@@ -1,7 +1,7 @@
 <div class="navigation">
     <nav aria-label="breadcrumb" class="divider">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item">Dashboard</li>
+            <li *ngFor="let item of breadCrumbs" class="breadcrumb-item"><a href="{{item.url}}" [class]="item.status">{{item.name}}</a></li>
         </ol>
     </nav>
 </div>
@@ -87,13 +87,3 @@
         <router-outlet></router-outlet>
     </div>
 </ng-template>
-
-
-<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" [class]="showToast ? ['fade','show']:['fade','hide']">
-  <div class="d-flex">
-    <div class="toast-body">
-    {{toastMsg}}
-   </div>
-    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" (click)="changeStatus()"></button>
-  </div>
-</div>

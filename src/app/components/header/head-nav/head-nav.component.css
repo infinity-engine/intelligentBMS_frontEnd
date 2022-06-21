@@ -1,0 +1,57 @@
+#swoosh {
+    animation: rotation 1s ease-in-out alternate 2;
+    transform-origin: center;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.nav-link {
+    color: rgb(36, 41, 47);
+}
+
+.nav-link:hover {
+    color: rgba(36, 41, 47, 0.651);
+}
+
+.active-link {
+    color: rgb(46, 109, 185);
+    ;
+}
+
+.dropdown-toggle::after {
+    content: none;
+}
+
+.user-picture {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    vertical-align: middle;
+}
+.user-picture:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.dropdown-menu{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.user-info:hover,.user-info:active{
+    background-color: transparent;
+}
+.dropdown-profile:active{
+    border: none;
+}
+#log-out-btn{
+    cursor: pointer;
+}

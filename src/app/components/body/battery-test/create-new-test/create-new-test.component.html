@@ -1,0 +1,53 @@
+<div class="card">
+    <div class="card-header">Creating new test for the battery cells.</div>
+    <div class="card-body">
+        <form #testScript="ngForm" (ngSubmit)="save();">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="testMethod">
+                        Test methods
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <select [(ngModel)]="selectedTestMethod" name="testMethod" id="testMethod" class="form-select">
+                        <option *ngFor="let method of _testMethods" [ngValue]="method">{{method.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <ng-container *ngIf="update()? true:null;">
+                <div class="row" *ngFor="let field of selectedTestMethod.fields;let i=index;">
+                    <ng-container *ngIf="field.type != 'textarea';else textarea;">
+                        <div class="col-md-4">
+                            <label for="{{'field'+i}}">{{field.name}}</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input [(ngModel)]="selectedTestMethodParameters[field]" name="{{'field'+i}}"
+                                id="{{'field'+i}}" [attr.aria-describedby]="'info'+i" class="form-control"
+                                type="{{field.type}}" [disabled]="field.disabled" maxlength="30">
+                        </div>
+                        <div class="col-md-5">
+                            <small id="{{'info'+i}}" class="form-text">{{selectedTestMethod.labels[i]}}</small>
+                        </div>
+                    </ng-container>
+                    <ng-template #textarea>
+                        <div class="col-md-4">{{field.name}}</div>
+                        <div class="col-md-8">
+                            <textarea [(ngModel)]="selectedTestMethodParameters[field]" name="{{'field'+i}}"
+                            id="{{'field'+i}}" class="form-control"
+                            [disabled]="field.disabled" maxlength="400" rows="4"></textarea>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span></span>Connected
+                    </div>
+                    <div class="col text-end">
+                        <button type="submit" class="btn btn-danger">Start</button>
+                    </div>
+                </div>
+            </ng-container>
+
+        </form>
+    </div>
+</div>

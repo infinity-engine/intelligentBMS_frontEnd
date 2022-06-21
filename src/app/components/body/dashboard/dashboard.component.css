@@ -1,0 +1,65 @@
+.divider{
+    --bs-breadcrumb-divider: '>';
+}
+.overall-description{
+    border: 1px solid rgba(0, 0, 0, 0.36);
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 0px lightblue;
+    padding: 20px;
+    color: rgba(11, 10, 10, 0.559);
+}
+.overall-description .content{
+    margin-top: 10px;
+}
+.overall-description .title{
+    border-bottom: 1px solid gray;
+}
+.pack{
+    border: 1px solid rgba(0, 0, 0, 0.36);
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 0px rgba(173, 216, 230, 0.411);
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+.pack .head{
+    font-size: small;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.pack .bottom{
+    font-size: smaller;
+}
+.head{
+    border-bottom: 1px solid gray;
+}
+.pack:hover{
+    box-shadow: 2px 2px 2px 0px rgba(10, 147, 193, 0.783);
+    cursor: pointer;
+}
+a.disabled{
+    pointer-events: none;
+    cursor:default;
+    text-decoration: none;
+    color:rgba(128, 128, 128, 0.473);
+}
+a.active{
+    text-decoration: none;
+}
+
+.navigation{
+    background-color: rgba(181, 236, 255, 0.154);
+}
+
+.navigation ol{
+    border-left: 4px solid red;
+    vertical-align: middle;
+    padding: 10px 2px;
+}
+
+.overall-description-container{
+    position:relative;
+}
+.overall-description{
+    position:sticky;
+    top:10px;
+}

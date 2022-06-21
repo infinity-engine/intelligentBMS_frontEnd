@@ -1,0 +1,58 @@
+.footer{
+    background-color: rgba(119, 136, 153, 0.238);
+    font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono;
+}
+.head{
+    margin-bottom: 20px;
+    color: rgb(6, 20, 45);
+    padding-left: 0px;
+    margin-top: 20px;
+}
+
+.active-link{
+    color: gray !important;
+}
+
+.row a{
+    padding-left: 2px;
+    text-decoration: none;
+    font-size: small;
+    color: rgb(63, 53, 53);
+}
+.item{
+    position: relative;
+}
+.bottom-line{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-bottom: 1px solid rgb(7, 127, 213);
+    transform: scale(0);
+    transition: transform 150ms linear;
+    transform-origin: center;
+    width: 100%;
+}
+.row a:hover  .bottom-line{
+    transform: scale(1);
+}
+.copyright{
+    padding-top: 20px;
+    text-align: center;
+}
+.social-container a{
+    font-size: 20px;
+}
+.social-container a:hover{
+    color: rgb(38, 49, 146);
+}
+#logo{
+    height: 50px;
+    width:  auto;
+}
+#description{
+    font-size:10px;
+    text-align: justify;
+}
+.logo{
+    text-align: center;
+}

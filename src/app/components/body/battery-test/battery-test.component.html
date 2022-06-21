@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-sm-8"><h5>Battery Test</h5></div>
+    <div class="col-sm-4 text-sm-end" >
+        <button *ngIf="activeComponent == 'NoTestResult'||activeComponent == 'ShowTestResult';else showResult" type="button" class="btn btn-danger" (click)="changeButtonStatus()">Create new test</button>
+        <ng-template #showResult><button type="button" class="btn btn-danger" (click)="changeButtonStatus()">Show test results</button></ng-template>
+    </div>
+</div>
+
+<ng-container [ngSwitch]="activeComponent">
+    <app-no-result *ngSwitchCase="'NoTestResult'"></app-no-result>
+    <app-create-new-test *ngSwitchCase="'CreateNewTest'"></app-create-new-test>
+    <app-show-test-result *ngSwitchCase="'ShowTestResult'"></app-show-test-result>
+</ng-container>

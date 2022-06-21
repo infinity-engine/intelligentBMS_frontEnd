@@ -1,0 +1,54 @@
+[
+    {
+        "channelId": 1,
+        "testMethod": "Cyclic voltammetry",
+        "testNumber": "CV001",
+        "testName": "Cyclic voltammetry test 1",
+        "testId": "CV001",
+        "status": "Completed",
+        "testStartDate":"5th June, 2022",
+        "testEndDate":"6th June, 2022",
+        "isCompleted": true,
+        "connectionStatus": "Disconnected",
+        "testDetails": "This is a demo test."
+    },
+    {
+        "channelId": 2,
+        "testMethod": "Cyclic voltammetry",
+        "testNumber": "CV002",
+        "testName": "Cyclic voltammetry test 2",
+        "testId": "CV002",
+        "status": "Completed",
+        "testStartDate":"6th June, 2022",
+        "testEndDate":"7th June, 2022",
+        "isCompleted": true,
+        "connectionStatus": "Disconnected",
+        "testDetails": "This is a demo test."
+    },
+    {
+        "channelId": 3,
+        "testMethod": "Cyclic voltammetry",
+        "testNumber": "CV003",
+        "testName": "Cyclic voltammetry test 3",
+        "testId": "CV003",
+        "status": "Completed",
+        "testStartDate":"7th June, 2022",
+        "testEndDate":"8th June, 2022",
+        "isCompleted": true,
+        "connectionStatus": "Disconnected",
+        "testDetails": "This is a demo test."
+    },
+    {
+        "channelId": 4,
+        "testMethod": "Cyclic voltammetry",
+        "testNumber": "CV004",
+        "testName": "Cyclic voltammetry test 4",
+        "testId": "CV004",
+        "status": "Completed",
+        "testStartDate":"9th June, 2022",
+        "testEndDate":"10th June, 2022",
+        "isCompleted": true,
+        "connectionStatus": "Disconnected",
+        "testDetails": "This is a demo test."
+    }
+]

@@ -1,1 +1,136 @@
-<p>show-test-result works!</p>
+<div class="all-tests table-responsive">
+  <table class="table-hover table">
+    <thead>
+      <tr>
+        <th scope="col">Test Id</th>
+        <th scope="col">Test Method</th>
+        <th scope="col">Test Start Time</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let item of allTestResultLight;let i=index;">
+        <tr (click)="setCurrentTestResult(item.testId)">
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.testMethod}}</td>
+          <td>{{item.testStartDate}}</td>
+          <td>{{item.status}}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link">1</a></li>
+      <li class="page-item"><a class="page-link">2</a></li>
+      <li class="page-item"><a class="page-link">3</a></li>
+      <li class="page-item">
+        <a class="page-link">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<div class="single-test" *ngIf="currentTestResultDeep">
+
+  <h5 style="padding:10px;">Test Result</h5>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header text-center">
+          Test Info
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">Test method</div>
+            <div class="col">{{currentTestResultLight?.testMethod}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Channel number</div>
+            <div class="col">{{currentTestResultLight?.channelId}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Test name</div>
+            <div class="col">{{currentTestResultLight?.testName}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Test number</div>
+            <div class="col">{{currentTestResultLight?.testNumber}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Status</div>
+            <div class="col">{{currentTestResultLight?.status}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Operating temperature</div>
+            <div class="col">{{currentTestResultDeep?.operatingTemperature}}
+              {{currentTestResultDeep?.operatingTemperatureUnit}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Max voltage</div>
+            <div class="col">{{currentTestResultDeep?.maxVoltage}} {{currentTestResultDeep?.voltageUnit}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Min voltage</div>
+            <div class="col">{{currentTestResultDeep?.minVoltage}} {{currentTestResultDeep?.voltageUnit}}</div>
+          </div>
+
+          <ng-container [ngSwitch]="currentTestResultLight?.testMethod">
+            <ng-container *ngSwitchCase="'Cyclic voltammetry'">
+              <div class="row">
+                <div class="col">Constant current</div>
+                <div class="col">{{currentTestResultDeep?.currentRate}} {{currentTestResultDeep?.currentUnit}}</div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Pulse charging'">
+              <div class="row">
+                <div class="col">Average curent</div>
+                <div class="col">{{currentTestResultDeep?.currentRate}} {{currentTestResultDeep?.currentUnit}}</div>
+              </div>
+              <div class="row">
+                <div class="col">Frequency</div>
+                <div class="col">{{currentTestResultDeep?.frequency}} {{currentTestResultDeep?.frequencyUnit}}</div>
+              </div>
+              <div class="row">
+                <div class="col">Duty ratio</div>
+                <div class="col">{{currentTestResultDeep?.dutyRatio}} {{currentTestResultDeep?.dutyRatio}}</div>
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <div class="row" style="margin-top:10px ;">
+            <div class="col"><button type="button" class="btn btn-primary" (click)="cloneExp()">Clone</button></div>
+            <ng-container
+              *ngIf=" !(currentTestResultLight?.isCompleted) && (currentTestResultLight?.status != 'Stopped')">
+              <div class="col"><button type="button" class="btn btn-danger" (click)="stopExp()">Stop</button></div>
+              <div class="col"><input #btn type="button" class="btn btn-primary"
+                  (click)="changeButtonStatus(btn.value)" [style.background-color]="btnColor" value="{{btnValue}}">
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chartjs-container">
+    <div class="row">
+      <div *ngFor="let chart of allCharts;let i=index;" class="col-md-6">
+        <div class="card">
+          <div class="card-header text-center">{{chart.name}}</div>
+          <div class="card-body">
+            <canvas baseChart height="150" [data]="chart.chartData" [options]="chart.ChartOptions"
+              [type]="chart.ChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

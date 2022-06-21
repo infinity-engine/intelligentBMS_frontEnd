@@ -1,0 +1,30 @@
+{
+    "testMethod": "Cyclic voltammetry",
+        "testId": "CV001",
+        "testNumber": "CV001",
+        "operatingTemperature": 25,
+        "maxVoltage": 4.2,
+        "minVoltage": 3.6,
+        "currentRate": 1,
+        "operatingTemperatureUnit":"°C",
+        "voltageUnit":"V",
+        "currentUnit":"A",
+        "isToBeScheduled": false,
+        "status": "Completed",
+        "scheduledOn": null,
+        "isConnected": false,
+        "connectionStatus": "Disconnected",
+        "data": {
+            "current": { "yValue": [0,1,1,1,0.2,0], "xvalue": [0,100,200,300,400,600], "yUnit": "A", "xUnit": "S" },
+            "voltage": { "yValue": [3.6,3.4,3.5,3.8,3.7,3.6], "xvalue": [0,100,200,300,400,600], "yUnit": "V", "xUnit": "S" },
+            "ambientTemperature": { "yValue": [25,24.5,25,25,25,25], "xvalue": [0,100,200,300,400,600], "yUnit": "°C", "xUnit": "S" },
+            "cellTemperature": [{ "yValue": [25,24.5,25,25,25,25], "xvalue": [0,100,200,300,400,600], "yUnit": "°C", "xUnit": "S", "sensorPosition": null },{ "yValue": [26,26.5,23.5,24.5,25.9,27], "xvalue": [0,100,200,300,400,600], "yUnit": "°C", "xUnit": "S", "sensorPosition": null }],
+            "chargeFlow": { "yValue": [0,1.0,2.0,3.0,3.3,3.6], "xvalue": [0,100,200,300,400,600], "yUnit": "Ah", "xUnit": "S" }
+        },
+        "isCompleted": true,
+        "result": {
+            "cyclicEfficiency": { "value": 96, "unit":"%"  },
+            "chargeRating": { "value": 3600, "unit":  "Ah"},
+            "dischargeRating": { "valu":3400, "unit":  "Ah"}
+        }
+}

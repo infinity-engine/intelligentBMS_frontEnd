@@ -1,4 +1,4 @@
-import { DeviceDataService } from './services/device-data.service';
+import { NgChartsModule } from 'ng2-charts';
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -49,7 +49,8 @@ import { FormsModule } from '@angular/forms';
       animationDuration:300
     }),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

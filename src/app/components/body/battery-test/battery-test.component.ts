@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./battery-test.component.css']
 })
 export class BatteryTestComponent implements OnInit {
-  activeComponent:'NoTestResult'|'ShowTestResult'|'CreateNewTest'= 'CreateNewTest';
+  activeComponent:'NoTestResult'|'ShowTestResult'|'CreateNewTest'= 'ShowTestResult';
   constructor() { }
 
   ngOnInit(): void {

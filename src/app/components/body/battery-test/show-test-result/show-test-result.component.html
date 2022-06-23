@@ -80,7 +80,7 @@
           </div>
 
           <ng-container [ngSwitch]="currentTestResultLight?.testMethod">
-            <ng-container *ngSwitchCase="'Cyclic voltammetry'">
+            <ng-container *ngSwitchCase="'Charge/discharge experiment'">
               <div class="row">
                 <div class="col">Constant current</div>
                 <div class="col">{{currentTestResultDeep?.currentRate}} {{currentTestResultDeep?.currentUnit}}</div>

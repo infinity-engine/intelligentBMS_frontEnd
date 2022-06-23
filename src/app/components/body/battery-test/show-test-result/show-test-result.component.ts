@@ -22,7 +22,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   deepSbs?:Subscription;
   allTestResultLight?:TestResultLight[];
   currentTestResultLight?: TestResultLight;
-  currentTestResultDeep?:TestResultDeep['Pulse charging'] | TestResultDeep['Cyclic voltammetry'] | any;
+  currentTestResultDeep?:TestResultDeep['Pulse charging'] | TestResultDeep['Charge/discharge experiment'] | any;
   btnValue?:'Start'|'Pause'|'Resume' = 'Start';
   btnColor?:'rgb(13, 110, 253)'|'green'|'yellow' = 'rgb(13, 110, 253)';
 
@@ -40,14 +40,14 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   setCurrentTestResult(testId:any){
     this.deepSbs?.unsubscribe();
     if(testId){
-      this.deepSbs = this.testData.getTestDataDeep().subscribe((result: TestResultDeep['Cyclic voltammetry']) => {
+      this.deepSbs = this.testData.getTestDataDeep().subscribe((result: TestResultDeep['Charge/discharge experiment']) => {
         this.currentTestResultDeep = {...result} as any;
         this.createChart({...result});
         this.currentTestResultLight = {
           "channelId": 1,
-          "testMethod": "Cyclic voltammetry",
+          "testMethod": "Charge/discharge experiment",
           "testNumber": "CV001",
-          "testName": "Cyclic voltammetry test 1",
+          "testName": "Charge/discharge experiment test 1",
           "testId": "CV001",
           "status": "Paused",
           "isCompleted": false,
@@ -68,7 +68,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
 
 
 
-  createChart(result: TestResultDeep['Cyclic voltammetry'] | TestResultDeep['Pulse charging']) {
+  createChart(result: TestResultDeep['Charge/discharge experiment'] | TestResultDeep['Pulse charging']) {
     this.allCharts = [];
     //push current values
     let chart: Charts = {

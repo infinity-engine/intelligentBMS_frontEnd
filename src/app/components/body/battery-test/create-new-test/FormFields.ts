@@ -1,6 +1,6 @@
 let testMethods =[
     {
-        name:'Cyclic voltammetry',
+        name:'Charge/discharge experiment',
         fields:[
             {name:'Channel Number',type:'number',disabled:false},
             {name:'Test Number',type:'text',disabled:true},

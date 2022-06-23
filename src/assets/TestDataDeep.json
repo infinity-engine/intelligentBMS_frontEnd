@@ -1,5 +1,5 @@
 {
-    "testMethod": "Cyclic voltammetry",
+    "testMethod": "Charge/discharge experiment",
         "testId": "CV001",
         "testNumber": "CV001",
         "operatingTemperature": 25,

@@ -12,8 +12,8 @@ export interface TestResultLight{
 }
 
 export interface TestResultDeep {
-    'Cyclic voltammetry'?: {
-        testMethod?: 'Cyclic voltammetry',
+    'Charge/discharge experiment'?: {
+        testMethod?: 'Charge/discharge experiment',
         channelId?:number,
         testId?: any,
         testName?:string,
@@ -47,7 +47,7 @@ export interface TestResultDeep {
         }
     },
     'Pulse charging'?: {
-        testMethod?: 'Cyclic voltammetry',
+        testMethod?: 'Charge/discharge experiment',
         testName?:string,
         channelId?:number,
         testId?: any,

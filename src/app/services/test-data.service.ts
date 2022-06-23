@@ -16,7 +16,7 @@ export class TestDataService {
   }
 
   getTestDataDeep(){
-    return this.http.get<TestResultDeep['Cyclic voltammetry']>('/assets/TestDataDeep.json').pipe(retry(3),catchError(this.errorHandler));
+    return this.http.get<TestResultDeep['Charge/discharge experiment']>('/assets/TestDataDeep.json').pipe(retry(3),catchError(this.errorHandler));
   }
 
   private errorHandler(error:HttpErrorResponse){

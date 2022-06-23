@@ -1,9 +1,9 @@
 [
     {
         "channelId": 1,
-        "testMethod": "Cyclic voltammetry",
+        "testMethod": "Charge/discharge experiment",
         "testNumber": "CV001",
-        "testName": "Cyclic voltammetry test 1",
+        "testName": "Charge/discharge experiment test 1",
         "testId": "CV001",
         "status": "Completed",
         "testStartDate":"5th June, 2022",
@@ -14,9 +14,9 @@
     },
     {
         "channelId": 2,
-        "testMethod": "Cyclic voltammetry",
+        "testMethod": "Charge/discharge experiment",
         "testNumber": "CV002",
-        "testName": "Cyclic voltammetry test 2",
+        "testName": "Charge/discharge experiment test 2",
         "testId": "CV002",
         "status": "Completed",
         "testStartDate":"6th June, 2022",
@@ -27,9 +27,9 @@
     },
     {
         "channelId": 3,
-        "testMethod": "Cyclic voltammetry",
+        "testMethod": "Charge/discharge experiment",
         "testNumber": "CV003",
-        "testName": "Cyclic voltammetry test 3",
+        "testName": "Charge/discharge experiment test 3",
         "testId": "CV003",
         "status": "Completed",
         "testStartDate":"7th June, 2022",
@@ -40,9 +40,9 @@
     },
     {
         "channelId": 4,
-        "testMethod": "Cyclic voltammetry",
+        "testMethod": "Charge/discharge experiment",
         "testNumber": "CV004",
-        "testName": "Cyclic voltammetry test 4",
+        "testName": "Charge/discharge experiment test 4",
         "testId": "CV004",
         "status": "Completed",
         "testStartDate":"9th June, 2022",

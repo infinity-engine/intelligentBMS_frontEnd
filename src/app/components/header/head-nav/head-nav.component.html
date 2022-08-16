@@ -45,9 +45,6 @@
                     <a class="nav-link" routerLink="/batteryTest" routerLinkActive="active-link">Battery Test</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/chatbot" routerLinkActive="active-link">Chat Bot</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" routerLink="/docs" routerLinkActive="active-link">Documentation</a>
                 </li>
                 <li *ngIf="(auth.user$ | async) as user; else loggedOut" class="nav-item dropdown">

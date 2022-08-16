@@ -11,7 +11,6 @@ import { HomeComponent } from './components/body/home/home.component';
 import { DevicesComponent } from './components/body/devices/devices.component';
 import { DocsComponent } from './components/body/docs/docs.component';
 import { DashboardComponent } from './components/body/dashboard/dashboard.component';
-import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { DeviceDataComponent } from './components/body/dashboard/device-data/device-data.component';
@@ -31,7 +30,6 @@ import { FormsModule } from '@angular/forms';
     DevicesComponent,
     DocsComponent,
     DashboardComponent,
-    ChatbotComponent,
     DeviceDataComponent,
     BatteryTestComponent,
     NoResultComponent,

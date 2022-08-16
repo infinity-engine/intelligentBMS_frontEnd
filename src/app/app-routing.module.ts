@@ -1,6 +1,5 @@
 import { BatteryTestComponent } from './components/body/battery-test/battery-test.component';
 import { DeviceDataComponent } from './components/body/dashboard/device-data/device-data.component';
-import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { DashboardComponent } from './components/body/dashboard/dashboard.component';
 import { DocsComponent } from './components/body/docs/docs.component';
 import { DevicesComponent } from './components/body/devices/devices.component';
@@ -26,10 +25,6 @@ const routes: Routes = [
   {
     path:'devices',
     component:DevicesComponent
-  },
-  {
-    path:'chatbot',
-    component:ChatbotComponent
   },
   {
     path:'docs',

@@ -1,0 +1,46 @@
+h2,h3{
+    font-family: Helvetica,sans-serif;
+}
+.title>.intro-img{
+    height: 400px;
+    text-align: center;
+}
+.intro-text{
+    display: flex;
+    align-items: center;
+}
+
+.row{
+    padding-top: 10%;
+}
+
+.subtitle-1>.intro-img{
+    height: 400px;
+    background-image: url('/assets/dashboard_img.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.ad-list{
+    list-style-type: none;
+    text-align: left;
+    padding: 0px;
+}
+.ad-list>li{
+    padding: 10px;
+    font-size: 20px;
+}
+.ad-list li::before{
+    content: '✓';
+    font-weight: bold;
+    color: red;
+    padding: 5px;
+}
+
+.subtitle-2>.intro-img{
+    height: 400px;
+    background-image: url('/assets/test_chamber_current_img.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}

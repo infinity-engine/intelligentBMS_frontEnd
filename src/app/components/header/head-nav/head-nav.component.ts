@@ -12,7 +12,7 @@ export class HeadNavComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.user$.subscribe(user=>{
-      console.log(user);
+      console.log("User: ",user);
     })
   }
   logIn(){

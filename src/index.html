@@ -29,8 +29,11 @@
           (e.onload = () => {
             window.WebChat.default(
               {
-                socketUrl: "https://rasa-server-prodchatbot-infinity-engine.cloud.okteto.net/",
+                socketUrl: "https://rasa-server-prodchatbot-infinity-engine.cloud.okteto.net",
+                //socketUrl: "http://localhost:5006/",
                 // add other props here
+                title: "Lisa",
+                subtitle: "E-Mobility, IIT Guwahati"
               },
               null
             );

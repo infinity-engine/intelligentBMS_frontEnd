@@ -16,10 +16,10 @@ export class HeadNavComponent implements OnInit {
     })
   }
   logIn(){
-    this.auth.loginWithRedirect();
+    this.auth.loginWithRedirect({redirect_uri:"https://www.iitg.ac.in/e_mobility/i-bms/"});
   }
   logOut(){
-    this.auth.logout()
+    this.auth.logout({returnTo:"https://www.iitg.ac.in/e_mobility/i-bms/"})
   }
 
 }

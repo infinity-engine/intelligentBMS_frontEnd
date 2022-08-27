@@ -8,14 +8,12 @@ h2,h3{
     display: flex;
     align-items: center;
 }
-
 .row{
     padding-top: 10%;
 }
-
 .subtitle-1>.intro-img{
-    height: 400px;
-    background-image: url('/e_mobility/i-bms/assets/dashboard_img.png');
+    height: 300px;
+    background-image: url('/assets/dashboard_img.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -37,8 +35,8 @@ h2,h3{
 }
 
 .subtitle-2>.intro-img{
-    height: 400px;
-    background-image: url('/e_mobility/i-bms/assets/test_chamber_current_img.png');
+    height: 300px;
+    background-image: url('/assets/test_chamber_current_img.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;

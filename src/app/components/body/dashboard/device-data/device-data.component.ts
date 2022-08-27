@@ -14,7 +14,7 @@ export class DeviceDataComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params=>{
       this.deviceId = params.get('deviceId') as any;
-      console.log(this.deviceId);
+      //console.log(this.deviceId);
     })
   }
 

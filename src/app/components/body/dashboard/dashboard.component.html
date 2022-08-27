@@ -1,7 +1,7 @@
 <div class="navigation">
     <nav aria-label="breadcrumb" class="divider">
         <ol class="breadcrumb">
-            <li *ngFor="let item of breadCrumbs" class="breadcrumb-item"><a href="{{item.url}}" [class]="item.status">{{item.name}}</a></li>
+            <li *ngFor="let item of breadCrumbs" class="breadcrumb-item"><a [routerLink]="[item.url]" [skipLocationChange]="true" [class]="item.status">{{item.name}}</a></li>
         </ol>
     </nav>
 </div>
@@ -10,7 +10,7 @@
     <div class="row" style="margin: 0px;">
         <div class="col-md-9">
             <div class="row">
-                <div *ngFor="let device of devices;let i = index;" class="col-lg-5 pack" [routerLink]="['./deviceData',device.id]" (click)="goToPackDetails()">
+                <div *ngFor="let device of devices;let i = index;" class="col-lg-5 pack" [routerLink]="['./deviceData',device.id]" [skipLocationChange]="true" (click)="goToPackDetails()">
                     <div class="row head">
                         <div class="col-md-8 name">{{device.name}}</div>
                         <div class="col-md-4 connecion-status">Connected <i class="fa fa-circle"></i></div>
@@ -18,14 +18,14 @@
                     <div class="row bottom">
                         <div class="col-md-5">
                             <div class="row">
-                                <div class="col">
+                                <div class="col circle-pogress">
                                     <circle-progress [percent]="device.soc" [radius]="40" [outerStrokeColor]="'#78C000'"
                                         [innerStrokeColor]="'#C7E596'" [outerStrokeWidth]="4" [innerStrokeWidth]="2" [subtitle]="'SoC'">
                                     </circle-progress>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col">
+                                <div class="col circle-pogress">
                                     <circle-progress [percent]="device.soh" [radius]="40" [outerStrokeColor]="'green'"
                                         [innerStrokeColor]="'#C7E596'" [outerStrokeWidth]="4" [innerStrokeWidth]="2" [subtitle]="'SoH'">
                                     </circle-progress>
@@ -35,26 +35,26 @@
                         <div class="col-md-7 pack-details">
                             <section class="title">
                                 <div class="row">
-                                    <div class="col-md-8">Description</div>
-                                    <div class="col-md-4">Status</div>
+                                    <div class="col">Description</div>
+                                    <div class="col">Status</div>
                                 </div>
                             </section>
                             <section class="details">
                                 <div class="row">
-                                    <div class="col-md-8">Pack Voltage</div>
-                                    <div class="col-md-4">{{device.packVoltage}}V</div>
+                                    <div class="col">Pack Voltage</div>
+                                    <div class="col">{{device.packVoltage}}V</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-8">Pack Current</div>
-                                    <div class="col-md-4">{{device.packCurrent}}A</div>
+                                    <div class="col">Pack Current</div>
+                                    <div class="col">{{device.packCurrent}}A</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-8">Average Temperature</div>
-                                    <div class="col-md-4">{{device.averageTemperature}}&deg;C</div>
+                                    <div class="col">Average Temperature</div>
+                                    <div class="col">{{device.averageTemperature}}&deg;C</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-8">Charge/Discharge status</div>
-                                    <div class="col-md-4">{{device.chargeDischargeStatus}}</div>
+                                    <div class="col">Charge/Discharge status</div>
+                                    <div class="col">{{device.chargeDischargeStatus}}</div>
                                 </div>
                             </section>
                         </div>

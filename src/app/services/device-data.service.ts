@@ -12,7 +12,7 @@ export class DeviceDataService {
   constructor(private http:HttpClient) { }
 
   getDeviceDataLight(){
-    return this.http.get<DeviceDataLight[]>('/assets/DevicesDataLight.json').pipe(retry(3),catchError(this.errorHandler));
+    return this.http.get<DeviceDataLight[]>('/e_mobility/i-bms/assets/DevicesDataLight.json').pipe(retry(3),catchError(this.errorHandler));
   }
 
   private errorHandler(error:HttpErrorResponse){

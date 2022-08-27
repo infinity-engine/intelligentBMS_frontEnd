@@ -12,11 +12,11 @@ export class TestDataService {
   constructor(private http:HttpClient) { }
 
   getTestDataLight(){
-    return this.http.get<TestResultLight[]>('/assets/TestDataLight.json').pipe(retry(3),catchError(this.errorHandler));
+    return this.http.get<TestResultLight[]>('/e_mobility/i-bms/assets/TestDataLight.json').pipe(retry(3),catchError(this.errorHandler));
   }
 
   getTestDataDeep(){
-    return this.http.get<TestResultDeep['Charge/discharge experiment']>('/assets/TestDataDeep.json').pipe(retry(3),catchError(this.errorHandler));
+    return this.http.get<TestResultDeep['Charge/discharge experiment']>('/e_mobility/i-bms/assets/TestDataDeep.json').pipe(retry(3),catchError(this.errorHandler));
   }
 
   private errorHandler(error:HttpErrorResponse){

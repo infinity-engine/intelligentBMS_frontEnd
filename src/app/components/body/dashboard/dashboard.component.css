@@ -63,3 +63,10 @@ a.active{
     position:sticky;
     top:10px;
 }
+
+.circle-pogress{
+    text-align: center;
+}
+.pack-details{
+    margin: auto;
+}

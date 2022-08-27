@@ -17,7 +17,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <a routerLink="/home" routerLinkActive="active-link">
+                        <a routerLink="/home" [skipLocationChange]="true"  routerLinkActive="active-link">
                             <span class="item">Home<span class="bottom-line"></span>
                             </span>
                         </a>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <a routerLink="/dashboard" routerLinkActive="active-link">
+                        <a routerLink="/dashboard" [skipLocationChange]="true" routerLinkActive="active-link">
                             <span class="item">
                                 Dashboard<span class="bottom-line"></span>
                             </span>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                    <a routerLink="/devices" routerLinkActive="active-link">
+                    <a routerLink="/devices" [skipLocationChange]="true" routerLinkActive="active-link">
                         <span class="item">Devices<span class="bottom-line"></span>
                         </span>
                     </a>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                    <a routerLink="/batteryTest" routerLinkActive="active-link">
+                    <a routerLink="/batteryTest" [skipLocationChange]="true" routerLinkActive="active-link">
                         <span class="item">Battery Test<span class="bottom-line"></span>
                         </span>
                     </a>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <a routerLink="/docs" routerLinkActive="active-link">
+                        <a routerLink="/docs" [skipLocationChange]="true" routerLinkActive="active-link">
                             <span class="item">Documentation<span class="bottom-line"></span>
                             </span>
                         </a>

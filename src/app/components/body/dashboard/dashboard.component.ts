@@ -1,7 +1,7 @@
 import { ComponentStoreService } from './../../../services/component-store.service';
 import { DeviceDataService } from './../../../services/device-data.service';
 import { DeviceDataLight } from './../../../models/DeviceData';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         urlComponents.shift();//exculde the first "" element
 
         if(urlComponents.length == 3){
-          this.breadCrumbs.push({name:'Dashboard',url:'../../dashboard',status:'active'});
+          this.breadCrumbs.push({name:'Dashboard',url:'./../dashboard',status:'active'});
           this.breadCrumbs.push({name:'Device data',url:'./',status:'disabled'});
           this.isOnOverView = false;
         }
@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           );
           this.subscriptions?.push(subs);
         }
+        console.log(this.breadCrumbs)
       }
     })
     this.subscriptions?.push(subs);

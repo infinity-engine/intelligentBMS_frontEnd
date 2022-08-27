@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 
@@ -8,11 +9,13 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class HeadNavComponent implements OnInit {
 
-  constructor(public auth:AuthService) { }
+  constructor(public auth:AuthService, private location:Location) { }
 
   ngOnInit(): void {
     this.auth.user$.subscribe(user=>{
       console.log("User: ",user);
+      // on success full redirect the location seems to change after the home component load
+      this.location.replaceState('./');
     })
   }
   logIn(){

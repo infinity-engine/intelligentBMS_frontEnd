@@ -36,16 +36,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
+                    <a class="nav-link" routerLink="/dashboard" [skipLocationChange]="true" routerLinkActive="active-link">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/devices" routerLinkActive="active-link">Devices</a>
+                    <a class="nav-link" routerLink="/devices" [skipLocationChange]="true" routerLinkActive="active-link">Devices</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/batteryTest" routerLinkActive="active-link">Battery Test</a>
+                    <a class="nav-link" routerLink="/batteryTest" [skipLocationChange]="true" routerLinkActive="active-link">Battery Test</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/docs" routerLinkActive="active-link">Documentation</a>
+                    <a class="nav-link" routerLink="/docs"  [skipLocationChange]="true" routerLinkActive="active-link">Documentation</a>
                 </li>
                 <li *ngIf="(auth.user$ | async) as user; else loggedOut" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle dropdown-profile" href="#" id="navbarDropdown" role="button"
@@ -60,7 +60,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" routerLink="./profile_info">Your profile</a></li>
+                        <li><a class="dropdown-item" routerLink="./profile_info" [skipLocationChange]="true" >Your profile</a></li>
                        
                         <li>
                             <a class="dropdown-item" (click)="logOut()" id="log-out-btn">Log out</a>

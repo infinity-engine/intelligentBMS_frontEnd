@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -56,7 +57,7 @@ class Anim {
 
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private location:Location) { }
 
   ngOnInit(): void {
     let anim_time = 4000;
@@ -75,6 +76,9 @@ export class HomeComponent implements OnInit {
     let dot4 = new Dot('Dot_4','Path_4');
     let anim_gen_4 = new Anim(dot4);
     anim_gen_4.start(anim_time);
+
+    //change the location from /home to home just to keep the location static through out the app
+    this.location.replaceState('./');
   }
 
 }

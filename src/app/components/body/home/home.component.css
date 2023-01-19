@@ -2,20 +2,17 @@ h2,h3{
     font-family: Helvetica,sans-serif;
 }
 .title>.intro-img{
-    height: 400px;
     text-align: center;
 }
 .intro-text{
     display: flex;
     align-items: center;
 }
-
 .row{
     padding-top: 10%;
 }
-
 .subtitle-1>.intro-img{
-    height: 400px;
+    height: 300px;
     background-image: url('/assets/dashboard_img.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -38,7 +35,7 @@ h2,h3{
 }
 
 .subtitle-2>.intro-img{
-    height: 400px;
+    height: 300px;
     background-image: url('/assets/test_chamber_current_img.png');
     background-repeat: no-repeat;
     background-size: contain;

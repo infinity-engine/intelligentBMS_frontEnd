@@ -1,53 +1,227 @@
 <div class="card">
-    <div class="card-header">Creating new test for the battery cells.</div>
-    <div class="card-body">
-        <form #testScript="ngForm" (ngSubmit)="save();">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="testMethod">
-                        Test methods
-                    </label>
-                </div>
-                <div class="col-md-8">
-                    <select [(ngModel)]="selectedTestMethod" name="testMethod" id="testMethod" class="form-select">
-                        <option *ngFor="let method of _testMethods" [ngValue]="method">{{method.name}}</option>
-                    </select>
-                </div>
+  <div class="card-header">Creating new test for the battery cells.</div>
+  <div class="card-body">
+    <form #testScript="ngForm" (ngSubmit)="save()">
+      <div class="row">
+        <div class="col-md-4">
+          <label class="form-check-label" for="flexSwitchCheckChecked">
+            Is your test involve consistent ambient temperatue?
+          </label>
+        </div>
+        <div class="col-md-8">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckChecked"
+              name="conAmTe"
+              [(ngModel)]="conAmTe"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <label for="testId">Test ID</label>
+        </div>
+        <div class="col-md-3">
+          <input
+            type="text"
+            class="form-control"
+            maxlength="30"
+            id="testId"
+            aria-describedby="info_testId"
+            disabled
+          />
+        </div>
+        <div class="col-md-5">
+          <small id="info_testId" class="form-text"
+            >It gets generated automatically.</small
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="testName">Test Name</label>
+        </div>
+        <div class="col-md-3">
+          <input
+            type="text"
+            class="form-control"
+            maxlength="30"
+            id="testId"
+            aria-describedby="info_testName"
+            placeholder="e.g. Cyclic Charge Discharge"
+          />
+        </div>
+        <div class="col-md-5">
+          <small id="info_testName" class="form-text"
+            >Put a name which is meaningful to you.</small
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="testDesc">Test Description</label>
+        </div>
+        <div class="col-md-8">
+          <textarea
+            class="form-control"
+            maxlength="400"
+            rows="4"
+            placeholder="Put a detailed description of your test."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="channel-container">
+        <div class="channel">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="ch_1" class="form-label">Channel Number</label>
             </div>
-            <ng-container *ngIf="update()? true:null;">
-                <div class="row" *ngFor="let field of selectedTestMethod.fields;let i=index;">
-                    <ng-container *ngIf="field.type != 'textarea';else textarea;">
-                        <div class="col-md-4">
-                            <label for="{{'field'+i}}">{{field.name}}</label>
-                        </div>
-                        <div class="col-md-3">
-                            <input [(ngModel)]="selectedTestMethodParameters[field]" name="{{'field'+i}}"
-                                id="{{'field'+i}}" [attr.aria-describedby]="'info'+i" class="form-control"
-                                type="{{field.type}}" [disabled]="field.disabled" maxlength="30">
-                        </div>
-                        <div class="col-md-5">
-                            <small id="{{'info'+i}}" class="form-text">{{selectedTestMethod.labels[i]}}</small>
-                        </div>
-                    </ng-container>
-                    <ng-template #textarea>
-                        <div class="col-md-4">{{field.name}}</div>
-                        <div class="col-md-8">
-                            <textarea [(ngModel)]="selectedTestMethodParameters[field]" name="{{'field'+i}}"
-                            id="{{'field'+i}}" class="form-control"
-                            [disabled]="field.disabled" maxlength="400" rows="4"></textarea>
-                        </div>
-                    </ng-template>
+            <div class="col-md-2">
+              <input
+                id="ch_1"
+                class="form-control"
+                list="channel-options"
+                placeholder="Select Channel"
+                aria-describedby="info_ch"
+              />
+              <datalist id="channel-options">
+                <option>Channel 1</option>
+                <option>Channel 2</option>
+                <option>Channel 3</option>
+                <option>Channel 4</option>
+                <option>Channel 5</option>
+                <option>Channel 6</option>
+              </datalist>
+            </div>
+            <div class="col-md-6">
+              <small id="info_ch" class="form-text">
+                Select a channel to add test configuration.
+              </small>
+            </div>
+          </div>
+
+          
+          <div class="row">
+            <div class="col-4">Test Format</div>
+            <div class="col-md-8" style="padding: 0px;">
+              <ng-container *ngFor="let current_test_row of selectedTestFormat;let row_id = index;">
+                <div class="row">
+                  <div class="col-md-12">
+                    <select
+                      class="form-select"
+                      [(ngModel)]="selectedTestFormat[row_id]"
+                      name="test-format-row-{{row_id}}"
+                    >
+                      <option
+                        *ngFor="let testFormat of _allTestFormats[row_id]"
+                        [ngValue]="testFormat"
+                      >
+                        {{ testFormat.name }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <span></span>Connected
+                  <div class="col-md-12">
+                    <div
+                      class="row no-padding-root"
+                      *ngFor="let child of current_test_row.children"
+                    >
+                      <div class="col-md-10">
+                        <div class="row no-padding-root">
+                          <ng-container *ngFor="let field of child.fields">
+                            <ng-container *ngIf="field.visibility">
+                              <ng-container [ngSwitch]="field.type">
+                                <ng-container *ngSwitchCase="'select'">
+                                  <div
+                                    class="col-md-{{ field.template_width }}"
+                                  >
+                                    <select
+                                      class="form-control"
+                                      [(ngModel)]="field.value"
+                                      name="field-{{ field.id }}-of-row-{{row_id}}"
+                                      (ngModelChange)="
+                                        fieldResolve(field.id, child.id, row_id)
+                                      "
+                                    >
+                                      <option
+                                        *ngFor="let option of field.options"
+                                        [ngValue]="option"
+                                      >
+                                        {{ option }}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'input'">
+                                  <div
+                                    class="col-md-{{ field.template_width }}"
+                                  >
+                                    <input
+                                      name="field-{{ field.id }}-of-row-{{row_id}}"
+                                      [(ngModel)]="field.value"
+                                      type="number"
+                                      class="form-control"
+                                      required
+                                    />
+                                  </div>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'text'">
+                                  <div
+                                    class="col-md-{{ field.template_width }}"
+                                  >
+                                    <p class="text-center">{{ field.value }}</p>
+                                  </div>
+                                </ng-container>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="row no-padding-root">
+                          <div class="col-md-6">
+                            <h4 class="text-center">*</h4>
+                          </div>
+                          <div class="col-md-6">
+                            <input
+                              class="form-control"
+                              [(ngModel)]="child.multiplier"
+                              name="row_multiplier_{{ child.id }}"
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col text-end">
-                        <button type="submit" class="btn btn-danger">Start</button>
-                    </div>
+                  </div>
                 </div>
-            </ng-container>
-
-        </form>
-    </div>
+              </ng-container>
+              <div class="row">
+                <div class="col">
+                    <button class="btn btn-secondary" (click)="addRow()">Add Row</button>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-light">Add Channel</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col"><span></span>Connected</div>
+        <div class="col text-end">
+          <button type="submit" class="btn btn-danger">Start</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

@@ -77,7 +77,10 @@
       </div>
 
       <div class="channel-container">
-        <div class="channel">
+        <div
+          class="channel"
+          *ngFor="let currentChannel of allSelectedChannel; let ch_index = index"
+        >
           <div class="row">
             <div class="col-md-4">
               <label for="ch_1" class="form-label">Channel Number</label>
@@ -90,13 +93,14 @@
                 placeholder="Select Channel"
                 aria-describedby="info_ch"
               />
-              <datalist id="channel-options">
-                <option>Channel 1</option>
-                <option>Channel 2</option>
-                <option>Channel 3</option>
-                <option>Channel 4</option>
-                <option>Channel 5</option>
-                <option>Channel 6</option>
+              <datalist
+                id="channel-options"
+                [(ngModel)]="currentChannel.channelNumber"
+                (ngModelChange)="updateAvChannels()"
+              >
+                <option *ngFor="let ch of availableChannels" [ngValue]="ch">
+                  Channel {{ch}}
+                </option>
               </datalist>
             </div>
             <div class="col-md-6">
@@ -106,95 +110,136 @@
             </div>
           </div>
 
-          
           <div class="row">
-            <div class="col-4">Test Format</div>
-            <div class="col-md-8" style="padding: 0px;">
-              <ng-container *ngFor="let current_test_row of selectedTestFormat;let row_id = index;">
-                <div class="row">
-                  <div class="col-md-12">
-                    <select
-                      class="form-select"
-                      [(ngModel)]="selectedTestFormat[row_id]"
-                      name="test-format-row-{{row_id}}"
-                    >
-                      <option
-                        *ngFor="let testFormat of _allTestFormats[row_id]"
-                        [ngValue]="testFormat"
-                      >
-                        {{ testFormat.name }}
-                      </option>
-                    </select>
-                  </div>
+            <div class="col-md-4">Test Format</div>
+            <div class="col-md-8"><p>Specify the test sequence.</p></div>
+          </div>
+          <div class="row">
+            <div class="col-4 align-self-center">
+              <div class="row">
+                <div class="col-md-6">
+                  <small class="form-text" id="overall-multiplier"
+                    >Overall multiplier.</small
+                  >
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div
-                      class="row no-padding-root"
-                      *ngFor="let child of current_test_row.children"
-                    >
-                      <div class="col-md-10">
-                        <div class="row no-padding-root">
-                          <ng-container *ngFor="let field of child.fields">
-                            <ng-container *ngIf="field.visibility">
-                              <ng-container [ngSwitch]="field.type">
-                                <ng-container *ngSwitchCase="'select'">
-                                  <div
-                                    class="col-md-{{ field.template_width }}"
-                                  >
-                                    <select
-                                      class="form-control"
-                                      [(ngModel)]="field.value"
-                                      name="field-{{ field.id }}-of-row-{{row_id}}"
-                                      (ngModelChange)="
-                                        fieldResolve(field.id, child.id, row_id)
-                                      "
+                <div class="col-md-6">
+                  <input
+                    class="form-control"
+                    type="number"
+                    [(ngModel)]="currentChannel.overallRowMultiplier"
+                    name="overall-multiplier"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8" style="padding: 0px">
+              <ng-container
+                *ngFor="
+                  let current_test_row of currentChannel.testFormats;
+                  let row_id = index
+                "
+              >
+                <div class="test-format-row">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <select
+                        class="form-select"
+                        [(ngModel)]="currentChannel.testFormats[row_id]"
+                        name="test-format-row-{{ row_id }}"
+                      >
+                        <option
+                          *ngFor="
+                            let testFormat of currentChannel.allTestFormat[
+                              row_id
+                            ]
+                          "
+                          [ngValue]="testFormat"
+                        >
+                          {{ testFormat.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div
+                        class="row no-padding-root"
+                        *ngFor="let child of current_test_row.children"
+                      >
+                        <div class="col-md-10">
+                          <div class="row no-padding-root">
+                            <ng-container *ngFor="let field of child.fields">
+                              <ng-container *ngIf="field.visibility">
+                                <ng-container [ngSwitch]="field.type">
+                                  <ng-container *ngSwitchCase="'select'">
+                                    <div
+                                      class="col-md-{{ field.template_width }}"
                                     >
-                                      <option
-                                        *ngFor="let option of field.options"
-                                        [ngValue]="option"
+                                      <select
+                                        class="form-control"
+                                        [(ngModel)]="field.value"
+                                        name="field-{{ field.id }}-of-row-{{
+                                          row_id
+                                        }}"
+                                        (ngModelChange)="
+                                          fieldResolve(
+                                            field.id,
+                                            child.id,
+                                            row_id,
+                                            ch_index
+                                          )
+                                        "
                                       >
-                                        {{ option }}
-                                      </option>
-                                    </select>
-                                  </div>
-                                </ng-container>
-                                <ng-container *ngSwitchCase="'input'">
-                                  <div
-                                    class="col-md-{{ field.template_width }}"
-                                  >
-                                    <input
-                                      name="field-{{ field.id }}-of-row-{{row_id}}"
-                                      [(ngModel)]="field.value"
-                                      type="number"
-                                      class="form-control"
-                                      required
-                                    />
-                                  </div>
-                                </ng-container>
-                                <ng-container *ngSwitchCase="'text'">
-                                  <div
-                                    class="col-md-{{ field.template_width }}"
-                                  >
-                                    <p class="text-center">{{ field.value }}</p>
-                                  </div>
+                                        <option
+                                          *ngFor="let option of $any(field).options"
+                                          [ngValue]="option"
+                                        >
+                                          {{ option }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngSwitchCase="'input'">
+                                    <div
+                                      class="col-md-{{ field.template_width }}"
+                                    >
+                                      <input
+                                        name="field-{{ field.id }}-of-row-{{
+                                          row_id
+                                        }}"
+                                        [(ngModel)]="field.value"
+                                        type="number"
+                                        class="form-control"
+                                        required
+                                      />
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngSwitchCase="'text'">
+                                    <div
+                                      class="col-md-{{ field.template_width }}"
+                                    >
+                                      <p class="text-center">
+                                        {{ field.value }}
+                                      </p>
+                                    </div>
+                                  </ng-container>
                                 </ng-container>
                               </ng-container>
                             </ng-container>
-                          </ng-container>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="row no-padding-root">
-                          <div class="col-md-6">
-                            <h4 class="text-center">*</h4>
                           </div>
-                          <div class="col-md-6">
-                            <input
-                              class="form-control"
-                              [(ngModel)]="child.multiplier"
-                              name="row_multiplier_{{ child.id }}"
-                            />
+                        </div>
+                        <div class="col-md-2">
+                          <div class="row no-padding-root">
+                            <div class="col-md-6">
+                              <h4 class="text-center">*</h4>
+                            </div>
+                            <div class="col-md-6">
+                              <input
+                                class="form-control"
+                                [(ngModel)]="current_test_row.multiplier"
+                                name="row_multiplier_{{ child.id }}"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -202,17 +247,37 @@
                   </div>
                 </div>
               </ng-container>
-              <div class="row">
-                <div class="col">
-                    <button class="btn btn-secondary" (click)="addRow()">Add Row</button>
+              <div class="row justify-content-end">
+                <div class="col-md-3 text-end">
+                  <button
+                    class="btn btn-secondary"
+                    (click)="addRow(ch_index)"
+                    type="button"
+                    [disabled]="currentChannel.isAddRowButtonDisabled"
+                  >
+                    Add Row
+                  </button>
                 </div>
-            </div>
+                <div class="col-md-3 text-end">
+                  <button
+                    class="btn btn-danger"
+                    (click)="removeRow(ch_index)"
+                    type="button"
+                    [disabled]="currentChannel.isRemoveRowButtonDisabled"
+                  >
+                    Remove Row
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <button class="btn btn-light">Add Channel</button>
+        <div class="row justify-content-center">
+          <div class="col-md-2">
+            <button class="btn btn-secondary" (click)="addChannel()" [disabled]="isAddChBtnDisabled">Add Channel</button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-danger" (click)="removeChannel()" [disabled]="isRemChBtnDisabled">Remove Channel</button>
           </div>
         </div>
       </div>

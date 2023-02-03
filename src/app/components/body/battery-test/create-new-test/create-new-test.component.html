@@ -86,22 +86,16 @@
               <label for="ch_1" class="form-label">Channel Number</label>
             </div>
             <div class="col-md-2">
-              <input
-                id="ch_1"
-                class="form-control"
-                list="channel-options"
-                placeholder="Select Channel"
-                aria-describedby="info_ch"
-              />
-              <datalist
-                id="channel-options"
+              <select
                 [(ngModel)]="currentChannel.channelNumber"
                 (ngModelChange)="updateAvChannels()"
+                name="channel_select"
+                class="form-select"
               >
-                <option *ngFor="let ch of availableChannels" [ngValue]="ch">
+                <option *ngFor="let ch of currentChannel.availableChannels" [ngValue]="ch">
                   Channel {{ch}}
                 </option>
-              </datalist>
+              </select>
             </div>
             <div class="col-md-6">
               <small id="info_ch" class="form-text">
@@ -274,10 +268,10 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-md-2">
-            <button class="btn btn-secondary" (click)="addChannel()" [disabled]="isAddChBtnDisabled">Add Channel</button>
+            <button type="button" class="btn btn-secondary" (click)="addChannel()" [disabled]="isAddChBtnDisabled">Add Channel</button>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-danger" (click)="removeChannel()" [disabled]="isRemChBtnDisabled">Remove Channel</button>
+            <button type="button" class="btn btn-danger" (click)="removeChannel()" [disabled]="isRemChBtnDisabled">Remove Channel</button>
           </div>
         </div>
       </div>

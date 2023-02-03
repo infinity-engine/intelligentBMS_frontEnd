@@ -218,7 +218,8 @@ export interface ChannelFields{
   allTestFormat:TestFormat[][],
   isRemoveRowButtonDisabled:boolean,
   isAddRowButtonDisabled:boolean,
-  overallRowMultiplier:number
+  overallRowMultiplier:number,
+  availableChannels:number[]|undefined
 }
 
 export { testFormats };

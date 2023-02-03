@@ -19,53 +19,39 @@ export class CreateNewTestComponent implements OnInit {
   maxRowAllowed: number = 10;
   allSelectedChannel: ChannelFields[] = [];
   maxNoOfChannel: number = 6;
-  availableChannels: number[] = [];
-  isAddChBtnDisabled:boolean = true;
-  isRemChBtnDisabled:boolean = true;
+  isAddChBtnDisabled: boolean = true;
+  isRemChBtnDisabled: boolean = true;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.addRow();
-    for (let i = 1; i <= this.maxNoOfChannel; i++) {
-      this.availableChannels.push(i);
-    }
-    if(this.maxNoOfChannel > 1){
+    this.addChannel();
+    if (this.maxNoOfChannel > 1) {
       this.isAddChBtnDisabled = false;
     }
   }
 
-  addRow(ch_index?: number | undefined) {
+  addRow(ch_index: number) {
+    //ch_index isn't necessarily channel number
     let selectedChannel: ChannelFields | undefined;
     let selectedTestFormat: TestFormat[] | undefined = undefined;
     let _allTestFormats: TestFormat[] = JSON.parse(JSON.stringify(testFormats)); //create deep copy of the object
-    let currentSelectedFormat = _allTestFormats[0];
-
-    if (ch_index === undefined) {
-      // if no channel row is initially added.
-      this.allSelectedChannel.push({
-        channelNumber: undefined,
-        cellID: undefined,
-        testFormats: [currentSelectedFormat],
-        allTestFormat: [_allTestFormats],
-        isRemoveRowButtonDisabled: true,
-        isAddRowButtonDisabled: false,
-        overallRowMultiplier: 1,
-      });
-      selectedChannel = this.allSelectedChannel[0];
-      selectedTestFormat = selectedChannel.testFormats;
-    } else {
-      selectedChannel = this.allSelectedChannel[ch_index];
-      selectedTestFormat = selectedChannel.testFormats;
-      selectedChannel.allTestFormat.push(_allTestFormats);
-      selectedTestFormat.push(currentSelectedFormat);
-    }
+    let currentSelectedFormat = _allTestFormats[0];//default one
+    
+    selectedChannel = this.allSelectedChannel[ch_index];
+    selectedTestFormat = selectedChannel.testFormats;
+    selectedChannel.allTestFormat.push(_allTestFormats);
+    selectedTestFormat.push(currentSelectedFormat);
 
     if (selectedTestFormat.length > 1) {
       selectedChannel.isRemoveRowButtonDisabled = false;
+    }else{
+      selectedChannel.isRemoveRowButtonDisabled = true;
     }
     if (selectedTestFormat.length >= 10) {
       selectedChannel.isAddRowButtonDisabled = true;
+    }else{
+      selectedChannel.isAddRowButtonDisabled = false;
     }
   }
 
@@ -82,21 +68,71 @@ export class CreateNewTestComponent implements OnInit {
     }
   }
 
-  addChannel(){
-    this.addRow();
+  addChannel() {
+    // if no channel row is initially added.
+    let availableChannels = [];
+    let usedChannels = [];
+    for (let ch_info of this.allSelectedChannel) {
+      usedChannels.push(ch_info.channelNumber);
+    }
+    for (let i = 1; i <= this.maxNoOfChannel; i++) {
+      if (usedChannels.find((e) => e == i)) {
+      } else {
+        availableChannels.push(i);
+      }
+    }
+    this.allSelectedChannel.push({
+      channelNumber: undefined,
+      cellID: undefined,
+      testFormats: [],
+      allTestFormat: [],
+      isRemoveRowButtonDisabled: true,
+      isAddRowButtonDisabled: true,
+      overallRowMultiplier: 1,
+      availableChannels: availableChannels,
+    });
+
+    this.addRow(this.allSelectedChannel.length-1);
+
     this.isRemChBtnDisabled = false;
+    if (this.allSelectedChannel.length == this.maxNoOfChannel) {
+      this.isAddChBtnDisabled = true;
+    }
+    console.log(this.allSelectedChannel);
+
   }
-  removeChannel(){
+  removeChannel() {
     let popedItem = this.allSelectedChannel.pop();
     console.log(popedItem);
-    if (this.allSelectedChannel.length == 1){
+    if (this.allSelectedChannel.length == 1) {
       this.isRemChBtnDisabled = true;
+    }
+    if (this.allSelectedChannel.length < this.maxNoOfChannel) {
+      this.isAddChBtnDisabled = false;
     }
   }
 
-  updateAvChannels() {}
+  updateAvChannels() {
+    for (let currentChannel of this.allSelectedChannel) {
+      let availableChannels = [];
+      let usedChannels = [];
+      for (let ch_info of this.allSelectedChannel) {
+        usedChannels.push(ch_info.channelNumber);
+      }
+      for (let i = 1; i <= this.maxNoOfChannel; i++) {
+        if (usedChannels.find((e) => e == i)) {
+        } else {
+          availableChannels.push(i);
+        }
+      }
+      currentChannel.availableChannels = availableChannels;
+      console.log(availableChannels);
+    }
+  }
 
-  save() {}
+  save() {
+    console.log(this.allSelectedChannel);
+  }
 
   update() {}
 

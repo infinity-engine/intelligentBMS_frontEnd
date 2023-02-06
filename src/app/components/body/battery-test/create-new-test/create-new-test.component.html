@@ -89,7 +89,7 @@
               <select
                 [(ngModel)]="currentChannel.channelNumber"
                 (ngModelChange)="updateAvChannels()"
-                name="channel_select"
+                name="channel_select_{{ch_index}}"
                 class="form-select"
               >
                 <option *ngFor="let ch of currentChannel.availableChannels" [ngValue]="ch">
@@ -121,7 +121,7 @@
                     class="form-control"
                     type="number"
                     [(ngModel)]="currentChannel.overallRowMultiplier"
-                    name="overall-multiplier"
+                    name="overall_multiplier_{{ch_index}}"
                   />
                 </div>
               </div>
@@ -139,7 +139,7 @@
                       <select
                         class="form-select"
                         [(ngModel)]="currentChannel.testFormats[row_id]"
-                        name="test-format-row-{{ row_id }}"
+                        name="test-format-row-{{ch_index}}-{{ row_id }}"
                       >
                         <option
                           *ngFor="
@@ -244,7 +244,7 @@
               <div class="row justify-content-end">
                 <div class="col-md-3 text-end">
                   <button
-                    class="btn btn-secondary"
+                    class="btn btn-success"
                     (click)="addRow(ch_index)"
                     type="button"
                     [disabled]="currentChannel.isAddRowButtonDisabled"
@@ -254,7 +254,7 @@
                 </div>
                 <div class="col-md-3 text-end">
                   <button
-                    class="btn btn-danger"
+                    class="btn btn-warning"
                     (click)="removeRow(ch_index)"
                     type="button"
                     [disabled]="currentChannel.isRemoveRowButtonDisabled"
@@ -266,7 +266,7 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row">
           <div class="col-md-2">
             <button type="button" class="btn btn-secondary" (click)="addChannel()" [disabled]="isAddChBtnDisabled">Add Channel</button>
           </div>

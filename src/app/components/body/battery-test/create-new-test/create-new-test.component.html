@@ -15,8 +15,9 @@
               type="checkbox"
               role="switch"
               id="flexSwitchCheckChecked"
-              name="conAmTe"
-              [(ngModel)]="conAmTe"
+              name="isConAmTe"
+              [(ngModel)] = "currentPayload!.isConAmTe"
+              (ngModelChange)="updateView()"
             />
           </div>
         </div>
@@ -34,6 +35,8 @@
             id="testId"
             aria-describedby="info_testId"
             disabled
+            [(ngModel)]="currentPayload!.testId"
+            name="testId"
           />
         </div>
         <div class="col-md-5">
@@ -51,9 +54,11 @@
             type="text"
             class="form-control"
             maxlength="30"
-            id="testId"
+            id="testName"
             aria-describedby="info_testName"
             placeholder="e.g. Cyclic Charge Discharge"
+            [(ngModel)]="currentPayload!.testName"
+            name="testName"
           />
         </div>
         <div class="col-md-5">
@@ -71,29 +76,63 @@
             class="form-control"
             maxlength="400"
             rows="4"
+            id="testDesc"
             placeholder="Put a detailed description of your test."
+            [(ngModel)]="currentPayload!.testDesc"
+            name="testDesc"
           ></textarea>
         </div>
       </div>
+      <ng-container *ngIf="currentPayload?.isConAmTe">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="field__conAmTem">Ambient Temperature</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              maxlength="30"
+              id="field__conAmTem"
+              aria-describedby="info_conAmTem"
+              placeholder="e.g. 25"
+              [(ngModel)]="currentPayload!.ambTemp"
+              name="field_conAmTem"
+            />
+          </div>
+          <div class="col-md-5">
+            <small id="info_conAmTem" class="form-text"
+              >Temperature in °C, which will be fixed through out the test.</small
+            >
+          </div>
+          </div>
+      </ng-container>
 
       <div class="channel-container">
         <div
           class="channel"
-          *ngFor="let currentChannel of allSelectedChannel; let ch_index = index"
+          *ngFor="
+            let currentChannel of allSelectedChannel;
+            let ch_index = index
+          "
         >
           <div class="row">
             <div class="col-md-4">
-              <label for="ch_1" class="form-label">Channel Number</label>
+              <label for="select_ch_{{ch_index}}" class="form-label">Channel Number</label>
             </div>
             <div class="col-md-2">
               <select
                 [(ngModel)]="currentChannel.channelNumber"
                 (ngModelChange)="updateAvChannels()"
-                name="channel_select_{{ch_index}}"
+                name="channel_select_{{ ch_index }}"
                 class="form-select"
+                id="select_ch_{{ch_index}}"
               >
-                <option *ngFor="let ch of currentChannel.availableChannels" [ngValue]="ch">
-                  Channel {{ch}}
+                <option
+                  *ngFor="let ch of currentChannel.availableChannels"
+                  [ngValue]="ch"
+                >
+                  Channel {{ ch }}
                 </option>
               </select>
             </div>
@@ -121,7 +160,7 @@
                     class="form-control"
                     type="number"
                     [(ngModel)]="currentChannel.overallRowMultiplier"
-                    name="overall_multiplier_{{ch_index}}"
+                    name="overall_multiplier_{{ ch_index }}"
                   />
                 </div>
               </div>
@@ -139,7 +178,7 @@
                       <select
                         class="form-select"
                         [(ngModel)]="currentChannel.testFormats[row_id]"
-                        name="test-format-row-{{ch_index}}-{{ row_id }}"
+                        name="test-format-row-{{ ch_index }}-{{ row_id }}"
                       >
                         <option
                           *ngFor="
@@ -185,7 +224,9 @@
                                         "
                                       >
                                         <option
-                                          *ngFor="let option of $any(field).options"
+                                          *ngFor="
+                                            let option of $any(field).options
+                                          "
                                           [ngValue]="option"
                                         >
                                           {{ option }}
@@ -239,8 +280,34 @@
                       </div>
                     </div>
                   </div>
+                  <ng-container *ngIf="!currentPayload?.isConAmTe">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label for="field__row_amTe_{{row_id}}">Ambient Temperature</label>
+                      </div>
+                      <div class="col-md-3">
+                        <input
+                          type="number"
+                          class="form-control"
+                          maxlength="30"
+                          id="field__row_amTe_{{row_id}}"
+                          aria-describedby="info_conAmTem"
+                          placeholder="e.g. 25"
+                          [(ngModel)]="current_test_row.ambTemp"
+                          name="field__row_amTe_{{row_id}}"
+                        />
+                      </div>
+                      <div class="col-md-5">
+                        <small id="info_conAmTem" class="form-text"
+                          >Temperature in °C, which will be fixed for this sub-exp.</small
+                        >
+                      </div>
+                      </div>
+                  </ng-container>
                 </div>
+                
               </ng-container>
+              
               <div class="row justify-content-end">
                 <div class="col-md-3 text-end">
                   <button
@@ -266,14 +333,30 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-2">
-            <button type="button" class="btn btn-secondary" (click)="addChannel()" [disabled]="isAddChBtnDisabled">Add Channel</button>
+        <ng-container *ngIf="currentPayload?.isConAmTe">
+          <div class="row">
+            <div class="col-md-2">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="addChannel()"
+                [disabled]="isAddChBtnDisabled"
+              >
+                Add Channel
+              </button>
+            </div>
+            <div class="col-md-2">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="removeChannel()"
+                [disabled]="isRemChBtnDisabled"
+              >
+                Remove Channel
+              </button>
+            </div>
           </div>
-          <div class="col-md-2">
-            <button type="button" class="btn btn-danger" (click)="removeChannel()" [disabled]="isRemChBtnDisabled">Remove Channel</button>
-          </div>
-        </div>
+        </ng-container>
       </div>
       <div class="row">
         <div class="col"><span></span>Connected</div>

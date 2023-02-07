@@ -7,6 +7,7 @@ import {
   InputField,
   Fields,
   ChannelFields,
+  PayLoad,
 } from './FormFields';
 
 @Component({
@@ -15,16 +16,24 @@ import {
   styleUrls: ['./create-new-test.component.css'],
 })
 export class CreateNewTestComponent implements OnInit {
-  conAmTe: boolean = true;
   maxRowAllowed: number = 10;
   allSelectedChannel: ChannelFields[] = [];
   maxNoOfChannel: number = 6;
   isAddChBtnDisabled: boolean = true;
   isRemChBtnDisabled: boolean = true;
+  currentPayload?: PayLoad;
 
   constructor() {}
 
   ngOnInit(): void {
+    this.currentPayload = {
+      testId: undefined,
+      testDesc: undefined,
+      testName: undefined,
+      channels: this.allSelectedChannel,
+      isConAmTe: true,
+      ambTemp: 25,
+    };
     this.addChannel();
     if (this.maxNoOfChannel > 1) {
       this.isAddChBtnDisabled = false;
@@ -36,8 +45,8 @@ export class CreateNewTestComponent implements OnInit {
     let selectedChannel: ChannelFields | undefined;
     let selectedTestFormat: TestFormat[] | undefined = undefined;
     let _allTestFormats: TestFormat[] = JSON.parse(JSON.stringify(testFormats)); //create deep copy of the object
-    let currentSelectedFormat = _allTestFormats[0];//default one
-    
+    let currentSelectedFormat = _allTestFormats[0]; //default one
+
     selectedChannel = this.allSelectedChannel[ch_index];
     selectedTestFormat = selectedChannel.testFormats;
     selectedChannel.allTestFormat.push(_allTestFormats);
@@ -45,12 +54,12 @@ export class CreateNewTestComponent implements OnInit {
 
     if (selectedTestFormat.length > 1) {
       selectedChannel.isRemoveRowButtonDisabled = false;
-    }else{
+    } else {
       selectedChannel.isRemoveRowButtonDisabled = true;
     }
     if (selectedTestFormat.length >= 10) {
       selectedChannel.isAddRowButtonDisabled = true;
-    }else{
+    } else {
       selectedChannel.isAddRowButtonDisabled = false;
     }
   }
@@ -92,15 +101,31 @@ export class CreateNewTestComponent implements OnInit {
       availableChannels: availableChannels,
     });
 
-    this.addRow(this.allSelectedChannel.length-1);
+    this.addRow(this.allSelectedChannel.length - 1);
 
     this.isRemChBtnDisabled = false;
     if (this.allSelectedChannel.length == this.maxNoOfChannel) {
       this.isAddChBtnDisabled = true;
     }
-    console.log(this.allSelectedChannel);
-
   }
+
+  updateView() {
+    //if there is multiple channel is already added and then you toggle the consistent ambient temperature
+    // you have tho remove the extra channel from the data
+    let no_of_ch = this.currentPayload?.channels?.length;
+    if (
+      no_of_ch != undefined &&
+      !this.currentPayload?.isConAmTe &&
+      no_of_ch > 1
+    ) {
+      this.currentPayload?.channels?.splice(1, no_of_ch - 1);
+      if (this.maxNoOfChannel > 1) {
+        this.isAddChBtnDisabled = false;
+      }
+      this.isRemChBtnDisabled = true;
+    }
+  }
+
   removeChannel() {
     let popedItem = this.allSelectedChannel.pop();
     console.log(popedItem);
@@ -131,7 +156,7 @@ export class CreateNewTestComponent implements OnInit {
   }
 
   save() {
-    console.log(this.allSelectedChannel);
+    console.log(this.currentPayload);
   }
 
   update() {}
@@ -177,5 +202,9 @@ export class CreateNewTestComponent implements OnInit {
     } else if (currentTestFormat.value == 2) {
     } else {
     }
+  }
+
+  logData(data?: any) {
+    console.log(data);
   }
 }

@@ -28,7 +28,8 @@ export interface TestFormat {
   children: Fields[],
   name: string, 
   value: number,
-  multiplier:number
+  multiplier:number,
+  ambTemp:number
 }
 
 const testFormats: TestFormat[] = [
@@ -95,7 +96,8 @@ const testFormats: TestFormat[] = [
         multiplier: 1,
       } as Fields,
     ],
-    multiplier:1
+    multiplier:1,
+    ambTemp:25
   },
   {
     name: 'Do this until this happen.',
@@ -159,7 +161,8 @@ const testFormats: TestFormat[] = [
         multiplier: 1,
       } as Fields,
     ],
-    multiplier:1
+    multiplier:1,
+    ambTemp:25
   },
   {
     name: 'Run X.',
@@ -208,7 +211,8 @@ const testFormats: TestFormat[] = [
         multiplier: 1,
       } as Fields,
     ],
-    multiplier:1
+    multiplier:1,
+    ambTemp:25
   },
 ];
 export interface ChannelFields{
@@ -220,6 +224,14 @@ export interface ChannelFields{
   isAddRowButtonDisabled:boolean,
   overallRowMultiplier:number,
   availableChannels:number[]|undefined
+}
+export interface PayLoad{
+  channels:ChannelFields[]|undefined,
+  testId:Number|undefined,
+  testName:String|undefined,
+  testDesc:String|undefined,
+  isConAmTe:boolean|undefined,
+  ambTemp:number|undefined
 }
 
 export { testFormats };

@@ -249,6 +249,23 @@
                                       />
                                     </div>
                                   </ng-container>
+                                  <ng-container *ngSwitchCase="'file'">
+                                    <div
+                                      class="col-md-{{ field.template_width }} align-self-center"
+                                    >
+                                      <input
+                                        name="field-{{ field.id }}-of-row-{{
+                                          row_id
+                                        }}"
+                                        type="file"
+                                        class="form-control form-control-sm"
+                                        [(ngModel)]="field.value"
+                                        name = "file-{{ field.id }}-of-row-{{
+                                          row_id"
+                                        required
+                                      />
+                                    </div>
+                                  </ng-container>
                                   <ng-container *ngSwitchCase="'text'">
                                     <div
                                       class="col-md-{{ field.template_width }}"

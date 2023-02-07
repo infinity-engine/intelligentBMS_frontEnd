@@ -20,9 +20,18 @@ export interface InputField {
   visibility: boolean,
   template_width: number
 }
+
+export interface FileField {
+  type: 'file',
+  id: number,
+  value: any,
+  visibility: boolean,
+  template_width: number
+}
+
 export interface Fields {
   id: number;
-  fields: (SelectField | TextField | InputField)[];
+  fields: (SelectField | TextField | InputField | FileField)[];
 }
 export interface TestFormat {
   children: Fields[],
@@ -180,11 +189,11 @@ const testFormats: TestFormat[] = [
           } as TextField,
           {
             id: 2,
-            type: 'input',
+            type: 'file',
             value: null,
             visibility: true,
-            template_width: 2,
-          } as InputField,
+            template_width: 4,
+          } as FileField,
           {
             id: 3,
             type: 'text',

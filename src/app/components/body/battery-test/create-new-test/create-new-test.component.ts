@@ -123,6 +123,7 @@ export class CreateNewTestComponent implements OnInit {
         this.isAddChBtnDisabled = false;
       }
       this.isRemChBtnDisabled = true;
+      this.updateAvChannels();
     }
   }
 
@@ -135,6 +136,8 @@ export class CreateNewTestComponent implements OnInit {
     if (this.allSelectedChannel.length < this.maxNoOfChannel) {
       this.isAddChBtnDisabled = false;
     }
+
+    this.updateAvChannels();
   }
 
   updateAvChannels() {
@@ -145,8 +148,7 @@ export class CreateNewTestComponent implements OnInit {
         usedChannels.push(ch_info.channelNumber);
       }
       for (let i = 1; i <= this.maxNoOfChannel; i++) {
-        if (usedChannels.find((e) => e == i)) {
-        } else {
+        if (!usedChannels.includes(i) || currentChannel.channelNumber == i) {
           availableChannels.push(i);
         }
       }

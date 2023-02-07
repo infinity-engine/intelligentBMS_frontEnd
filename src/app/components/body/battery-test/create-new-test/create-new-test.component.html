@@ -263,6 +263,7 @@
                                         name = "file-{{ field.id }}-of-row-{{
                                           row_id"
                                         required
+                                        accept=".xls,.xlsx,.csv"
                                       />
                                     </div>
                                   </ng-container>
@@ -333,7 +334,7 @@
                     type="button"
                     [disabled]="currentChannel.isAddRowButtonDisabled"
                   >
-                    Add Row
+                  <i class="bi bi-node-plus"></i> Add
                   </button>
                 </div>
                 <div class="col-md-3 text-end">
@@ -343,7 +344,7 @@
                     type="button"
                     [disabled]="currentChannel.isRemoveRowButtonDisabled"
                   >
-                    Remove Row
+                  <i class="bi bi-trash"></i> Remove
                   </button>
                 </div>
               </div>
@@ -352,24 +353,24 @@
         </div>
         <ng-container *ngIf="currentPayload?.isConAmTe">
           <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
               <button
                 type="button"
                 class="btn btn-secondary"
                 (click)="addChannel()"
                 [disabled]="isAddChBtnDisabled"
               >
-                Add Channel
+              <i class="bi bi-file-plus"></i> Add Channel
               </button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
               <button
                 type="button"
                 class="btn btn-danger"
                 (click)="removeChannel()"
                 [disabled]="isRemChBtnDisabled"
               >
-                Remove Channel
+              <i class="bi bi-file-minus"></i> Remove Channel
               </button>
             </div>
           </div>

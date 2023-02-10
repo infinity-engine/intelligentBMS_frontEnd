@@ -1,3 +1,4 @@
+import { TestService } from './services/test.service';
 import { ToastMsg } from './models/ToastMsg';
 import { ComponentStoreService } from './services/component-store.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit{
   toastMsg:string|undefined = undefined;
   toastColor:string|undefined = 'black';
 
-  constructor(private store:ComponentStoreService){}
+  constructor(private store:ComponentStoreService,
+    private _testService:TestService){}
 
   ngOnInit(): void {
       this.store.toastMsg$.subscribe(msg=>{

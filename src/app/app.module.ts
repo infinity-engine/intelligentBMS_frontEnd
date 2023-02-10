@@ -20,6 +20,8 @@ import { NoResultComponent } from './components/body/battery-test/no-result/no-r
 import { ShowTestResultComponent } from './components/body/battery-test/show-test-result/show-test-result.component';
 import { CreateNewTestComponent } from './components/body/battery-test/create-new-test/create-new-test.component';
 import { FormsModule } from '@angular/forms';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { HTTP_INTERCEPTORS} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     AuthModule.forRoot({
-      ...environment.auth
+      ...environment.auth,
+      httpInterceptor:environment.httpInterceptor
     }),
     NgCircleProgressModule.forRoot({
       animation:true,
@@ -50,7 +53,13 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     NgChartsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:AuthHttpInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

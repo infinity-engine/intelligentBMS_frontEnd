@@ -1,4 +1,6 @@
+import { TestChamber } from './../../../models/TestChamber';
 import { Component, OnInit } from '@angular/core';
+import { TestChamberService } from 'src/app/services/test-chamber.service';
 
 @Component({
   selector: 'app-battery-test',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BatteryTestComponent implements OnInit {
   activeComponent:'NoTestResult'|'ShowTestResult'|'CreateNewTest'= 'ShowTestResult';
-  constructor() { }
+  constructor(private _testChS:TestChamberService) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +26,15 @@ export class BatteryTestComponent implements OnInit {
         this.activeComponent = 'ShowTestResult';
       }
     }
+  }
+  createNewTestChamber(){
+    const testChamber = new TestChamber({})
+    const {...plainObject} = testChamber
+    //console.log(plainObject)
+    this._testChS.createNewTestChamber(plainObject).subscribe(d=>{
+      console.log(d)
+    })
+    
   }
 
 }

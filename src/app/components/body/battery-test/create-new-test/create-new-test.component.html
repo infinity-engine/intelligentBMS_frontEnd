@@ -137,8 +137,27 @@
               </select>
             </div>
             <div class="col-md-6">
-              <small id="info_ch" class="form-text">
+              <small id="info_ch_{{ ch_index }}" class="form-text">
                 Select a channel to add test configuration.
+              </small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label for="cell_id_{{ch_index}}" class="form-label">Cell ID</label>
+            </div>
+            <div class="col-md-2">
+              <input
+                [(ngModel)]="currentChannel.cellID"
+                name="cell_id_{{ch_index}}"
+                class="form-control"
+                id="cell_id_{{ch_index}}"
+              >
+            </div>
+            <div class="col-md-6">
+              <small id="info_cell_id{{ch_index}}" class="form-text">
+                Select a cell on which you want to perform exp.
               </small>
             </div>
           </div>

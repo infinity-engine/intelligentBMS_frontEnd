@@ -47,7 +47,7 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/docs"  [skipLocationChange]="true" routerLinkActive="active-link">Documentation</a>
                 </li>
-                <li *ngIf="(auth.user$ | async) as user; else loggedOut" class="nav-item dropdown">
+                <li *ngIf="authUser as user; else loggedOut" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle dropdown-profile" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="user-picture" style="background-image: url('{{user.picture}}');"> </div>
@@ -76,5 +76,3 @@
         </div>
     </div>
 </nav>
-
-<button (click)="test()">test</button>

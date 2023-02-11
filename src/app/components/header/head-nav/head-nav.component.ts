@@ -1,52 +1,60 @@
 import { UserService } from './../../../services/user.service';
-import { Subscription } from 'rxjs';
+import { of, Subscription, switchMap, Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { User } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-head-nav',
   templateUrl: './head-nav.component.html',
-  styleUrls: ['./head-nav.component.css']
+  styleUrls: ['./head-nav.component.css'],
 })
-export class HeadNavComponent implements OnInit,OnDestroy {
-  sub?:Subscription;
-  temp?:any;
-  constructor(public auth:AuthService, private location:Location, private _user:UserService) { }
+export class HeadNavComponent implements OnInit, OnDestroy {
+  sub?: Subscription;
+  authUser?: any;
+  constructor(
+    private auth: AuthService,
+    private location: Location,
+    private _user: UserService
+  ) {}
 
   ngOnInit(): void {
-    this.sub = 
-    this.auth.user$.subscribe(user=>{
-      console.log("User: ",user);
-      this.temp = user;
-      // on success full redirect the location seems to change after the home component load
-      this.location.replaceState('./');
-      let sub_ = this._user.verifyUser(user as any).subscribe(d=>{
-        if (d){
-          console.log("User exists in api database")
-        }else{
-          //create user in api database
-          let sub__ = this._user.createUser(user as any).subscribe(d=>{
-            console.log("User added in api database")
-          })
-          sub__.unsubscribe();
+    const os$:Observable<any> = this.auth.user$.pipe(
+      switchMap((firstResponse: any) => {
+        this.authUser = firstResponse;
+        if (this.authUser) {
+          return this._user.verifyUser(this.authUser as any).pipe(
+            switchMap((secondResponse: any) => {
+              if (secondResponse) {
+                return of('Exists on API DB');
+              } else {
+                return this._user.createUser(this.authUser as any).pipe(switchMap((thirdResponse:any)=>{
+                  if (thirdResponse){
+                    return of("Inserted in API DB")
+                  }else{
+                    return of("Inset failed of API DB")
+                  }
+                }))
+              }
+            })
+          );
+        } else {
+          return of(null);
         }
       })
-      sub_.unsubscribe();
+    );
+    this.sub = os$.subscribe(msg =>{
+      console.log("User: ",msg)
     })
   }
-  logIn(){
+  logIn() {
     this.auth.loginWithRedirect();
   }
-  logOut(){
-    this.auth.logout()
+  logOut() {
+    this.auth.logout();
   }
   ngOnDestroy(): void {
-      this.sub?.unsubscribe();
-  }
-  test(){
-    this._user.createUser(this.temp).subscribe(d=>{
-      console.log("User added in api database")
-    })
+    this.sub?.unsubscribe();
   }
 }

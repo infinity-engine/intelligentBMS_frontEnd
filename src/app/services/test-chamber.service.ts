@@ -17,6 +17,9 @@ import { environment } from 'src/environments/environment';
 export class TestChamberService {
   constructor(private http: HttpClient) {}
 
+  getChambers(){
+    return this.http.get(`${environment.apiUri}/api/protected/test-chamber`).pipe(share(),retry(3),catchError(this.errorHandler));
+  }
   createNewTestChamber(chamberConfig: _TestChamber) {
     //angular stripped out the key which has the value undefined.
     //console.log(chamberConfig);
@@ -25,6 +28,7 @@ export class TestChamberService {
         {...chamberConfig})
       .pipe(retry(3), catchError(this.errorHandler));
   }
+  
   private errorHandler(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error(

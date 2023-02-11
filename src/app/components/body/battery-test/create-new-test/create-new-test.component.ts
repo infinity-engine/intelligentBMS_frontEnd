@@ -1,3 +1,4 @@
+import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { Component, OnInit } from '@angular/core';
 import {
   testFormats,
@@ -8,7 +9,7 @@ import {
   Fields,
   ChannelFields,
   PayLoad,
-} from './FormFields';
+} from '../../../../models/FormFields';
 
 @Component({
   selector: 'app-create-new-test',
@@ -18,14 +19,20 @@ import {
 export class CreateNewTestComponent implements OnInit {
   maxRowAllowed: number = 10;
   allSelectedChannel: ChannelFields[] = [];
-  maxNoOfChannel: number = 6;
   isAddChBtnDisabled: boolean = true;
   isRemChBtnDisabled: boolean = true;
   currentPayload?: PayLoad;
+  testChambers?:any;
+  selectedTestChamber:any = null;
 
-  constructor() {}
+  constructor(private _testChamberService:TestChamberService) {}
 
   ngOnInit(): void {
+    this._testChamberService.getChambers().subscribe(data=>{
+      this.testChambers = data;
+    })
+  }
+  init(){
     this.currentPayload = {
       testId: undefined,
       testDesc: undefined,
@@ -35,7 +42,7 @@ export class CreateNewTestComponent implements OnInit {
       ambTemp: 25,
     };
     this.addChannel();
-    if (this.maxNoOfChannel > 1) {
+    if (this.selectedTestChamber.maxNoOfChannels > 1) {
       this.isAddChBtnDisabled = false;
     }
   }
@@ -84,7 +91,7 @@ export class CreateNewTestComponent implements OnInit {
     for (let ch_info of this.allSelectedChannel) {
       usedChannels.push(ch_info.channelNumber);
     }
-    for (let i = 1; i <= this.maxNoOfChannel; i++) {
+    for (let i = 1; i <= this.selectedTestChamber.maxNoOfChannels; i++) {
       if (usedChannels.find((e) => e == i)) {
       } else {
         availableChannels.push(i);
@@ -104,7 +111,7 @@ export class CreateNewTestComponent implements OnInit {
     this.addRow(this.allSelectedChannel.length - 1);
 
     this.isRemChBtnDisabled = false;
-    if (this.allSelectedChannel.length == this.maxNoOfChannel) {
+    if (this.allSelectedChannel.length == this.selectedTestChamber.maxNoOfChannels) {
       this.isAddChBtnDisabled = true;
     }
   }
@@ -119,7 +126,7 @@ export class CreateNewTestComponent implements OnInit {
       no_of_ch > 1
     ) {
       this.currentPayload?.channels?.splice(1, no_of_ch - 1);
-      if (this.maxNoOfChannel > 1) {
+      if (this.selectedTestChamber.maxNoOfChannels > 1) {
         this.isAddChBtnDisabled = false;
       }
       this.isRemChBtnDisabled = true;
@@ -133,7 +140,7 @@ export class CreateNewTestComponent implements OnInit {
     if (this.allSelectedChannel.length == 1) {
       this.isRemChBtnDisabled = true;
     }
-    if (this.allSelectedChannel.length < this.maxNoOfChannel) {
+    if (this.allSelectedChannel.length < this.selectedTestChamber.maxNoOfChannels) {
       this.isAddChBtnDisabled = false;
     }
 
@@ -147,13 +154,13 @@ export class CreateNewTestComponent implements OnInit {
       for (let ch_info of this.allSelectedChannel) {
         usedChannels.push(ch_info.channelNumber);
       }
-      for (let i = 1; i <= this.maxNoOfChannel; i++) {
+      for (let i = 1; i <= this.selectedTestChamber.maxNoOfChannels; i++) {
         if (!usedChannels.includes(i) || currentChannel.channelNumber == i) {
           availableChannels.push(i);
         }
       }
       currentChannel.availableChannels = availableChannels;
-      console.log(availableChannels);
+      //console.log(availableChannels);
     }
   }
 

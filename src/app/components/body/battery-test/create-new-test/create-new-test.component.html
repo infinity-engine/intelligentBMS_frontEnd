@@ -1,7 +1,29 @@
-<div class="card">
-  <div class="card-header">Creating new test for the battery cells.</div>
-  <div class="card-body">
-    <form #testScript="ngForm" (ngSubmit)="save()">
+<form #testScript="ngForm" (ngSubmit)="save()">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-6">Creating new test for the battery cells.</div>
+        <div class="col-md-6">
+          <select
+            [(ngModel)]="selectedTestChamber"
+            name="select_test_chamber"
+            class="form-select"
+            (ngModelChange)="init()"
+          >
+            <option [ngValue]="null" disabled>Select the chamber</option>
+            <option
+              *ngFor="let chamber of testChambers"
+              [ngValue]="chamber"
+              [disabled]="chamber.accessType == 'read' ? true : false"
+              title="{{chamber._id}}"
+            >
+              {{ chamber.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" *ngIf="selectedTestChamber? true:false">
       <div class="row">
         <div class="col-md-4">
           <label class="form-check-label" for="flexSwitchCheckChecked">
@@ -16,7 +38,7 @@
               role="switch"
               id="flexSwitchCheckChecked"
               name="isConAmTe"
-              [(ngModel)] = "currentPayload!.isConAmTe"
+              [(ngModel)]="currentPayload!.isConAmTe"
               (ngModelChange)="updateView()"
             />
           </div>
@@ -102,10 +124,11 @@
           </div>
           <div class="col-md-5">
             <small id="info_conAmTem" class="form-text"
-              >Temperature in °C, which will be fixed through out the test.</small
+              >Temperature in °C, which will be fixed through out the
+              test.</small
             >
           </div>
-          </div>
+        </div>
       </ng-container>
 
       <div class="channel-container">
@@ -118,7 +141,9 @@
         >
           <div class="row">
             <div class="col-md-4">
-              <label for="select_ch_{{ch_index}}" class="form-label">Channel Number</label>
+              <label for="select_ch_{{ ch_index }}" class="form-label"
+                >Channel Number</label
+              >
             </div>
             <div class="col-md-2">
               <select
@@ -126,7 +151,7 @@
                 (ngModelChange)="updateAvChannels()"
                 name="channel_select_{{ ch_index }}"
                 class="form-select"
-                id="select_ch_{{ch_index}}"
+                id="select_ch_{{ ch_index }}"
               >
                 <option
                   *ngFor="let ch of currentChannel.availableChannels"
@@ -145,18 +170,20 @@
 
           <div class="row">
             <div class="col-md-4">
-              <label for="cell_id_{{ch_index}}" class="form-label">Cell ID</label>
+              <label for="cell_id_{{ ch_index }}" class="form-label"
+                >Cell ID</label
+              >
             </div>
             <div class="col-md-2">
               <input
                 [(ngModel)]="currentChannel.cellID"
-                name="cell_id_{{ch_index}}"
+                name="cell_id_{{ ch_index }}"
                 class="form-control"
-                id="cell_id_{{ch_index}}"
-              >
+                id="cell_id_{{ ch_index }}"
+              />
             </div>
             <div class="col-md-6">
-              <small id="info_cell_id{{ch_index}}" class="form-text">
+              <small id="info_cell_id{{ ch_index }}" class="form-text">
                 Select a cell on which you want to perform exp.
               </small>
             </div>
@@ -270,7 +297,9 @@
                                   </ng-container>
                                   <ng-container *ngSwitchCase="'file'">
                                     <div
-                                      class="col-md-{{ field.template_width }} align-self-center"
+                                      class="col-md-{{
+                                        field.template_width
+                                      }} align-self-center"
                                     >
                                       <input
                                         name="field-{{ field.id }}-of-row-{{
@@ -279,7 +308,7 @@
                                         type="file"
                                         class="form-control form-control-sm"
                                         [(ngModel)]="field.value"
-                                        name = "file-{{ field.id }}-of-row-{{
+                                        name="file-{{ field.id }}-of-row-{{
                                           row_id"
                                         required
                                         accept=".xls,.xlsx,.csv"
@@ -320,31 +349,33 @@
                   <ng-container *ngIf="!currentPayload?.isConAmTe">
                     <div class="row">
                       <div class="col-md-4">
-                        <label for="field__row_amTe_{{row_id}}">Ambient Temperature</label>
+                        <label for="field__row_amTe_{{ row_id }}"
+                          >Ambient Temperature</label
+                        >
                       </div>
                       <div class="col-md-3">
                         <input
                           type="number"
                           class="form-control"
                           maxlength="30"
-                          id="field__row_amTe_{{row_id}}"
+                          id="field__row_amTe_{{ row_id }}"
                           aria-describedby="info_conAmTem"
                           placeholder="e.g. 25"
                           [(ngModel)]="current_test_row.ambTemp"
-                          name="field__row_amTe_{{row_id}}"
+                          name="field__row_amTe_{{ row_id }}"
                         />
                       </div>
                       <div class="col-md-5">
                         <small id="info_conAmTem" class="form-text"
-                          >Temperature in °C, which will be fixed for this sub-exp.</small
+                          >Temperature in °C, which will be fixed for this
+                          sub-exp.</small
                         >
                       </div>
-                      </div>
+                    </div>
                   </ng-container>
                 </div>
-                
               </ng-container>
-              
+
               <div class="row justify-content-end">
                 <div class="col-md-3 text-end">
                   <button
@@ -353,7 +384,7 @@
                     type="button"
                     [disabled]="currentChannel.isAddRowButtonDisabled"
                   >
-                  <i class="bi bi-node-plus"></i> Add
+                    <i class="bi bi-node-plus"></i> Add
                   </button>
                 </div>
                 <div class="col-md-3 text-end">
@@ -363,7 +394,7 @@
                     type="button"
                     [disabled]="currentChannel.isRemoveRowButtonDisabled"
                   >
-                  <i class="bi bi-trash"></i> Remove
+                    <i class="bi bi-trash"></i> Remove
                   </button>
                 </div>
               </div>
@@ -379,7 +410,7 @@
                 (click)="addChannel()"
                 [disabled]="isAddChBtnDisabled"
               >
-              <i class="bi bi-file-plus"></i> Add Channel
+                <i class="bi bi-file-plus"></i> Add Channel
               </button>
             </div>
             <div class="col-md-3">
@@ -389,7 +420,7 @@
                 (click)="removeChannel()"
                 [disabled]="isRemChBtnDisabled"
               >
-              <i class="bi bi-file-minus"></i> Remove Channel
+                <i class="bi bi-file-minus"></i> Remove Channel
               </button>
             </div>
           </div>
@@ -401,6 +432,6 @@
           <button type="submit" class="btn btn-danger">Start</button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
+</form>

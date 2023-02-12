@@ -1,3 +1,4 @@
+import { Test } from 'src/app/models/Test';
 import { _TestChamber } from './../models/TestChamber';
 import {
   HttpClient,
@@ -28,7 +29,10 @@ export class TestChamberService {
         {...chamberConfig})
       .pipe(retry(3), catchError(this.errorHandler));
   }
-  
+  createTest(chamberId:string,testConfig:Test){
+    //console.log(testConfig);
+    return this.http.post(`${environment.apiUri}/api/protected/test-chamber/create-test`,{chamberId:chamberId,testConfig:testConfig}).pipe(retry(3),catchError(this.errorHandler))
+  }
   private errorHandler(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error(

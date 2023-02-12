@@ -1,5 +1,7 @@
+import { _TestChamber } from './../../../../models/TestChamber';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { Component, OnInit } from '@angular/core';
+
 import {
   testFormats,
   TestFormat,
@@ -10,6 +12,7 @@ import {
   ChannelFields,
   PayLoad,
 } from '../../../../models/FormFields';
+import { Test } from 'src/app/models/Test';
 
 @Component({
   selector: 'app-create-new-test',
@@ -22,17 +25,19 @@ export class CreateNewTestComponent implements OnInit {
   isAddChBtnDisabled: boolean = true;
   isRemChBtnDisabled: boolean = true;
   currentPayload?: PayLoad;
-  testChambers?:any;
-  selectedTestChamber:any = null;
+  testChambers?: _TestChamber[] = [];
+  selectedTestChamber: _TestChamber | null | any = null;
 
-  constructor(private _testChamberService:TestChamberService) {}
+  constructor(private _testChamberService: TestChamberService) {}
 
   ngOnInit(): void {
-    this._testChamberService.getChambers().subscribe(data=>{
-      this.testChambers = data;
-    })
+    this._testChamberService.getChambers().subscribe((data) => {
+      if (data instanceof Array) {
+        this.testChambers = data;
+      }
+    });
   }
-  init(){
+  init() {
     this.currentPayload = {
       testId: undefined,
       testDesc: undefined,
@@ -110,8 +115,19 @@ export class CreateNewTestComponent implements OnInit {
 
     this.addRow(this.allSelectedChannel.length - 1);
 
-    this.isRemChBtnDisabled = false;
-    if (this.allSelectedChannel.length == this.selectedTestChamber.maxNoOfChannels) {
+    this.fixAddRemChBtnStatus();
+  }
+  
+  fixAddRemChBtnStatus(){
+    let l = this.allSelectedChannel.length
+    if (l <= 1){
+      this.isRemChBtnDisabled = true;
+    }else{
+      this.isRemChBtnDisabled = false;
+    }
+    if (l<this.selectedTestChamber.maxNoOfChannels){
+      this.isAddChBtnDisabled = false;
+    }else{
       this.isAddChBtnDisabled = true;
     }
   }
@@ -136,15 +152,18 @@ export class CreateNewTestComponent implements OnInit {
 
   removeChannel() {
     let popedItem = this.allSelectedChannel.pop();
-    console.log(popedItem);
-    if (this.allSelectedChannel.length == 1) {
+    //console.log(popedItem);
+    if (this.allSelectedChannel.length <= 1) {
       this.isRemChBtnDisabled = true;
     }
-    if (this.allSelectedChannel.length < this.selectedTestChamber.maxNoOfChannels) {
+    if (
+      this.allSelectedChannel.length < this.selectedTestChamber.maxNoOfChannels
+    ) {
       this.isAddChBtnDisabled = false;
     }
 
     this.updateAvChannels();
+    this.fixAddRemChBtnStatus();
   }
 
   updateAvChannels() {
@@ -165,7 +184,12 @@ export class CreateNewTestComponent implements OnInit {
   }
 
   save() {
-    console.log(this.currentPayload);
+    const currentTest: Test = { testConfig: this.currentPayload };
+    this._testChamberService
+      .createTest(this.selectedTestChamber._id, currentTest)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 
   update() {}

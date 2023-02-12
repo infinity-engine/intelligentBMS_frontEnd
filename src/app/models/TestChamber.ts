@@ -1,4 +1,6 @@
+import { Test } from './Test';
 export interface _TestChamber {
+  _id?:string;//ObjectId from mongodb gets parsed as string
   name?: String;
   controller?: String;
   version?: String;
@@ -6,17 +8,12 @@ export interface _TestChamber {
   maxTemp?: Number; //in °C
   minTemp?: Number; //in °C
   location?: String;
-  assignedUsers?: { _id: any; accessType: 'admin' | 'write' | 'read' }[];
-  testPerformed?: {
-    _id: any;
-    testConfig: any;
-    testResult: any;
-    isComplete: Boolean;
-    testStartDate: Date;
-    testEndDate: Date;
-    Status: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';
-    isConnected: Boolean;
-  }[];
+  assignedUsers?: { _id: any; accessType: 'admin' | 'write' | 'read' }[];//could be present if the user is admin to this chamber, otherwise this won't be present
+  testPerformed?: Test[];
+  createdOn?:Date,
+  maxNoOfChannels?:Number,
+  isConnected?:Boolean,
+  accessType?:'admin'|'write'|'read',//only specific to front end
 }
 export class TestChamber {
   name: String | undefined;
@@ -28,6 +25,9 @@ export class TestChamber {
   location: String | undefined;
   assignedUsers: any;
   testPerformed: any;
+  createdOn:Date|undefined;
+  maxNoOfChannels:Number|undefined;
+  isConnected:Boolean|undefined;
 
   constructor(chmDetails: _TestChamber) {
     this.name = chmDetails.name;
@@ -39,5 +39,8 @@ export class TestChamber {
     this.location = chmDetails.location;
     this.assignedUsers = chmDetails.assignedUsers;
     this.testPerformed = chmDetails.testPerformed;
+    this.createdOn = chmDetails.createdOn;
+    this.maxNoOfChannels = chmDetails.maxNoOfChannels;
+    this.isConnected = chmDetails.isConnected;
   }
 }

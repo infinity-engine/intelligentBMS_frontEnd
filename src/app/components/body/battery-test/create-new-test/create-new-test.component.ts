@@ -27,6 +27,7 @@ export class CreateNewTestComponent implements OnInit {
   currentPayload?: PayLoad;
   testChambers?: _TestChamber[] = [];
   selectedTestChamber: _TestChamber | null | any = null;
+  scheduledDate:any = Date.now();
 
   constructor(private _testChamberService: TestChamberService) {}
 
@@ -37,6 +38,7 @@ export class CreateNewTestComponent implements OnInit {
       }
     });
   }
+
   init() {
     this.currentPayload = {
       testId: undefined,
@@ -190,6 +192,7 @@ export class CreateNewTestComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
       });
+    console.log(this.scheduledDate);
   }
 
   update() {}

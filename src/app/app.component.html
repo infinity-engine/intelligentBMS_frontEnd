@@ -14,10 +14,3 @@
     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" (click)="changeToastStatus(false)"></button>
   </div>
 </div>
-<form #form="ngForm">
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>  
-</form>

@@ -1,5 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgChartsModule } from 'ng2-charts';
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
@@ -21,10 +21,13 @@ import { BatteryTestComponent } from './components/body/battery-test/battery-tes
 import { NoResultComponent } from './components/body/battery-test/no-result/no-result.component';
 import { ShowTestResultComponent } from './components/body/battery-test/show-test-result/show-test-result.component';
 import { CreateNewTestComponent } from './components/body/battery-test/create-new-test/create-new-test.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,14 @@ import { MatNativeDateModule } from '@angular/material/core';
     CreateNewTestComponent,
   ],
   imports: [
+    NgxMatNativeDateModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     AuthModule.forRoot({
@@ -56,8 +67,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     FormsModule,
     NgChartsModule,
     BrowserModule,
-    MatDatepickerModule,
-    MatFormFieldModule,MatNativeDateModule
+    
 
   ],
   providers: [

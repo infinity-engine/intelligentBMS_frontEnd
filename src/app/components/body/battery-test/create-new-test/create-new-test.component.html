@@ -426,12 +426,19 @@
           </div>
         </ng-container>
       </div>
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col"><span></span><span style="vertical-align: sub;">Connected</span></div>
-        <div class="col align-self-end">
-          <input class="form-control" type="datetime">
+        <div class="col-md-3 justify-content-end">
+          <mat-form-field>
+            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
+             [(ngModel)]="scheduledDate" name="scheduledDate"
+            >
+            <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #picker>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
         </div>
-        <div class="col-md-2 align-self-end text-end">
+        <div class="col-md-2 justify-content-end text-end">
           <button type="submit" class="btn btn-danger">Schedule</button>
         </div>
       </div>

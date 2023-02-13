@@ -1,3 +1,5 @@
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgChartsModule } from 'ng2-charts';
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
@@ -19,9 +21,10 @@ import { BatteryTestComponent } from './components/body/battery-test/battery-tes
 import { NoResultComponent } from './components/body/battery-test/no-result/no-result.component';
 import { ShowTestResultComponent } from './components/body/battery-test/show-test-result/show-test-result.component';
 import { CreateNewTestComponent } from './components/body/battery-test/create-new-test/create-new-test.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
-import { HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -36,30 +39,34 @@ import { HTTP_INTERCEPTORS} from '@angular/common/http';
     BatteryTestComponent,
     NoResultComponent,
     ShowTestResultComponent,
-    CreateNewTestComponent
+    CreateNewTestComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthModule.forRoot({
       ...environment.auth,
-      httpInterceptor:environment.httpInterceptor
+      httpInterceptor: environment.httpInterceptor,
     }),
     NgCircleProgressModule.forRoot({
-      animation:true,
-      animationDuration:300
+      animation: true,
+      animationDuration: 300,
     }),
     HttpClientModule,
     FormsModule,
-    NgChartsModule
+    NgChartsModule,
+    BrowserModule,
+    MatDatepickerModule,
+    MatFormFieldModule,MatNativeDateModule
+
   ],
   providers: [
     {
-      provide:HTTP_INTERCEPTORS,
-      useClass:AuthHttpInterceptor,
-      multi:true
-    }
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

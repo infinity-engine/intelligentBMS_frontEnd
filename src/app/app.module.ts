@@ -28,6 +28,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { AddCellsComponent } from './components/body/devices/cells/add-cells/add-cells.component';
+import { EditCellsComponent } from './components/body/devices/cells/edit-cells/edit-cells.component';
+import { ViewCellsComponent } from './components/body/devices/cells/view-cells/view-cells.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     NoResultComponent,
     ShowTestResultComponent,
     CreateNewTestComponent,
+    AddCellsComponent,
+    EditCellsComponent,
+    ViewCellsComponent
   ],
   imports: [
     NgxMatNativeDateModule,

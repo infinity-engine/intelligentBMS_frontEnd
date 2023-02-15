@@ -1,4 +1,6 @@
 import { Test } from './Test';
+
+//what you get from the back end
 export interface _TestChamber {
   _id?:string;//ObjectId from mongodb gets parsed as string
   name?: String;
@@ -13,8 +15,11 @@ export interface _TestChamber {
   createdOn?:Date,
   maxNoOfChannels?:Number,
   isConnected?:Boolean,
+  lastSeen?:Date,
   accessType?:'admin'|'write'|'read',//only specific to front end
 }
+
+//what you need to send while creating a new chamber
 export class TestChamber {
   name: String | undefined;
   controller: String | undefined;

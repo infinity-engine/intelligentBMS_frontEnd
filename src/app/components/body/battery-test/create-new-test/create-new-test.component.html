@@ -427,7 +427,11 @@
         </ng-container>
       </div>
       <div class="row align-items-center">
-        <div class="col"><span></span><span style="vertical-align: sub;">Connected</span></div>
+        <div class="col"><span></span><span style="vertical-align: sub;">Connected
+          <div class="spinner-grow spinner-grow-sm text-primary" role="status" *ngIf="showSpinnerConnection">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </span></div>
         <div class="col-md-3 justify-content-end">
           <mat-form-field>
             <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
@@ -439,7 +443,11 @@
           </mat-form-field>
         </div>
         <div class="col-md-2 justify-content-end text-end">
-          <button type="submit" class="btn btn-danger">Schedule</button>
+          <button type="submit" class="btn btn-danger">Schedule
+            <div class="spinner-grow spinner-grow spinner-grow-sm text-light" role="status" *ngIf="showSpinnerButton">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </button>
         </div>
       </div>
     </div>

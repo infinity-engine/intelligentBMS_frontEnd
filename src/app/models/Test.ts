@@ -3,10 +3,9 @@ export interface Test{
     testConfig: any;
     testResult?: any;
     isComplete?: Boolean;
-    testStartDate?: Date;
+    testScheduleDate?:Date;
+    testStartDate?: Date;//actual date on which chamber starts to execute the exp
     testEndDate?: Date;
-    testCreationDate?:Date;
+    createdOn?:Date;
     status?: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';
-    isConnected?: Boolean;
-    lastSeen?:Date;
   }

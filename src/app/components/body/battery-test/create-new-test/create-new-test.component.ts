@@ -27,7 +27,9 @@ export class CreateNewTestComponent implements OnInit {
   currentPayload?: PayLoad;
   testChambers?: _TestChamber[] = [];
   selectedTestChamber: _TestChamber | null | any = null;
-  scheduledDate:any = Date.now();
+  scheduledDate:any = new Date();
+  showSpinnerButton:boolean = false;//inside schedule button
+  showSpinnerConnection:boolean = true;
 
   constructor(private _testChamberService: TestChamberService) {}
 
@@ -186,13 +188,15 @@ export class CreateNewTestComponent implements OnInit {
   }
 
   save() {
-    const currentTest: Test = { testConfig: this.currentPayload };
+    this.showSpinnerButton = true;
+    const currentTest: Test = { testConfig: this.currentPayload, testScheduleDate:this.scheduledDate };
     this._testChamberService
       .createTest(this.selectedTestChamber._id, currentTest)
       .subscribe((data) => {
+        //success
+        this.showSpinnerButton = false;
         console.log(data);
       });
-    console.log(this.scheduledDate);
   }
 
   update() {}

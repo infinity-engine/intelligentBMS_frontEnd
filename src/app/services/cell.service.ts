@@ -27,6 +27,7 @@ export class CellService {
       .post(`${environment.apiUri}/api/protected/cell/cell-info`,cell)
       .pipe(retry(3), catchError(this.errorHandler));
   }
+
   private errorHandler(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error(

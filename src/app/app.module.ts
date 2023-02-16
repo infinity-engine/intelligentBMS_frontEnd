@@ -31,6 +31,7 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
 import { AddCellsComponent } from './components/body/devices/cells/add-cells/add-cells.component';
 import { EditCellsComponent } from './components/body/devices/cells/edit-cells/edit-cells.component';
 import { ViewCellsComponent } from './components/body/devices/cells/view-cells/view-cells.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { ViewCellsComponent } from './components/body/devices/cells/view-cells/v
     FormsModule,
     NgChartsModule,
     BrowserModule,
+    NgSelectModule
     
 
   ],

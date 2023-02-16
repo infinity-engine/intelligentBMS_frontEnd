@@ -7,9 +7,16 @@
           <label for="select_cell_temp">Use existant template?</label>
         </div>
         <div class="col-md-3">
-          <select class="form-select" id="select_cell_temp"
-          [(ngModel)]="selectedCellTemplate" (ngModelChange)="populate()" name="select_cell_temp">
-            <option *ngFor="let tem of cellTemplates" [ngValue]="tem">{{tem.templateName}}</option>
+          <select
+            class="form-select"
+            id="select_cell_temp"
+            [(ngModel)]="selectedCellTemplate"
+            (ngModelChange)="populate()"
+            name="select_cell_temp"
+          >
+            <option *ngFor="let tem of cellTemplates" [ngValue]="tem">
+              {{ tem.templateName }}
+            </option>
           </select>
         </div>
         <div class="col">
@@ -49,7 +56,7 @@
               aria-describedby="info_cell_name"
               id="input_cell_name"
               placeholder="e.g. XYZM0-AB"
-              [(ngModel)] = "cell.cellName"
+              [(ngModel)]="cell.cellName"
               name="input_cell_name"
             />
           </div>
@@ -72,14 +79,15 @@
               aria-describedby="info_cell_quant"
               id="input_cell_quant"
               placeholder="100"
-              [(ngModel)] = "cell.cellQuantity"
+              [(ngModel)]="cell.cellQuantity"
               name="input_cell_quantity"
             />
           </div>
           <div class="col">
             <small id="info_cell_quant" class="form-text"
               >If > 1, then it will generate unique sequence of cell records,
-              with name {{cell.cellName}}-1 , {{cell.cellName}}-2 ,...</small
+              with name {{ cell.cellName }}-1 , {{ cell.cellName }}-2
+              ,...</small
             >
           </div>
         </div>
@@ -95,7 +103,7 @@
               aria-describedby="info_cell_manu"
               id="input_cell_manu"
               placeholder="e.g. Samsung"
-              [(ngModel)] = "cell.manufacturer"
+              [(ngModel)]="cell.manufacturer"
               name="input_cell_manu"
             />
           </div>
@@ -305,6 +313,26 @@
             <small id="info_cell_min_vol" class="form-text"
               >Manufacturer specified minimum cell voltage, might be useful
               while perforiming test.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_min_users">Assigned Users</label>
+          </div>
+          <div class="col-md-3">
+            <ng-select [(ngModel)]="selectedUser" [multiple]="true"
+            (search)="getUsers($event.term)" name="select_users">
+              <ng-option *ngFor="let user of users" [value]="user">{{
+                user.name
+              }}</ng-option>
+            </ng-select>
+          </div>
+
+          <div class="col">
+            <small id="info_cell_min_vol" class="form-text"
+              >User will have access to the experiment results.</small
             >
           </div>
         </div>

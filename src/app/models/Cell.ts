@@ -11,7 +11,8 @@ export interface Cell{
     nomCap?:Number,
     nomCurr?:Number,
     maxVolt?:Number,
-    minVolt?:Number
+    minVolt?:Number,
+    users?:any[],
 }
 
 export class CellClass implements Cell {

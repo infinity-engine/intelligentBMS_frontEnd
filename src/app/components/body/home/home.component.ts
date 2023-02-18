@@ -78,7 +78,9 @@ export class HomeComponent implements OnInit {
     anim_gen_4.start(anim_time);
 
     //change the location from /home to home just to keep the location static through out the app
-    this.location.replaceState('./');
+    if(window.location.hostname != 'localhost'){
+      this.location.replaceState('./');//on prod
+        }
   }
 
 }

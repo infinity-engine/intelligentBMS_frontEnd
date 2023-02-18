@@ -1,3 +1,5 @@
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { TestService } from './services/test.service';
 import { ToastMsg } from './models/ToastMsg';
 import { ComponentStoreService } from './services/component-store.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,8 +16,10 @@ export class AppComponent implements OnInit{
   x:any = undefined;
   toastMsg:string|undefined = undefined;
   toastColor:string|undefined = 'black';
+  selectedDate?:Date;
 
-  constructor(private store:ComponentStoreService){}
+  constructor(private store:ComponentStoreService,
+    private _testService:TestService){}
 
   ngOnInit(): void {
       this.store.toastMsg$.subscribe(msg=>{

@@ -1,53 +1,455 @@
-<div class="card">
-    <div class="card-header">Creating new test for the battery cells.</div>
-    <div class="card-body">
-        <form #testScript="ngForm" (ngSubmit)="save();">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="testMethod">
-                        Test methods
-                    </label>
-                </div>
-                <div class="col-md-8">
-                    <select [(ngModel)]="selectedTestMethod" name="testMethod" id="testMethod" class="form-select">
-                        <option *ngFor="let method of _testMethods" [ngValue]="method">{{method.name}}</option>
-                    </select>
-                </div>
-            </div>
-            <ng-container *ngIf="update()? true:null;">
-                <div class="row" *ngFor="let field of selectedTestMethod.fields;let i=index;">
-                    <ng-container *ngIf="field.type != 'textarea';else textarea;">
-                        <div class="col-md-4">
-                            <label for="{{'field'+i}}">{{field.name}}</label>
-                        </div>
-                        <div class="col-md-3">
-                            <input [(ngModel)]="selectedTestMethodParameters[field]" name="{{'field'+i}}"
-                                id="{{'field'+i}}" [attr.aria-describedby]="'info'+i" class="form-control"
-                                type="{{field.type}}" [disabled]="field.disabled" maxlength="30">
-                        </div>
-                        <div class="col-md-5">
-                            <small id="{{'info'+i}}" class="form-text">{{selectedTestMethod.labels[i]}}</small>
-                        </div>
-                    </ng-container>
-                    <ng-template #textarea>
-                        <div class="col-md-4">{{field.name}}</div>
-                        <div class="col-md-8">
-                            <textarea [(ngModel)]="selectedTestMethodParameters[field]" name="{{'field'+i}}"
-                            id="{{'field'+i}}" class="form-control"
-                            [disabled]="field.disabled" maxlength="400" rows="4"></textarea>
-                        </div>
-                    </ng-template>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <span></span>Connected
-                    </div>
-                    <div class="col text-end">
-                        <button type="submit" class="btn btn-danger">Start</button>
-                    </div>
-                </div>
-            </ng-container>
-
-        </form>
+<form #testScript="ngForm" (ngSubmit)="save()">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-6">Creating new test for the battery cells.</div>
+        <div class="col-md-6">
+          <select
+            [(ngModel)]="selectedTestChamber"
+            name="select_test_chamber"
+            class="form-select"
+            (ngModelChange)="init()"
+          >
+            <option [ngValue]="null" disabled>Select the chamber</option>
+            <option
+              *ngFor="let chamber of testChambers"
+              [ngValue]="chamber"
+              [disabled]="chamber.accessType == 'read' ? true : false"
+              title="{{chamber._id}}"
+            >
+              {{ chamber.name }}
+            </option>
+          </select>
+        </div>
+      </div>
     </div>
-</div>
+    <div class="card-body" *ngIf="selectedTestChamber? true:false">
+      <div class="row">
+        <div class="col-md-4">
+          <label class="form-check-label" for="flexSwitchCheckChecked">
+            Is your test involve consistent ambient temperatue?
+          </label>
+        </div>
+        <div class="col-md-8">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckChecked"
+              name="isConAmTe"
+              [(ngModel)]="currentPayload!.isConAmTe"
+              (ngModelChange)="updateView()"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <label for="testId">Test ID</label>
+        </div>
+        <div class="col-md-3">
+          <input
+            type="text"
+            class="form-control"
+            maxlength="30"
+            id="testId"
+            aria-describedby="info_testId"
+            disabled
+            [(ngModel)]="currentPayload!.testId"
+            name="testId"
+          />
+        </div>
+        <div class="col-md-5">
+          <small id="info_testId" class="form-text"
+            >It gets generated automatically.</small
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="testName">Test Name</label>
+        </div>
+        <div class="col-md-3">
+          <input
+            type="text"
+            class="form-control"
+            maxlength="30"
+            id="testName"
+            aria-describedby="info_testName"
+            placeholder="e.g. Cyclic Charge Discharge"
+            [(ngModel)]="currentPayload!.testName"
+            name="testName"
+          />
+        </div>
+        <div class="col-md-5">
+          <small id="info_testName" class="form-text"
+            >Put a name which is meaningful to you.</small
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="testDesc">Test Description</label>
+        </div>
+        <div class="col-md-8">
+          <textarea
+            class="form-control"
+            maxlength="400"
+            rows="4"
+            id="testDesc"
+            placeholder="Put a detailed description of your test."
+            [(ngModel)]="currentPayload!.testDesc"
+            name="testDesc"
+          ></textarea>
+        </div>
+      </div>
+      <ng-container *ngIf="currentPayload?.isConAmTe">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="field__conAmTem">Ambient Temperature</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              maxlength="30"
+              id="field__conAmTem"
+              aria-describedby="info_conAmTem"
+              placeholder="e.g. 25"
+              [(ngModel)]="currentPayload!.ambTemp"
+              name="field_conAmTem"
+            />
+          </div>
+          <div class="col-md-5">
+            <small id="info_conAmTem" class="form-text"
+              >Temperature in °C, which will be fixed through out the
+              test.</small
+            >
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="channel-container">
+        <div
+          class="channel"
+          *ngFor="
+            let currentChannel of allSelectedChannel;
+            let ch_index = index
+          "
+        >
+          <div class="row">
+            <div class="col-md-4">
+              <label for="select_ch_{{ ch_index }}" class="form-label"
+                >Channel Number</label
+              >
+            </div>
+            <div class="col-md-2">
+              <select
+                [(ngModel)]="currentChannel.channelNumber"
+                (ngModelChange)="updateAvChannels()"
+                name="channel_select_{{ ch_index }}"
+                class="form-select"
+                id="select_ch_{{ ch_index }}"
+              >
+                <option
+                  *ngFor="let ch of currentChannel.availableChannels"
+                  [ngValue]="ch"
+                >
+                  Channel {{ ch }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <small id="info_ch_{{ ch_index }}" class="form-text">
+                Select a channel to add test configuration.
+              </small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label for="cell_id_{{ ch_index }}" class="form-label"
+                >Cell ID</label
+              >
+            </div>
+            <div class="col-md-2">
+              <input
+                [(ngModel)]="currentChannel.cellID"
+                name="cell_id_{{ ch_index }}"
+                class="form-control"
+                id="cell_id_{{ ch_index }}"
+              />
+            </div>
+            <div class="col-md-6">
+              <small id="info_cell_id{{ ch_index }}" class="form-text">
+                Select a cell on which you want to perform exp.
+              </small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">Test Format</div>
+            <div class="col-md-8"><p>Specify the test sequence.</p></div>
+          </div>
+          <div class="row">
+            <div class="col-4 align-self-center">
+              <div class="row">
+                <div class="col-md-6">
+                  <small class="form-text" id="overall-multiplier"
+                    >Overall multiplier.</small
+                  >
+                </div>
+                <div class="col-md-6">
+                  <input
+                    class="form-control"
+                    type="number"
+                    [(ngModel)]="currentChannel.overallRowMultiplier"
+                    name="overall_multiplier_{{ ch_index }}"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8" style="padding: 0px">
+              <ng-container
+                *ngFor="
+                  let current_test_row of currentChannel.testFormats;
+                  let row_id = index
+                "
+              >
+                <div class="test-format-row">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <select
+                        class="form-select"
+                        [(ngModel)]="currentChannel.testFormats[row_id]"
+                        name="test-format-row-{{ ch_index }}-{{ row_id }}"
+                      >
+                        <option
+                          *ngFor="
+                            let testFormat of currentChannel.allTestFormat[
+                              row_id
+                            ]
+                          "
+                          [ngValue]="testFormat"
+                        >
+                          {{ testFormat.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div
+                        class="row no-padding-root"
+                        *ngFor="let child of current_test_row.children"
+                      >
+                        <div class="col-md-10">
+                          <div class="row no-padding-root">
+                            <ng-container *ngFor="let field of child.fields">
+                              <ng-container *ngIf="field.visibility">
+                                <ng-container [ngSwitch]="field.type">
+                                  <ng-container *ngSwitchCase="'select'">
+                                    <div
+                                      class="col-md-{{ field.template_width }}"
+                                    >
+                                      <select
+                                        class="form-control"
+                                        [(ngModel)]="field.value"
+                                        name="field-{{ field.id }}-of-row-{{
+                                          row_id
+                                        }}"
+                                        (ngModelChange)="
+                                          fieldResolve(
+                                            field.id,
+                                            child.id,
+                                            row_id,
+                                            ch_index
+                                          )
+                                        "
+                                      >
+                                        <option
+                                          *ngFor="
+                                            let option of $any(field).options
+                                          "
+                                          [ngValue]="option"
+                                        >
+                                          {{ option }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngSwitchCase="'input'">
+                                    <div
+                                      class="col-md-{{ field.template_width }}"
+                                    >
+                                      <input
+                                        name="field-{{ field.id }}-of-row-{{
+                                          row_id
+                                        }}"
+                                        [(ngModel)]="field.value"
+                                        type="number"
+                                        class="form-control"
+                                        required
+                                      />
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngSwitchCase="'file'">
+                                    <div
+                                      class="col-md-{{
+                                        field.template_width
+                                      }} align-self-center"
+                                    >
+                                      <input
+                                        name="field-{{ field.id }}-of-row-{{
+                                          row_id
+                                        }}"
+                                        type="file"
+                                        class="form-control form-control-sm"
+                                        [(ngModel)]="field.value"
+                                        name="file-{{ field.id }}-of-row-{{
+                                          row_id"
+                                        required
+                                        accept=".xls,.xlsx,.csv"
+                                      />
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngSwitchCase="'text'">
+                                    <div
+                                      class="col-md-{{ field.template_width }}"
+                                    >
+                                      <p class="text-center">
+                                        {{ field.value }}
+                                      </p>
+                                    </div>
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+                            </ng-container>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="row no-padding-root">
+                            <div class="col-md-6">
+                              <h4 class="text-center">*</h4>
+                            </div>
+                            <div class="col-md-6">
+                              <input
+                                class="form-control"
+                                [(ngModel)]="current_test_row.multiplier"
+                                name="row_multiplier_{{ child.id }}"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="!currentPayload?.isConAmTe">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label for="field__row_amTe_{{ row_id }}"
+                          >Ambient Temperature</label
+                        >
+                      </div>
+                      <div class="col-md-3">
+                        <input
+                          type="number"
+                          class="form-control"
+                          maxlength="30"
+                          id="field__row_amTe_{{ row_id }}"
+                          aria-describedby="info_conAmTem"
+                          placeholder="e.g. 25"
+                          [(ngModel)]="current_test_row.ambTemp"
+                          name="field__row_amTe_{{ row_id }}"
+                        />
+                      </div>
+                      <div class="col-md-5">
+                        <small id="info_conAmTem" class="form-text"
+                          >Temperature in °C, which will be fixed for this
+                          sub-exp.</small
+                        >
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-container>
+
+              <div class="row justify-content-end">
+                <div class="col-md-3 text-end">
+                  <button
+                    class="btn btn-success"
+                    (click)="addRow(ch_index)"
+                    type="button"
+                    [disabled]="currentChannel.isAddRowButtonDisabled"
+                  >
+                    <i class="bi bi-node-plus"></i> Add
+                  </button>
+                </div>
+                <div class="col-md-3 text-end">
+                  <button
+                    class="btn btn-warning"
+                    (click)="removeRow(ch_index)"
+                    type="button"
+                    [disabled]="currentChannel.isRemoveRowButtonDisabled"
+                  >
+                    <i class="bi bi-trash"></i> Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="currentPayload?.isConAmTe">
+          <div class="row">
+            <div class="col-md-3">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="addChannel()"
+                [disabled]="isAddChBtnDisabled"
+              >
+                <i class="bi bi-file-plus"></i> Add Channel
+              </button>
+            </div>
+            <div class="col-md-3">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="removeChannel()"
+                [disabled]="isRemChBtnDisabled"
+              >
+                <i class="bi bi-file-minus"></i> Remove Channel
+              </button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="row align-items-center">
+        <div class="col"><span></span><span style="vertical-align: sub;">Connected
+          <div class="spinner-grow spinner-grow-sm text-primary" role="status" *ngIf="showSpinnerConnection">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </span></div>
+        <div class="col-md-3 justify-content-end">
+          <mat-form-field>
+            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
+             [(ngModel)]="scheduledDate" name="scheduledDate"
+            >
+            <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #picker>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 justify-content-end text-end">
+          <button type="submit" class="btn btn-danger">Schedule
+            <div class="spinner-grow spinner-grow spinner-grow-sm text-light" role="status" *ngIf="showSpinnerButton">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

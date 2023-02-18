@@ -1,3 +1,5 @@
+import { ViewCellsComponent } from './components/body/devices/cells/view-cells/view-cells.component';
+import { EditCellsComponent } from './components/body/devices/cells/edit-cells/edit-cells.component';
 import { BatteryTestComponent } from './components/body/battery-test/battery-test.component';
 import { DeviceDataComponent } from './components/body/dashboard/device-data/device-data.component';
 import { DashboardComponent } from './components/body/dashboard/dashboard.component';
@@ -6,48 +8,64 @@ import { DevicesComponent } from './components/body/devices/devices.component';
 import { HomeComponent } from './components/body/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@auth0/auth0-angular';
+import { AddCellsComponent } from './components/body/devices/cells/add-cells/add-cells.component';
 
 const routes: Routes = [
   {
-    path:'home',
-    component:HomeComponent
+    path: 'home',
+    component: HomeComponent,
   },
   {
-    path:'dashboard',
-    component:DashboardComponent,
-    children:[
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
       {
-        path:'deviceData/:deviceId',
-        component:DeviceDataComponent,
-      }
-    ]
+        path: 'deviceData/:deviceId',
+        component: DeviceDataComponent,
+      },
+    ],
   },
   {
-    path:'devices',
-    component:DevicesComponent
+    path: 'devices',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: DevicesComponent,
+    children: [
+      {
+        path: 'cells',
+        children: [
+          { path: 'add-cells', component: AddCellsComponent },
+          { path: 'edit-cells', component: EditCellsComponent },
+          { path: 'view-cells', component: ViewCellsComponent },
+        ],
+      },
+    ],
   },
   {
-    path:'docs',
-    component:DocsComponent
+    path: 'docs',
+    component: DocsComponent,
   },
   {
-    path:'batteryTest',
-    component:BatteryTestComponent
+    path: 'batteryTest',
+    canActivate: [AuthGuard],
+    component: BatteryTestComponent,
   },
   {
-    path:'',
-    redirectTo:'home',
-    pathMatch:'full'
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
-    path:'**',
-    redirectTo:'home',
-    pathMatch:'full'
-  }
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -2,7 +2,7 @@
   "domain": "dev-n8d0f7yf.au.auth0.com",
   "clientId": "HQALfHzRhd1GCuAnMIGAptkYsXTdQW2n",
   "audience": "https://express.sample",
-  "apiUri": "http://localhost:4200",
+  "apiUri": "http://localhost:8080",
   "appUri": "http://localhost:4200",
   "errorPath": "/error"
 }

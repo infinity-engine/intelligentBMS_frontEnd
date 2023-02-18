@@ -12,7 +12,7 @@ const { domain, clientId, audience, apiUri, errorPath } = config as {
 };
 
 export const environment = {
-  production: false,
+  production: true,
   auth: {
     domain,
     clientId,
@@ -23,6 +23,7 @@ export const environment = {
   httpInterceptor: {
     allowedList: [`${apiUri}/*`],
   },
+  apiUri:apiUri
 };
 
 /*

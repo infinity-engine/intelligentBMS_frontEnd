@@ -4,3 +4,43 @@
 .card-body .row{
     margin:10px 0px;
 }
+textarea{
+    resize: none;
+}
+.channel-container{
+    border: 1px solid rgba(19, 19, 18, 0.234);
+    border-radius: 5px;
+}
+.channel{
+    border: 1px solid rgba(19, 19, 18, 0.234);
+    margin:5px;
+    border-radius: 5px;
+    border-right: 4px solid rgba(19, 19, 18, 0.234);
+    border-left: 4px solid rgba(19, 19, 18, 0.234);
+}
+.channel:hover{
+    border-right: 4px solid rgba(70, 0, 149, 0.649);
+    border-left: 4px solid rgba(70, 0, 149, 0.649);
+}
+.text-center{
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+.no-padding-root > *{
+    padding: 0px;
+}
+.test-format-row{
+    border: 1px solid rgba(107, 107, 107, 0.146);
+    border-radius: 5px;
+    margin: 10px;
+}
+
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

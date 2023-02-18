@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgChartsModule } from 'ng2-charts';
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
@@ -19,7 +21,17 @@ import { BatteryTestComponent } from './components/body/battery-test/battery-tes
 import { NoResultComponent } from './components/body/battery-test/no-result/no-result.component';
 import { ShowTestResultComponent } from './components/body/battery-test/show-test-result/show-test-result.component';
 import { CreateNewTestComponent } from './components/body/battery-test/create-new-test/create-new-test.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { AddCellsComponent } from './components/body/devices/cells/add-cells/add-cells.component';
+import { EditCellsComponent } from './components/body/devices/cells/edit-cells/edit-cells.component';
+import { ViewCellsComponent } from './components/body/devices/cells/view-cells/view-cells.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -34,23 +46,45 @@ import { FormsModule } from '@angular/forms';
     BatteryTestComponent,
     NoResultComponent,
     ShowTestResultComponent,
-    CreateNewTestComponent
+    CreateNewTestComponent,
+    AddCellsComponent,
+    EditCellsComponent,
+    ViewCellsComponent
   ],
   imports: [
+    NgxMatNativeDateModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     AuthModule.forRoot({
-      ...environment.auth
+      ...environment.auth,
+      httpInterceptor: environment.httpInterceptor,
     }),
     NgCircleProgressModule.forRoot({
-      animation:true,
-      animationDuration:300
+      animation: true,
+      animationDuration: 300,
     }),
     HttpClientModule,
     FormsModule,
-    NgChartsModule
+    NgChartsModule,
+    BrowserModule,
+    NgSelectModule
+    
+
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

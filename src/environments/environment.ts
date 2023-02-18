@@ -23,6 +23,7 @@ export const environment = {
   httpInterceptor: {
     allowedList: [`${apiUri}/*`],
   },
+  apiUri:apiUri
 };
 
 /*

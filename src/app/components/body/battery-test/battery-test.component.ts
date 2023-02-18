@@ -1,4 +1,7 @@
+import { Location } from '@angular/common';
+import { TestChamber } from './../../../models/TestChamber';
 import { Component, OnInit } from '@angular/core';
+import { TestChamberService } from 'src/app/services/test-chamber.service';
 
 @Component({
   selector: 'app-battery-test',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BatteryTestComponent implements OnInit {
   activeComponent:'NoTestResult'|'ShowTestResult'|'CreateNewTest'= 'ShowTestResult';
-  constructor() { }
+  constructor(private _testChS:TestChamberService,private location:Location) { }
 
   ngOnInit(): void {
+    if(window.location.hostname != 'localhost'){
+      this.location.replaceState('./');//on prod
+    }
   }
 
   changeButtonStatus(){
@@ -24,6 +30,15 @@ export class BatteryTestComponent implements OnInit {
         this.activeComponent = 'ShowTestResult';
       }
     }
+  }
+  createNewTestChamber(){
+    const testChamber = new TestChamber({})
+    const {...plainObject} = testChamber
+    //console.log(plainObject)
+    this._testChS.createNewTestChamber(plainObject).subscribe(d=>{
+      console.log(d)
+    })
+    
   }
 
 }

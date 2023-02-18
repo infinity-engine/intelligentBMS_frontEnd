@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --stats-json",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "analyze": "webpack-bundle-analyzer dist/intelligent-bms/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +33,7 @@
     "ng2-charts": "^3.0.11",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "webpack-bundle-analyzer": "^4.8.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

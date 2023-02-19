@@ -15,7 +15,7 @@
               *ngFor="let chamber of testChambers"
               [ngValue]="chamber"
               [disabled]="chamber.accessType == 'read' ? true : false"
-              title="{{chamber._id}}"
+              title="{{ chamber._id }}"
             >
               {{ chamber.name }}
             </option>
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body" *ngIf="selectedTestChamber? true:false">
+    <div class="card-body" *ngIf="selectedTestChamber ? true : false">
       <div class="row">
         <div class="col-md-4">
           <label class="form-check-label" for="flexSwitchCheckChecked">
@@ -384,7 +384,10 @@
                     type="button"
                     [disabled]="currentChannel.isAddRowButtonDisabled"
                   >
-                    <i class="bi bi-node-plus"></i> Add
+                    <span class="material-symbols-outlined align-middle">
+                      playlist_add</span
+                    >
+                    <span class="align-middle"> Add</span>
                   </button>
                 </div>
                 <div class="col-md-3 text-end">
@@ -394,7 +397,10 @@
                     type="button"
                     [disabled]="currentChannel.isRemoveRowButtonDisabled"
                   >
-                    <i class="bi bi-trash"></i> Remove
+                    <span class="material-symbols-outlined align-middle">
+                      playlist_remove
+                    </span>
+                    <span class="align-middle"> Remove</span>
                   </button>
                 </div>
               </div>
@@ -410,7 +416,12 @@
                 (click)="addChannel()"
                 [disabled]="isAddChBtnDisabled"
               >
-                <i class="bi bi-file-plus"></i> Add Channel
+                <span class="material-symbols-outlined align-middle">
+                  <span class="material-symbols-outlined">
+                    create_new_folder
+                  </span>
+                </span>
+                <span class="align-middle"> Add Channel</span>
               </button>
             </div>
             <div class="col-md-3">
@@ -420,31 +431,55 @@
                 (click)="removeChannel()"
                 [disabled]="isRemChBtnDisabled"
               >
-                <i class="bi bi-file-minus"></i> Remove Channel
+                <span class="material-symbols-outlined align-middle">
+                  <span class="material-symbols-outlined"> folder_delete </span>
+                </span>
+                <span class="align-middle"> Add Channel</span>
               </button>
             </div>
           </div>
         </ng-container>
       </div>
       <div class="row align-items-center">
-        <div class="col"><span></span><span style="vertical-align: sub;">Connected
-          <div class="spinner-grow spinner-grow-sm text-primary" role="status" *ngIf="showSpinnerConnection">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </span></div>
-        <div class="col-md-3 justify-content-end">
-          <mat-form-field>
-            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
-             [(ngModel)]="scheduledDate" name="scheduledDate"
+        <div class="col">
+          <span></span
+          ><span style="vertical-align: sub"
+            >Connected
+            <div
+              class="spinner-grow spinner-grow-sm text-primary"
+              role="status"
+              *ngIf="showSpinnerConnection"
             >
-            <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker>
-            </ngx-mat-datetime-picker>
-          </mat-form-field>
+              <span class="sr-only">Loading...</span>
+            </div>
+          </span>
+        </div>
+        <div class="col-md-2 justify-content-end">
+          <input
+            class="form-control"
+            type="date"
+            [ngModel]="scheduledDate | date : 'yyyy-MM-dd'"
+            (ngModelChange)="scheduledDate = $event"
+            name="date"
+          />
+        </div>
+        <div class="col-md-2 justify-content-end">
+          <input
+            class="form-control"
+            type="time"
+            [ngModel]="scheduledDate | date : 'HH:mm'"
+            (ngModelChange)="scheduledDate = setTime($event)"
+            name="time"
+          />
         </div>
         <div class="col-md-2 justify-content-end text-end">
-          <button type="submit" class="btn btn-danger">Schedule
-            <div class="spinner-grow spinner-grow spinner-grow-sm text-light" role="status" *ngIf="showSpinnerButton">
+          <button type="submit" class="btn btn-danger">
+            Schedule
+            <div
+              class="spinner-grow spinner-grow spinner-grow-sm text-light"
+              role="status"
+              *ngIf="showSpinnerButton"
+            >
               <span class="sr-only">Loading...</span>
             </div>
           </button>

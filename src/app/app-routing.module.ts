@@ -35,11 +35,8 @@ const routes: Routes = [
     children: [
       {
         path: 'cells',
-        children: [
-          { path: 'add-cells', component: AddCellsComponent },
-          { path: 'edit-cells', component: EditCellsComponent },
-          { path: 'view-cells', component: ViewCellsComponent },
-        ],
+        loadChildren: () =>
+          import('./cells/cells.module').then((m) => m.CellsModule),
       },
     ],
   },

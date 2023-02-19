@@ -6,9 +6,6 @@ import {
   testFormats,
   TestFormat,
   SelectField,
-  TextField,
-  InputField,
-  Fields,
   ChannelFields,
   PayLoad,
 } from '../../../../models/FormFields';
@@ -39,6 +36,7 @@ export class CreateNewTestComponent implements OnInit {
         this.testChambers = data;
       }
     });
+    console.log(this.scheduledDate)
   }
 
   init() {
@@ -93,6 +91,13 @@ export class CreateNewTestComponent implements OnInit {
     }
   }
 
+  setTime(time: string) {
+    const [hours, minutes] = time.split(':');
+    this.scheduledDate.setHours(parseInt(hours, 10));
+    this.scheduledDate.setMinutes(parseInt(minutes, 10));
+    return this.scheduledDate;
+  }
+  
   addChannel() {
     // if no channel row is initially added.
     let availableChannels = [];

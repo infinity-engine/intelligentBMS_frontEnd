@@ -4,10 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --stats-json",
+    "build":"ng build",
+    "build-w": "ng build --stats-json",
+    "build-s":"ng build --source-map",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "analyzer": "webpack-bundle-analyzer dist/intelligent-bms/stats.json"
+    "analyzer": "webpack-bundle-analyzer dist/intelligent-bms/stats.json",
+    "explorer":"source-map-explorer dist/intelligent-bms/**/*.js"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +51,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "source-map-explorer": "^2.5.3",
     "typescript": "~4.9.5"
   }
 }

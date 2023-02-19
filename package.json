@@ -7,7 +7,9 @@
     "build": "ng build --stats-json",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "analyze": "webpack-bundle-analyzer dist/intelligent-bms/stats.json"
+    "analyzer": "webpack-bundle-analyzer dist/intelligent-bms/stats.json",
+    "explorer":"source-map-explorer dist/intelligent-bms/stats.json"
+
   },
   "private": true,
   "dependencies": {

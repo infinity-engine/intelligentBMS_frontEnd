@@ -4,9 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "build-w": "ng build --stats-json",
-    "build-s": "ng build --source-map",
+    "build": "ng build --base-href /e_mobility/i-bms/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "analyzer": "webpack-bundle-analyzer dist/intelligent-bms/stats.json",
@@ -14,7 +12,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-material-components/datetime-picker": "^9.0.0",
     "@angular/animations": "^15.1.4",
     "@angular/cdk": "~15.1.4",
     "@angular/common": "^15.1.4",
@@ -34,7 +31,6 @@
     "ng2-charts": "^3.0.11",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "webpack-bundle-analyzer": "^4.8.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -49,7 +45,6 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "source-map-explorer": "^2.5.3",
     "typescript": "~4.9.5"
   }
 }

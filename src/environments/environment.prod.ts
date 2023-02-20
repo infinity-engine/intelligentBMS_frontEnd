@@ -3,10 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 import config from '../../auth_config.json';
 
-const { domain, clientId, audience, apiUri, errorPath } = config as {
+const { domain, clientId, audience, appUri, apiUri, errorPath } = config as {
   domain: string;
   clientId: string;
   audience?: string;
+  appUri: string;
   apiUri: string;
   errorPath: string;
 };
@@ -23,7 +24,8 @@ export const environment = {
   httpInterceptor: {
     allowedList: [`${apiUri}/*`],
   },
-  apiUri:apiUri
+  appUri: appUri,
+  apiUri: apiUri,
 };
 
 /*

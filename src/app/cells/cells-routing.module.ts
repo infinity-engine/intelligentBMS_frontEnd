@@ -19,7 +19,7 @@ const routes: Routes = [
     component:ViewCellsComponent
   },
   {
-    path:"./",
+    path:"/",
     component:CellsComponent
   }
 ];

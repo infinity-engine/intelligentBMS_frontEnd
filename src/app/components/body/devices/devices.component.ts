@@ -13,7 +13,7 @@ import { trigger,state,style,animate,transition } from '@angular/animations';
         animate('100ms', style({ transform: 'translateX(0%)'})),
       ]),
       transition(':leave', [
-        animate('100ms', style({ transform: 'translateX(20%)'}))
+        animate('10ms', style({ transform: 'translateX(20%)'}))
       ])
     ])
   ]
@@ -29,6 +29,6 @@ export class DevicesComponent implements OnInit {
     }
     setInterval(()=>{
       this.currentWord = (this.currentWord+1)%this.words.length;
-    },3000)
+    },4000)
   }
 }

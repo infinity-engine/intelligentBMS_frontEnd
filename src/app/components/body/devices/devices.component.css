@@ -1,0 +1,27 @@
+.device-head,.device-sub-head {
+  font-family: Helvetica, sans-serif;
+}
+.device-head {
+  color: #060b39;
+  font-size: 40px;
+}
+.device-sub-head {
+  text-align: start;
+  font-size: 15px;
+  color: #2a4d0778;
+}
+.dynamic-text{
+    border: 2px solid rgba(38, 125, 67, 0.358);
+    border-radius: 8px;
+    margin: 5px;
+    padding: 2px;
+    color: red;
+    display: inline-block;
+}
+.device {
+  border: 2px solid rgba(49, 8, 88, 0.26);
+  border-radius: 5px;
+}
+.device-container {
+  margin-top: 100px;
+}

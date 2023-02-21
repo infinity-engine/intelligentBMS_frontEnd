@@ -1,1 +1,24 @@
+<div class="row justify-content-start">
+  <div class="col-md-7">
+    <div class="device-head">
+      <span class="static-text">
+        Introducing the <span class="dynamic-text">ultimate</span> management tools for
+      </span>
+      <ng-container *ngFor="let word of words;let i=index">
+        <span class="dynamic-text" *ngIf="i==currentWord" @insertRemoveTrigger>{{words[currentWord]}}</span>
+      </ng-container>
+    </div>
+    <div class="device-sub-head">
+      <span
+        >Advanced device management and testing for cells, test chambers, and
+        battery packs: simplified by our comprehensive tools.</span
+      >
+    </div>
+  </div>
+</div>
+<div class="row device-container text-center justify-content-around">
+  <div class="col-md-3 device">Test Chamber</div>
+  <div class="col-md-3 device">Cell</div>
+  <div class="col-md-3 device">Battery Pack</div>
+</div>
 <router-outlet></router-outlet>

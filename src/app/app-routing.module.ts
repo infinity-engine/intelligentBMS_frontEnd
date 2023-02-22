@@ -27,7 +27,6 @@ const routes: Routes = [
   {
     path: 'devices',
     canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
     component: DevicesComponent,
     children: [
       {

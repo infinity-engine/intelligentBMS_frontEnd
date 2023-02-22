@@ -43,6 +43,9 @@
 #test-chamber-image{
     background-image: url("/assets/test_chamber.png");
 }
+#battery-pack-image{
+  background-image: url("/assets/battery-pack.png");
+}
 .device-container  .card-body{
     background-color: rgba(0,0,0,.03);
     text-align: left;

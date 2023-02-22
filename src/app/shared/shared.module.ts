@@ -1,4 +1,3 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,13 +8,11 @@ import { CommonModule } from '@angular/common';
   declarations: [],
   imports: [
     CommonModule,
-    FormsModule,
-    BrowserAnimationsModule
+    FormsModule
   ],
   exports:[
     CommonModule,
-    FormsModule,
-    BrowserAnimationsModule
+    FormsModule
   ]
 })
 export class SharedModule { }

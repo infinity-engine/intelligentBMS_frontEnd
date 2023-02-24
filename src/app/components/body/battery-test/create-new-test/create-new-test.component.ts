@@ -190,6 +190,7 @@ export class CreateNewTestComponent implements OnInit {
       currentChannel.availableChannels = availableChannels;
       //console.log(availableChannels);
     }
+    //console.log(this.allSelectedChannel);
   }
 
   save() {
@@ -208,7 +209,6 @@ export class CreateNewTestComponent implements OnInit {
 
   fieldResolve(
     field_id: number,
-    child_id: number,
     row_id: number,
     ch_index: number
   ) {
@@ -220,27 +220,27 @@ export class CreateNewTestComponent implements OnInit {
       if (field_id == 1) {
         //for charge/discharge/hold/reset select field
         if (
-          currentTestFormat.children[child_id - 1].fields[0].value == 'Rest'
+          currentTestFormat.fields[0].value == 'Rest'
         ) {
-          currentTestFormat.children[child_id - 1].fields[1].visibility = false; //at
-          currentTestFormat.children[child_id - 1].fields[2].visibility = false; //value
-          currentTestFormat.children[child_id - 1].fields[3].visibility = false; //C|A|W
+          currentTestFormat.fields[1].visibility = false; //at
+          currentTestFormat.fields[2].visibility = false; //value
+          currentTestFormat.fields[3].visibility = false; //C|A|W
         } else {
-          currentTestFormat.children[child_id - 1].fields[1].visibility = true; //at
-          currentTestFormat.children[child_id - 1].fields[2].visibility = true; //value
-          currentTestFormat.children[child_id - 1].fields[3].visibility = true; //C|A|W
+          currentTestFormat.fields[1].visibility = true; //at
+          currentTestFormat.fields[2].visibility = true; //value
+          currentTestFormat.fields[3].visibility = true; //C|A|W
           if (
-            currentTestFormat.children[child_id - 1].fields[0].value == 'Hold'
+            currentTestFormat.fields[0].value == 'Hold'
           ) {
             (
-              currentTestFormat.children[child_id - 1].fields[3] as SelectField
+              currentTestFormat.fields[3] as SelectField
             ).options = ['V'];
-            currentTestFormat.children[child_id - 1].fields[3].value = 'V';
+            currentTestFormat.fields[3].value = 'V';
           } else {
             (
-              currentTestFormat.children[child_id - 1].fields[3] as SelectField
+              currentTestFormat.fields[3] as SelectField
             ).options = ['C', 'A', 'W'];
-            currentTestFormat.children[child_id - 1].fields[3].value = 'C';
+            currentTestFormat.fields[3].value = 'C';
           }
         }
       }
@@ -250,6 +250,6 @@ export class CreateNewTestComponent implements OnInit {
   }
 
   logData(data?: any) {
-    console.log(data);
+    console.log(this.allSelectedChannel);
   }
 }

@@ -1,6 +1,8 @@
 import { _TestChamber } from './../../../../models/TestChamber';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DriveCycle } from 'src/app/models/DriveCycle';
+import * as Papa from 'papaparse';
 
 import {
   testFormats,
@@ -24,9 +26,11 @@ export class CreateNewTestComponent implements OnInit {
   currentPayload?: PayLoad;
   testChambers?: _TestChamber[] = [];
   selectedTestChamber: _TestChamber | null | any = null;
-  scheduledDate:any = new Date();
-  showSpinnerButton:boolean = false;//inside schedule button
-  showSpinnerConnection:boolean = true;
+  scheduledDate: any = new Date();
+  showSpinnerButton: boolean = false; //inside schedule button
+  showSpinnerConnection: boolean = true;
+
+  @ViewChild('csvReader') csvReader: any;
 
   constructor(private _testChamberService: TestChamberService) {}
 
@@ -36,7 +40,7 @@ export class CreateNewTestComponent implements OnInit {
         this.testChambers = data;
       }
     });
-    console.log(this.scheduledDate)
+    console.log(this.scheduledDate);
   }
 
   init() {
@@ -97,7 +101,7 @@ export class CreateNewTestComponent implements OnInit {
     this.scheduledDate.setMinutes(parseInt(minutes, 10));
     return this.scheduledDate;
   }
-  
+
   addChannel() {
     // if no channel row is initially added.
     let availableChannels = [];
@@ -126,17 +130,17 @@ export class CreateNewTestComponent implements OnInit {
 
     this.fixAddRemChBtnStatus();
   }
-  
-  fixAddRemChBtnStatus(){
-    let l = this.allSelectedChannel.length
-    if (l <= 1){
+
+  fixAddRemChBtnStatus() {
+    let l = this.allSelectedChannel.length;
+    if (l <= 1) {
       this.isRemChBtnDisabled = true;
-    }else{
+    } else {
       this.isRemChBtnDisabled = false;
     }
-    if (l<this.selectedTestChamber.maxNoOfChannels){
+    if (l < this.selectedTestChamber.maxNoOfChannels) {
       this.isAddChBtnDisabled = false;
-    }else{
+    } else {
       this.isAddChBtnDisabled = true;
     }
   }
@@ -195,7 +199,10 @@ export class CreateNewTestComponent implements OnInit {
 
   save() {
     this.showSpinnerButton = true;
-    const currentTest: Test = { testConfig: this.currentPayload, testScheduleDate:this.scheduledDate };
+    const currentTest: Test = {
+      testConfig: this.currentPayload,
+      testScheduleDate: this.scheduledDate,
+    };
     this._testChamberService
       .createTest(this.selectedTestChamber._id, currentTest)
       .subscribe((data) => {
@@ -207,11 +214,7 @@ export class CreateNewTestComponent implements OnInit {
 
   update() {}
 
-  fieldResolve(
-    field_id: number,
-    row_id: number,
-    ch_index: number
-  ) {
+  fieldResolve(field_id: number, row_id: number, ch_index: number) {
     //if select option is changed within a row
     let selectedChannel = this.allSelectedChannel[ch_index];
     let selectedTestFormat = selectedChannel.testFormats;
@@ -219,9 +222,7 @@ export class CreateNewTestComponent implements OnInit {
     if (currentTestFormat.value == 1) {
       if (field_id == 1) {
         //for charge/discharge/hold/reset select field
-        if (
-          currentTestFormat.fields[0].value == 'Rest'
-        ) {
+        if (currentTestFormat.fields[0].value == 'Rest') {
           currentTestFormat.fields[1].visibility = false; //at
           currentTestFormat.fields[2].visibility = false; //value
           currentTestFormat.fields[3].visibility = false; //C|A|W
@@ -229,17 +230,15 @@ export class CreateNewTestComponent implements OnInit {
           currentTestFormat.fields[1].visibility = true; //at
           currentTestFormat.fields[2].visibility = true; //value
           currentTestFormat.fields[3].visibility = true; //C|A|W
-          if (
-            currentTestFormat.fields[0].value == 'Hold'
-          ) {
-            (
-              currentTestFormat.fields[3] as SelectField
-            ).options = ['V'];
+          if (currentTestFormat.fields[0].value == 'Hold') {
+            (currentTestFormat.fields[3] as SelectField).options = ['V'];
             currentTestFormat.fields[3].value = 'V';
           } else {
-            (
-              currentTestFormat.fields[3] as SelectField
-            ).options = ['C', 'A', 'W'];
+            (currentTestFormat.fields[3] as SelectField).options = [
+              'C',
+              'A',
+              'W',
+            ];
             currentTestFormat.fields[3].value = 'C';
           }
         }
@@ -249,7 +248,47 @@ export class CreateNewTestComponent implements OnInit {
     }
   }
 
-  logData(data?: any) {
-    console.log(this.allSelectedChannel);
+  onFileSelected(event: any, ch_index: number, row_id: number) {
+    const file: File = event.target.files[0];
+    if (!this.isValidCSVFile(file)) {
+      console.error('Only .csv file supported');
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => {
+      const csvData = reader.result;
+      if (typeof csvData === 'string') {
+        try {
+          const results = Papa.parse(csvData, {
+            header: true,
+            dynamicTyping: true,
+            skipEmptyLines: true,
+          });
+          const data = results.data as any;
+          const driveCycle: DriveCycle | any = {};
+          driveCycle.time = data.map((row: any) => row['time']);
+          if (data[0].current != undefined) {
+            driveCycle.current = data.map((row: any) => row['current']);
+          } else if (data[0].power != undefined) {
+            driveCycle.power = data.map((row: any) => row['power']);
+          } else {
+            throw new Error(
+              "The CSV file that you are reading should have a row at the top that specifies the names of each column. The first column should be named 'time', and the second column should be named either 'current' or 'power'. This row at the top is known as the header row, and it helps to identify the contents of each column in the file."
+            );
+          }
+          if (this.currentPayload?.channels) {
+            this.currentPayload.channels[ch_index].testFormats[row_id].fields[1].value = driveCycle;
+          }
+          //console.log(this.currentPayload?.channels);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    };
+  }
+
+  isValidCSVFile(file: any) {
+    return file.name.endsWith('.csv');
   }
 }

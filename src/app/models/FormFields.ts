@@ -1,3 +1,4 @@
+import { DriveCycle } from 'src/app/models/DriveCycle';
 export interface SelectField {
   value: any;
   type: string;
@@ -9,7 +10,7 @@ export interface SelectField {
 export interface TextField {
   type: 'text';
   id: number;
-  value: 'at' | 'for' | 'Run' | 'until' | 'volt.';
+  value: 'at' | 'for' | 'Run' | 'until' | 'volt.'| 'seconds.';
   visibility: boolean;
   template_width: number;
 }
@@ -24,7 +25,7 @@ export interface InputField {
 export interface FileField {
   type: 'file';
   id: number;
-  value: any;
+  value: DriveCycle|null;
   visibility: boolean;
   template_width: number;
 }
@@ -188,15 +189,13 @@ const testFormats: TestFormat[] = [
         value: null,
         visibility: true,
         template_width: 3,
-      } as InputField,
-      {
-        id: 5,
-        type: 'select',
-        options: ['seconds.', 'kms.'],
+      } as InputField,{
+        id: 3,
+        type: 'text',
         value: 'seconds.',
         visibility: true,
         template_width: 2,
-      } as SelectField,
+      } as TextField,
     ],
     multiplier: 1,
     ambTemp: 25,

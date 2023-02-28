@@ -153,6 +153,7 @@
                 class="form-select"
                 id="select_ch_{{ ch_index }}"
               >
+                <option [ngValue]="undefined" disabled>Choose</option>
                 <option
                   *ngFor="let ch of currentChannel.availableChannels"
                   [ngValue]="ch"
@@ -241,13 +242,10 @@
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <div
-                        class="row no-padding-root"
-                        *ngFor="let child of current_test_row.children"
-                      >
+                      <div class="row no-padding-root">
                         <div class="col-md-10">
                           <div class="row no-padding-root">
-                            <ng-container *ngFor="let field of child.fields">
+                            <ng-container *ngFor="let field of current_test_row.fields">
                               <ng-container *ngIf="field.visibility">
                                 <ng-container [ngSwitch]="field.type">
                                   <ng-container *ngSwitchCase="'select'">
@@ -259,11 +257,10 @@
                                         [(ngModel)]="field.value"
                                         name="field-{{ field.id }}-of-row-{{
                                           row_id
-                                        }}"
+                                        }}-of-ch-{{ch_index}}"
                                         (ngModelChange)="
                                           fieldResolve(
                                             field.id,
-                                            child.id,
                                             row_id,
                                             ch_index
                                           )
@@ -287,7 +284,7 @@
                                       <input
                                         name="field-{{ field.id }}-of-row-{{
                                           row_id
-                                        }}"
+                                        }}-of-ch-{{ch_index}}"
                                         [(ngModel)]="field.value"
                                         type="number"
                                         class="form-control"
@@ -304,14 +301,14 @@
                                       <input
                                         name="field-{{ field.id }}-of-row-{{
                                           row_id
-                                        }}"
+                                        }}-of-ch-{{ch_index}}"
                                         type="file"
                                         class="form-control form-control-sm"
-                                        [(ngModel)]="field.value"
+                                        (change)="onFileSelected($event,ch_index,row_id)"
                                         name="file-{{ field.id }}-of-row-{{
                                           row_id"
                                         required
-                                        accept=".xls,.xlsx,.csv"
+                                        [accept]="'.csv'"
                                       />
                                     </div>
                                   </ng-container>
@@ -338,7 +335,9 @@
                               <input
                                 class="form-control"
                                 [(ngModel)]="current_test_row.multiplier"
-                                name="row_multiplier_{{ child.id }}"
+                                name="row_multiplier-of-row-{{
+                                  row_id
+                                }}-of-ch-{{ch_index}}"
                               />
                             </div>
                           </div>
@@ -362,7 +361,7 @@
                           aria-describedby="info_conAmTem"
                           placeholder="e.g. 25"
                           [(ngModel)]="current_test_row.ambTemp"
-                          name="field__row_amTe_{{ row_id }}"
+                          name="field-row-amTe-{{ row_id }}-of-ch-{{ch_index}}"
                         />
                       </div>
                       <div class="col-md-5">
@@ -434,7 +433,7 @@
                 <span class="material-symbols-outlined align-middle">
                   <span class="material-symbols-outlined"> folder_delete </span>
                 </span>
-                <span class="align-middle"> Add Channel</span>
+                <span class="align-middle"> Remove Channel</span>
               </button>
             </div>
           </div>

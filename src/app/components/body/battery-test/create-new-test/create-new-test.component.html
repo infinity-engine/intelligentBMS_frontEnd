@@ -183,11 +183,13 @@
                 (search)="findCells($event.term)"
                 loadingText="geting cell..."
                 placeholder="Select Cell"
+                (clear)="clearCellSelection()"
+                (focus)="clearCellSelection()"
               >
                 <ng-option *ngFor="let cell of availableCells" [value]="cell._id">{{cell.cellName}}</ng-option>
               </ng-select>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
               <small id="info_cell_id{{ ch_index }}" class="form-text">
                 Select a cell on which you want to perform exp.
               </small>

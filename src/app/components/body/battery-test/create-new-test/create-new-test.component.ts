@@ -313,6 +313,9 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
         });
     }
   }
+  clearCellSelection(){
+    this.availableCells = []
+  }
   ngOnDestroy(): void {
     this.subs.forEach((sub) => {
       sub.unsubscribe();

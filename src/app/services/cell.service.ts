@@ -22,10 +22,16 @@ export class CellService {
       .get(`${environment.apiUri}/api/protected/cell/cell-templates`)
       .pipe(share(), retry(3), catchError(this.errorHandler));
   }
-  addCell(cell:Cell) {
+  addCell(cell: Cell) {
     return this.http
-      .post(`${environment.apiUri}/api/protected/cell/cell-info`,cell)
+      .post(`${environment.apiUri}/api/protected/cell/cell-info`, cell)
       .pipe(retry(3), catchError(this.errorHandler));
+  }
+
+  getCellForExperiment(searchStr:string) {
+    return this.http
+      .post(`${environment.apiUri}/api/protected/cell/cell-info/for-experiment`,{searchStr:searchStr})
+      .pipe(retry(2), catchError(this.errorHandler));
   }
 
   private errorHandler(error: HttpErrorResponse) {

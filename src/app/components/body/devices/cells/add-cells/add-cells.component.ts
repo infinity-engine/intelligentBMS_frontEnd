@@ -63,9 +63,11 @@ export class AddCellsComponent implements OnInit, OnDestroy {
     console.log(this.selectedUser);
   }
   getUsers(searchStr:string){
+    searchStr = searchStr.trim();
     if (searchStr.length > 0){
       const sub = this._userService.getUsers(searchStr).subscribe((users:_User[])=>{
         this.users = users;
+        sub.unsubscribe();
       })
     }else{
       this.users = []

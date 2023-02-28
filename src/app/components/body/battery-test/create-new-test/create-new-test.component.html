@@ -175,13 +175,17 @@
                 >Cell ID</label
               >
             </div>
-            <div class="col-md-2">
-              <input
+            <div class="col-md-3">
+              <ng-select
                 [(ngModel)]="currentChannel.cellID"
                 name="cell_id_{{ ch_index }}"
-                class="form-control"
                 id="cell_id_{{ ch_index }}"
-              />
+                (search)="findCells($event.term)"
+                loadingText="geting cell..."
+                placeholder="Select Cell"
+              >
+                <ng-option *ngFor="let cell of availableCells" [value]="cell._id">{{cell.cellName}}</ng-option>
+              </ng-select>
             </div>
             <div class="col-md-6">
               <small id="info_cell_id{{ ch_index }}" class="form-text">
@@ -245,7 +249,9 @@
                       <div class="row no-padding-root">
                         <div class="col-md-10">
                           <div class="row no-padding-root">
-                            <ng-container *ngFor="let field of current_test_row.fields">
+                            <ng-container
+                              *ngFor="let field of current_test_row.fields"
+                            >
                               <ng-container *ngIf="field.visibility">
                                 <ng-container [ngSwitch]="field.type">
                                   <ng-container *ngSwitchCase="'select'">
@@ -257,7 +263,7 @@
                                         [(ngModel)]="field.value"
                                         name="field-{{ field.id }}-of-row-{{
                                           row_id
-                                        }}-of-ch-{{ch_index}}"
+                                        }}-of-ch-{{ ch_index }}"
                                         (ngModelChange)="
                                           fieldResolve(
                                             field.id,
@@ -284,7 +290,7 @@
                                       <input
                                         name="field-{{ field.id }}-of-row-{{
                                           row_id
-                                        }}-of-ch-{{ch_index}}"
+                                        }}-of-ch-{{ ch_index }}"
                                         [(ngModel)]="field.value"
                                         type="number"
                                         class="form-control"
@@ -301,10 +307,16 @@
                                       <input
                                         name="field-{{ field.id }}-of-row-{{
                                           row_id
-                                        }}-of-ch-{{ch_index}}"
+                                        }}-of-ch-{{ ch_index }}"
                                         type="file"
                                         class="form-control form-control-sm"
-                                        (change)="onFileSelected($event,ch_index,row_id)"
+                                        (change)="
+                                          onFileSelected(
+                                            $event,
+                                            ch_index,
+                                            row_id
+                                          )
+                                        "
                                         name="file-{{ field.id }}-of-row-{{
                                           row_id"
                                         required
@@ -337,7 +349,7 @@
                                 [(ngModel)]="current_test_row.multiplier"
                                 name="row_multiplier-of-row-{{
                                   row_id
-                                }}-of-ch-{{ch_index}}"
+                                }}-of-ch-{{ ch_index }}"
                               />
                             </div>
                           </div>
@@ -361,7 +373,9 @@
                           aria-describedby="info_conAmTem"
                           placeholder="e.g. 25"
                           [(ngModel)]="current_test_row.ambTemp"
-                          name="field-row-amTe-{{ row_id }}-of-ch-{{ch_index}}"
+                          name="field-row-amTe-{{ row_id }}-of-ch-{{
+                            ch_index
+                          }}"
                         />
                       </div>
                       <div class="col-md-5">

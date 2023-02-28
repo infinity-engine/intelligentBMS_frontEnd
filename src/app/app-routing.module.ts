@@ -43,7 +43,15 @@ const routes: Routes = [
   {
     path: 'batteryTest',
     canActivate: [AuthGuard],
-    component: BatteryTestComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./battery-test/battery-test.module').then(
+            (m) => m.BatteryTestModule
+          ),
+      },
+    ],
   },
   {
     path: '',

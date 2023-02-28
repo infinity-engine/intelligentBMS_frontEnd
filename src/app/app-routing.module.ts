@@ -1,5 +1,3 @@
-import { ViewCellsComponent } from './components/body/devices/cells/view-cells/view-cells.component';
-import { EditCellsComponent } from './components/body/devices/cells/edit-cells/edit-cells.component';
 import { BatteryTestComponent } from './components/body/battery-test/battery-test.component';
 import { DeviceDataComponent } from './components/body/dashboard/device-data/device-data.component';
 import { DashboardComponent } from './components/body/dashboard/dashboard.component';
@@ -8,8 +6,7 @@ import { DevicesComponent } from './components/body/devices/devices.component';
 import { HomeComponent } from './components/body/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@auth0/auth0-angular';
-import { AddCellsComponent } from './components/body/devices/cells/add-cells/add-cells.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -30,16 +27,12 @@ const routes: Routes = [
   {
     path: 'devices',
     canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
     component: DevicesComponent,
     children: [
       {
         path: 'cells',
-        children: [
-          { path: 'add-cells', component: AddCellsComponent },
-          { path: 'edit-cells', component: EditCellsComponent },
-          { path: 'view-cells', component: ViewCellsComponent },
-        ],
+        loadChildren: () =>
+          import('./cells/cells.module').then((m) => m.CellsModule),
       },
     ],
   },

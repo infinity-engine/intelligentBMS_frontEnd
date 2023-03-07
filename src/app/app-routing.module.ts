@@ -34,6 +34,20 @@ const routes: Routes = [
         loadChildren: () =>
           import('./cells/cells.module').then((m) => m.CellsModule),
       },
+      {
+        path: 'battery-packs',
+        loadChildren: () =>
+          import('./battery-packs/battery-packs.module').then(
+            (m) => m.BatteryPacksModule
+          ),
+      },
+      {
+        path: 'test-chambers',
+        loadChildren: () =>
+          import('./test-chambers/test-chambers.module').then(
+            (m) => m.TestChambersModule
+          ),
+      },
     ],
   },
   {

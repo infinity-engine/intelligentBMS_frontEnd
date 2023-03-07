@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="row device-container text-center justify-content-around">
-  <div class="col-md-3" routerLink="test-chambers" skipLocationChange="false">
+  <div class="col-md-3" routerLink="test-chambers" [skipLocationChange]="true">
     <div class="card">
       <div class="card-header">Test Chamber</div>
       <div class="image-container" id="test-chamber-image"></div>
@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3" routerLink="cells" skipLocationChange="false">
+  <div class="col-md-3" routerLink="cells" [skipLocationChange]="true">
     <div class="card">
       <div class="card-header">Battery Cell</div>
       <div class="image-container" id="cell-image"></div>
@@ -54,7 +54,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3" routerLink="battery-packs" skipLocationChange="false">
+  <div class="col-md-3" routerLink="battery-packs" [skipLocationChange]="true">
     <div class="card">
       <div class="card-header">Battery Pack</div>
       <div class="image-container" id="battery-pack-image"></div>

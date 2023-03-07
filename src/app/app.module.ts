@@ -18,6 +18,7 @@ import { DeviceDataComponent } from './components/body/dashboard/device-data/dev
 import { HttpClientModule } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DevicesDefaultComponent } from './components/body/devices/devices-default/devices-default.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     DocsComponent,
     DashboardComponent,
     DeviceDataComponent,
+    DevicesDefaultComponent,
   ],
   imports: [
     AppRoutingModule,

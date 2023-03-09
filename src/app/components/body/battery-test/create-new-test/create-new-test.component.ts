@@ -34,6 +34,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   showSpinnerConnection: boolean = true;
   availableCells: Cell[] = [];
   subs: Subscription[] = [];
+  cellSub:Subscription|undefined = undefined;
 
   @ViewChild('csvReader') csvReader: any;
 
@@ -302,19 +303,19 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   isValidCSVFile(file: any) {
     return file.name.endsWith('.csv');
   }
-  findCells(searchStr: string) {
+  findCells(searchStr: string = '') {
+    this.cellSub?.unsubscribe();
     this.availableCells = [];
     const modifiedSearchStr = searchStr.trim();
     if (modifiedSearchStr) {
-      const sub = this._cellService
+      this.cellSub = this._cellService
         .getCellForExperiment(modifiedSearchStr)
         .subscribe((cells:any) => {
           this.availableCells = cells;
         });
+    }else{
+      this.availableCells = []
     }
-  }
-  clearCellSelection(){
-    this.availableCells = []
   }
   ngOnDestroy(): void {
     this.subs.forEach((sub) => {

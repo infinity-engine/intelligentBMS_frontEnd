@@ -87,7 +87,7 @@
             <small id="info_cell_quant" class="form-text"
               >If > 1, then it will generate unique sequence of cell records,
               with name {{ cell.cellName }}-1 , {{ cell.cellName }}-2
-              ,...</small
+              , ...</small
             >
           </div>
         </div>
@@ -323,7 +323,7 @@
           </div>
           <div class="col-md-3">
             <ng-select [(ngModel)]="selectedUser" [multiple]="true"
-            (search)="getUsers($event.term)" name="select_users">
+            (search)="getUsers($event.term)" name="select_users" (clear)="getUsers()" (focus)="getUsers()">
               <ng-option *ngFor="let user of users" [value]="user">{{
                 user.name
               }}</ng-option>

@@ -47,8 +47,11 @@
   background-image: url("/assets/battery-pack.png");
 }
 .device-container .card-body {
-  background-color: rgba(0, 0, 0, 0.03);
   text-align: left;
+}
+.device-container .card-header{
+  background-color: #010305cf;
+  color: white;
 }
 .device-container .card {
   height: 100%;
@@ -56,9 +59,9 @@
 .device-container .card:hover {
   cursor: pointer;
 }
-.device-container .card:hover .card-body {
-  color: black;
-  background-color: rgba(183, 183, 102, 0.321);
+.device-container .card:hover{
+  transform: scale(1.01);
+  box-shadow: 2px 2px #dccaff61
 }
 .device-container > * {
   margin: 10px;

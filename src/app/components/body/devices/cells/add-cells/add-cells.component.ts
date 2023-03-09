@@ -21,6 +21,7 @@ export class AddCellsComponent implements OnInit, OnDestroy {
   cell: Cell = new CellClass();
   selectedUser?: _User[];
   users:_User[] = [];
+  userSub:Subscription|undefined = undefined;
 
   constructor(private _cellService: CellService,private _userService:UserService) {}
 
@@ -62,12 +63,23 @@ export class AddCellsComponent implements OnInit, OnDestroy {
     this.subs?.push(sub);
     console.log(this.selectedUser);
   }
-  getUsers(searchStr:string){
+  getUsers(searchStr:string = ''){
+    this.userSub?.unsubscribe();
+    this.users = [];
     searchStr = searchStr.trim();
     if (searchStr.length > 0){
-      const sub = this._userService.getUsers(searchStr).subscribe((users:_User[])=>{
+      this.userSub = this._userService.getUsers(searchStr).subscribe((users:_User[])=>{
+        //console.log(this.selectedUser)
+        if(this.selectedUser){
+          //remove existing users from search string
+          this.selectedUser.forEach((user:_User)=>{
+            let remIndex = users.findIndex(u=>u._id == user._id);
+            if(remIndex !== -1){
+              users.splice(remIndex,1);
+            }
+          })
+        }
         this.users = users;
-        sub.unsubscribe();
       })
     }else{
       this.users = []

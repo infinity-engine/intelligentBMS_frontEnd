@@ -183,8 +183,8 @@
                 (search)="findCells($event.term)"
                 loadingText="geting cell..."
                 placeholder="Select Cell"
-                (clear)="clearCellSelection()"
-                (focus)="clearCellSelection()"
+                (clear)="findCells()"
+                (focus)="findCells()"
               >
                 <ng-option *ngFor="let cell of availableCells" [value]="cell._id">{{cell.cellName}}</ng-option>
               </ng-select>

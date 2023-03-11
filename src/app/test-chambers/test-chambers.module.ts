@@ -1,5 +1,6 @@
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { TestChambersRoutingModule } from './test-chambers-routing.module';
 import { TestChambersComponent } from '../components/body/devices/test-chambers/test-chambers.component';
@@ -16,8 +17,9 @@ import { EditTestChamberComponent } from '../components/body/devices/test-chambe
     EditTestChamberComponent
   ],
   imports: [
-    CommonModule,
-    TestChambersRoutingModule
+    TestChambersRoutingModule,
+    SharedModule,
+    NgSelectModule
   ]
 })
 export class TestChambersModule { }

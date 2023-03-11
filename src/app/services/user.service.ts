@@ -15,6 +15,10 @@ export interface _User {
   email: string;
   name: string;
 }
+export interface _UserLight{
+  _id:string;
+  accessType:'admin'|'write'|'read';
+}
 
 @Injectable({
   providedIn: 'root',

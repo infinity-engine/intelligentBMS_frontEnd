@@ -1,4 +1,16 @@
-<form #myForm="ngForm">
+<div class="row justify-content-start">
+  <div class="col-md-1">
+    <button
+      type="button"
+      class="btn btn-dark"
+      routerLink="../"
+      skipLocationChange="true"
+    >
+      Back
+    </button>
+  </div>
+</div>
+<form #myForm="ngForm" (ngSubmit)="save()">
   <div class="card">
     <div class="card-header">Add a new cells to your inventory</div>
     <div class="card-body">
@@ -47,7 +59,7 @@
 
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_name">Cell Name</label>
+            <label for="input_cell_name" class="required-ast">Cell Name</label>
           </div>
           <div class="col-md-3">
             <input
@@ -58,6 +70,7 @@
               placeholder="e.g. XYZM0-AB"
               [(ngModel)]="cell.cellName"
               name="input_cell_name"
+              required=""
             />
           </div>
           <div class="col">
@@ -70,7 +83,7 @@
 
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_quant">Cell Quantity</label>
+            <label for="input_cell_quant" class="required-ast">Cell Quantity</label>
           </div>
           <div class="col-md-3">
             <input
@@ -81,6 +94,7 @@
               placeholder="100"
               [(ngModel)]="cell.cellQuantity"
               name="input_cell_quantity"
+              required=""
             />
           </div>
           <div class="col">
@@ -207,7 +221,7 @@
       <div class="card-text">
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_vol">Nominal Voltage(V)</label>
+            <label for="input_cell_vol" class="required-ast">Nominal Voltage(V)</label>
           </div>
           <div class="col-md-3">
             <input
@@ -218,6 +232,7 @@
               placeholder="e.g. 3.5"
               [(ngModel)]="cell.nomVolt"
               name="input_cell_vol"
+              required=""
             />
           </div>
           <div class="col">
@@ -229,7 +244,7 @@
 
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_cap">Nominal Capacity(mAh)</label>
+            <label for="input_cell_cap" class="required-ast">Nominal Capacity(mAh)</label>
           </div>
           <div class="col-md-3">
             <input
@@ -240,6 +255,7 @@
               placeholder="e.g. 3600"
               [(ngModel)]="cell.nomCap"
               name="input_cell_cap"
+              required=""
             />
           </div>
           <div class="col">
@@ -273,7 +289,7 @@
 
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_max_vol">Max Voltage Rating(V)</label>
+            <label for="input_cell_max_vol" class="required-ast">Max Voltage Rating(V)</label>
           </div>
           <div class="col-md-3">
             <input
@@ -284,6 +300,7 @@
               placeholder="e.g. 4.2"
               [(ngModel)]="cell.maxVolt"
               name="input_cell_max_vol"
+              required
             />
           </div>
           <div class="col">
@@ -296,7 +313,7 @@
 
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_min_vol">Min Voltage Rating(V)</label>
+            <label for="input_cell_min_vol" class="required-ast">Min Voltage Rating(V)</label>
           </div>
           <div class="col-md-3">
             <input
@@ -307,6 +324,7 @@
               placeholder="e.g. 2.8"
               [(ngModel)]="cell.minVolt"
               name="input_cell_min_vol"
+              required
             />
           </div>
           <div class="col">
@@ -342,8 +360,7 @@
             <button
               class="btn btn-success"
               type="button"
-              (click)="save(myForm)"
-              [disabled]="isSaveDisabled"
+              [disabled]="isSaveDisabled || !myForm.valid"
             >
               Add
               <div

@@ -2,14 +2,11 @@ import { Test } from 'src/app/models/Test';
 import { _TestChamber } from './../models/TestChamber';
 import {
   HttpClient,
-  HttpErrorResponse,
-  HttpResponse,
-  HttpParams,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { retry, catchError, share } from 'rxjs/operators';
-import { User } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

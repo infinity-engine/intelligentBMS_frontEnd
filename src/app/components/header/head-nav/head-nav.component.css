@@ -58,6 +58,13 @@
 #device-dropdown-nav-item:hover > #device-dropdown-menu {
   display: block;
 }
-#device-dropdown-menu>li:hover{
-    cursor: pointer;
+#device-dropdown-menu > li:hover {
+  cursor: pointer;
+}
+
+.navbar-container{
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  z-index: 1;
 }

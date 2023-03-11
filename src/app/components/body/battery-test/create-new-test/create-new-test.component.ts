@@ -1,3 +1,4 @@
+import { ComponentStoreService } from './../../../../services/component-store.service';
 import { Subscription } from 'rxjs';
 import { Cell } from 'src/app/models/Cell';
 import { CellService } from './../../../../services/cell.service';
@@ -34,13 +35,14 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   showSpinnerConnection: boolean = true;
   availableCells: Cell[] = [];
   subs: Subscription[] = [];
-  cellSub:Subscription|undefined = undefined;
+  cellSub: Subscription | undefined = undefined;
 
   @ViewChild('csvReader') csvReader: any;
 
   constructor(
     private _testChamberService: TestChamberService,
-    private _cellService: CellService
+    private _cellService: CellService,
+    private _componentStoreService: ComponentStoreService
   ) {}
 
   ngOnInit(): void {
@@ -214,10 +216,23 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
     };
     let sub = this._testChamberService
       .createTest(this.selectedTestChamber._id, currentTest)
-      .subscribe((data) => {
-        //success
-        this.showSpinnerButton = false;
-        console.log(data);
+      .subscribe({
+        next: (v) => {
+          this.showSpinnerButton = false;
+          console.log(v);
+          this._componentStoreService.sendToastMsg({
+            msg: 'Test added successfully',
+            color: 'green',
+          });
+        },
+        error: (e)=>{
+          console.log(e);
+          this._componentStoreService.sendToastMsg({
+            msg: 'Test add failed!',
+            color: 'red',
+          });
+          this.showSpinnerButton = false;
+        }
       });
     this.subs.push(sub);
   }
@@ -310,11 +325,11 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
     if (modifiedSearchStr) {
       this.cellSub = this._cellService
         .getCellForExperiment(modifiedSearchStr)
-        .subscribe((cells:any) => {
+        .subscribe((cells: any) => {
           this.availableCells = cells;
         });
-    }else{
-      this.availableCells = []
+    } else {
+      this.availableCells = [];
     }
   }
   ngOnDestroy(): void {

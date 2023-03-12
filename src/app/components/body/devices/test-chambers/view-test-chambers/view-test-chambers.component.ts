@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { _TestChamber } from 'src/app/models/TestChamber';
@@ -8,17 +9,47 @@ import { _TestChamber } from 'src/app/models/TestChamber';
   styleUrls: ['./view-test-chambers.component.css'],
 })
 export class ViewTestChambersComponent implements OnInit, OnDestroy {
+  availableTestChambersSource: _TestChamber[] = [];
   availableTestChambers: _TestChamber[] = [];
   pageSize = 5;
   page = 1;
-  
+  subs: Subscription[] = [];
+  searchStr: string = '';
+
   constructor(private _testChamberService: TestChamberService) {}
   ngOnInit(): void {
-    this._testChamberService.getChambers().subscribe({
+    const sub = this._testChamberService.getChambers().subscribe({
       next: (data: any) => {
-        this.availableTestChambers = data;
+        this.availableTestChambersSource = data;
+        this.filter();
       },
     });
+    this.subs.push(sub);
   }
-  ngOnDestroy(): void {}
+  filter() {
+    if (
+      this.availableTestChambersSource.length > 0 &&
+      this.searchStr.length > 0
+    ) {
+      this.availableTestChambers = this.availableTestChambersSource.filter(
+        (item: any) => {
+          if (item.name) {
+            return item.name
+              .toLowerCase()
+              .trim()
+              .includes(this.searchStr.toLowerCase().trim());
+          } else {
+            return false;
+          }
+        }
+      );
+    } else {
+      this.availableTestChambers = [...this.availableTestChambersSource];
+    }
+  }
+  ngOnDestroy(): void {
+    this.subs.forEach((sub) => {
+      sub.unsubscribe();
+    });
+  }
 }

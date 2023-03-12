@@ -10,12 +10,21 @@
     </button>
   </div>
   <div class="col">
-    <input type="text" class="form-control" placeholder="Search by name.." />
+    <input
+      [(ngModel)]="searchStr"
+      name="search-field"
+      type="text"
+      class="form-control"
+      placeholder="Search by name.."
+      (ngModelChange)="filter()"
+    />
   </div>
 </div>
 <div class="all-chambers table-responsive">
   <table class="table-hover table caption-top">
-    <caption>List of assgined test chambers to you.</caption>
+    <caption>
+      List of assgined test chambers to you.
+    </caption>
     <thead>
       <tr>
         <th scope="col">Chamber Name</th>

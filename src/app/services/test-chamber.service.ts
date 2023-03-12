@@ -1,9 +1,6 @@
 import { Test } from 'src/app/models/Test';
 import { _TestChamber } from './../models/TestChamber';
-import {
-  HttpClient,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { retry, catchError, share } from 'rxjs/operators';
@@ -15,20 +12,28 @@ import { environment } from 'src/environments/environment';
 export class TestChamberService {
   constructor(private http: HttpClient) {}
 
-  getChambers(){
-    return this.http.get(`${environment.apiUri}/api/protected/test-chamber`).pipe(share(),retry(3),catchError(this.errorHandler));
+  getChambers() {
+    return this.http
+      .get(`${environment.apiUri}/api/protected/test-chamber`)
+      .pipe(share(), retry(3), catchError(this.errorHandler));
   }
   createNewTestChamber(chamberConfig: _TestChamber) {
     //angular stripped out the key which has the value undefined.
     //console.log(chamberConfig);
     return this.http
-      .post(`${environment.apiUri}/api/protected/test-chamber`, 
-        {...chamberConfig})
+      .post(`${environment.apiUri}/api/protected/test-chamber`, {
+        ...chamberConfig,
+      })
       .pipe(retry(3), catchError(this.errorHandler));
   }
-  createTest(chamberId:string,testConfig:Test){
+  createTest(chamberId: string, testConfig: Test) {
     //console.log(testConfig);
-    return this.http.post(`${environment.apiUri}/api/protected/test-chamber/create-test`,{chamberId:chamberId,testConfig:testConfig}).pipe(retry(3),catchError(this.errorHandler))
+    return this.http
+      .post(`${environment.apiUri}/api/protected/test-chamber/create-test`, {
+        chamberId: chamberId,
+        testConfig: testConfig,
+      })
+      .pipe(retry(3), catchError(this.errorHandler));
   }
   private errorHandler(error: HttpErrorResponse) {
     if (error.status === 0) {

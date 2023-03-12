@@ -7,6 +7,7 @@ import { TestChambersComponent } from '../components/body/devices/test-chambers/
 import { AddTestChamberComponent } from '../components/body/devices/test-chambers/add-test-chamber/add-test-chamber.component';
 import { ViewTestChambersComponent } from '../components/body/devices/test-chambers/view-test-chambers/view-test-chambers.component';
 import { EditTestChamberComponent } from '../components/body/devices/test-chambers/edit-test-chamber/edit-test-chamber.component';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { EditTestChamberComponent } from '../components/body/devices/test-chambe
   imports: [
     TestChambersRoutingModule,
     SharedModule,
-    NgSelectModule
+    NgSelectModule,
+    NgbPagination
   ]
 })
 export class TestChambersModule { }

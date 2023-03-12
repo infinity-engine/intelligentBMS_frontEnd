@@ -1,0 +1,9 @@
+.all-chambers{
+    border: 1px solid gray;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 10px;
+}
+.all-chambers>table>tbody tr{
+    cursor: pointer;
+}

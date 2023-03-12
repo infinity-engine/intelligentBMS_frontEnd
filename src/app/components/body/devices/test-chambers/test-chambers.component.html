@@ -28,8 +28,8 @@
           Create a new chamber
         </button>
       </div>
-      <div class="col-md-2 text-center">
-        <button type="button" class="btn btn-primary">
+      <div class="col-md-2 text-center" *ngIf="isAnyTestChamberAvailable">
+        <button type="button" class="btn btn-primary" routerLink="view" skipLocationChange="true">
           Existing chambers
         </button>
       </div>

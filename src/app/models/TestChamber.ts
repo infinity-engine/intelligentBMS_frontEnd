@@ -15,7 +15,6 @@ export interface _TestChamber {
   testPerformed?: Test[];
   createdOn?: Date;
   maxNoOfChannels?: number;
-  isConnected?: Boolean;
   lastSeen?: Date;
   accessType?: 'admin' | 'write' | 'read'; //only specific to front end
 }

@@ -1,1 +1,57 @@
-<p>view-test-chambers works!</p>
+<div class="row justify-content-between">
+  <div class="col">
+    <button
+      class="btn btn-dark"
+      type="button"
+      routerLink="../"
+      skipLocationChange="true"
+    >
+      Back
+    </button>
+  </div>
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Search by name.." />
+  </div>
+</div>
+<div class="all-chambers table-responsive">
+  <table class="table-hover table caption-top">
+    <caption>List of assgined test chambers to you.</caption>
+    <thead>
+      <tr>
+        <th scope="col">Chamber Name</th>
+        <th scope="col">Max. Channels</th>
+        <th scope="col">Access Type</th>
+        <th scope="col">Created On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container
+        *ngFor="
+          let testChamber of availableTestChambers
+            | slice : (page - 1) * pageSize : page * pageSize;
+          let i = index
+        "
+      >
+        <tr>
+          <td>{{ testChamber.name }}</td>
+          <td>{{ testChamber.maxNoOfChannels }}</td>
+          <td>{{ testChamber.accessType }}</td>
+          <td>{{ testChamber.createdOn }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <div class="row justify-content-center">
+    <div class="col pagination justify-content-center">
+      <ngb-pagination
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [collectionSize]="availableTestChambers.length"
+        [maxSize]="5"
+        [rotate]="true"
+        [ellipses]="true"
+        [boundaryLinks]="true"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

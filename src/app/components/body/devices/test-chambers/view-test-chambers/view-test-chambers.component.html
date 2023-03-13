@@ -41,7 +41,7 @@
           let i = index
         "
       >
-        <tr>
+        <tr (click)="selectTestChamber(testChamber._id)">
           <td>{{ testChamber.name }}</td>
           <td>{{ testChamber.maxNoOfChannels }}</td>
           <td>{{ testChamber.accessType }}</td>
@@ -64,3 +64,78 @@
     </div>
   </div>
 </div>
+<ng-container *ngIf="selectedTestChamber">
+  <div class="card chamber-details">
+    <div class="card-header">
+      <div class="row justify-content-between">
+        <div class="col">Test Chamber</div>
+        <div class="col-md-2 text-end">
+          <span style="vertical-align: sub"
+            >Connected
+            <div
+              class="spinner-grow spinner-grow-sm text-primary"
+              role="status"
+              *ngIf="true"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">Name</div>
+        <div class="col-md-8">{{ selectedTestChamber.name }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Controller</div>
+        <div class="col-md-8">{{ selectedTestChamber.controller }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Version</div>
+        <div class="col-md-8">{{ selectedTestChamber.version }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">About</div>
+        <div class="col-md-8">{{ selectedTestChamber.about }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Maximum Temperature (°C)</div>
+        <div class="col-md-8">{{ selectedTestChamber.maxTemp }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Minimum Temperature (°C)</div>
+        <div class="col-md-8">{{ selectedTestChamber.minTemp }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Location</div>
+        <div class="col-md-8">{{ selectedTestChamber.location }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Created On</div>
+        <div class="col-md-8">{{ selectedTestChamber.createdOn }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Maximum No. of Channels</div>
+        <div class="col-md-8">{{ selectedTestChamber.maxNoOfChannels }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Access Type</div>
+        <div class="col-md-8">{{ selectedTestChamber.accessType }}</div>
+      </div>
+      <ng-container *ngIf="selectedTestChamber.accessType == 'admin'">
+        <div class="row">
+          <div class="col-md-4">Assigned Users</div>
+          <div class="col-md-8">
+            <span
+              class="badge bg-secondary user"
+              *ngFor="let user of selectedTestChamber.assignedUsers"
+              >{{ user.name }}</span
+            >
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

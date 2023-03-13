@@ -15,12 +15,14 @@ export class ViewTestChambersComponent implements OnInit, OnDestroy {
   page = 1;
   subs: Subscription[] = [];
   searchStr: string = '';
+  selectedTestChamber: _TestChamber | undefined = undefined;
 
   constructor(private _testChamberService: TestChamberService) {}
   ngOnInit(): void {
     const sub = this._testChamberService.getChambers().subscribe({
       next: (data: any) => {
         this.availableTestChambersSource = data;
+        console.log(data)
         this.filter();
       },
     });
@@ -51,5 +53,14 @@ export class ViewTestChambersComponent implements OnInit, OnDestroy {
     this.subs.forEach((sub) => {
       sub.unsubscribe();
     });
+  }
+  selectTestChamber(chamberId: string | undefined) {
+    try {
+      this.selectedTestChamber = this.availableTestChambers.find(
+        (chamber) => chamber._id == chamberId
+      );
+    } catch {
+      this.selectedTestChamber = undefined;
+    }
   }
 }

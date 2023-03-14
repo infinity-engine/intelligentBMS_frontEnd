@@ -22,7 +22,7 @@ export class ViewTestChambersComponent implements OnInit, OnDestroy {
     const sub = this._testChamberService.getChambers().subscribe({
       next: (data: any) => {
         this.availableTestChambersSource = data;
-        console.log(data)
+        //console.log(data)
         this.filter();
       },
     });

@@ -28,9 +28,21 @@ export class CellService {
       .pipe(retry(3), catchError(this.errorHandler));
   }
 
-  getCellForExperiment(searchStr:string) {
+  getCellForExperiment(searchStr: string) {
+    //return on the cells on which you can perform an experiment
+    // in other words in which you have admin or write access
     return this.http
-      .post(`${environment.apiUri}/api/protected/cell/cell-info/for-experiment`,{searchStr:searchStr})
+      .post(
+        `${environment.apiUri}/api/protected/cell/cell-info/for-experiment`,
+        { searchStr: searchStr }
+      )
+      .pipe(retry(2), catchError(this.errorHandler));
+  }
+
+  getCells() {
+    //return all the cell on which you have any type of access
+    return this.http
+      .get(`${environment.apiUri}/api/protected/cell/cell-info/`)
       .pipe(retry(2), catchError(this.errorHandler));
   }
 

@@ -1,58 +1,74 @@
-.footer{
-    background-color: rgba(119, 136, 153, 0.238);
-    font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono;
+.footer {
+  background-color: rgba(119, 136, 153, 0.238);
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+    Liberation Mono;
 }
-.head{
-    margin-bottom: 20px;
-    color: rgb(6, 20, 45);
-    padding-left: 0px;
-    margin-top: 20px;
-}
-
-.active-link{
-    color: gray !important;
+.head {
+  margin-bottom: 20px;
+  color: rgb(6, 20, 45);
+  padding-left: 0px;
+  margin-top: 20px;
 }
 
-.row a{
-    padding-left: 2px;
-    text-decoration: none;
-    font-size: small;
-    color: rgb(63, 53, 53);
+.active-link {
+  color: gray !important;
 }
-.item{
-    position: relative;
+
+.row a {
+  padding-left: 2px;
+  text-decoration: none;
+  font-size: small;
+  color: rgb(63, 53, 53);
 }
-.bottom-line{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    border-bottom: 1px solid rgb(7, 127, 213);
-    transform: scale(0);
-    transition: transform 150ms linear;
-    transform-origin: center;
-    width: 100%;
+.item {
+  position: relative;
 }
-.row a:hover  .bottom-line{
-    transform: scale(1);
+.bottom-line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-bottom: 1px solid rgb(7, 127, 213);
+  transform: scale(0);
+  transition: transform 150ms linear;
+  transform-origin: center;
+  width: 100%;
 }
-.copyright{
-    padding-top: 20px;
-    text-align: center;
+.row a:hover .bottom-line {
+  transform: scale(1);
 }
-.social-container a{
-    font-size: 20px;
+.copyright {
+  padding-top: 20px;
+  text-align: center;
 }
-.social-container a:hover{
-    color: rgb(38, 49, 146);
+.social-container a {
+  font-size: 20px;
 }
-#logo{
-    height: 50px;
-    width:  auto;
+.social-container a:hover {
+  color: rgb(38, 49, 146);
 }
-#description{
-    font-size:10px;
-    text-align: justify;
+#logo {
+  height: 50px;
+  width: auto;
 }
-.logo{
-    text-align: center;
+#description {
+  font-size: 10px;
+  text-align: justify;
+}
+.logo {
+  text-align: center;
+}
+
+.user-picture {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  vertical-align: middle;
+}
+
+.developer-info:hover small {
+  color: brown;
 }

@@ -1,0 +1,68 @@
+.device-head,
+.device-sub-head {
+  font-family: Helvetica, sans-serif;
+}
+.device-head {
+  color: #060b39;
+  font-size: 40px;
+}
+.device-sub-head {
+  text-align: start;
+  font-size: 15px;
+  color: #2a4d0778;
+  margin-top: 20px;
+}
+.dynamic-text {
+  color: red;
+  display: inline-block;
+}
+.dynamic-text-container {
+  border: 2px solid rgba(38, 125, 67, 0.358);
+  border-radius: 8px;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  vertical-align: bottom;
+  margin-top: 10px;
+}
+.device-container {
+  margin-top: 100px;
+}
+.image-container {
+  height: 300px;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.275);
+}
+#cell-image {
+  background-image: url("/assets/Classic_iOS_Battery_Icon.png");
+}
+#test-chamber-image {
+  background-image: url("/assets/test_chamber.png");
+}
+#battery-pack-image {
+  background-image: url("/assets/battery-pack.png");
+}
+.device-container .card-body {
+  text-align: left;
+}
+.device-container .card-header{
+  background-color: #010305cf;
+  color: white;
+}
+.device-container .card {
+  height: 100%;
+}
+.device-container .card:hover {
+  cursor: pointer;
+}
+.device-container .card:hover{
+  transform: scale(1.01);
+  box-shadow: 2px 2px #dccaff61
+}
+.device-container > * {
+  margin: 10px;
+}

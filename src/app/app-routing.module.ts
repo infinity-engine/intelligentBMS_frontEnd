@@ -1,3 +1,4 @@
+import { DevicesDefaultComponent } from './components/body/devices/devices-default/devices-default.component';
 import { BatteryTestComponent } from './components/body/battery-test/battery-test.component';
 import { DeviceDataComponent } from './components/body/dashboard/device-data/device-data.component';
 import { DashboardComponent } from './components/body/dashboard/dashboard.component';
@@ -29,11 +30,27 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: DevicesComponent,
     children: [
+      { path: 'default', component: DevicesDefaultComponent },
       {
         path: 'cells',
         loadChildren: () =>
           import('./cells/cells.module').then((m) => m.CellsModule),
       },
+      {
+        path: 'battery-packs',
+        loadChildren: () =>
+          import('./battery-packs/battery-packs.module').then(
+            (m) => m.BatteryPacksModule
+          ),
+      },
+      {
+        path: 'test-chambers',
+        loadChildren: () =>
+          import('./test-chambers/test-chambers.module').then(
+            (m) => m.TestChambersModule
+          ),
+      },
+      { path: '', redirectTo: 'default', pathMatch: 'full' },
     ],
   },
   {
@@ -43,7 +60,15 @@ const routes: Routes = [
   {
     path: 'batteryTest',
     canActivate: [AuthGuard],
-    component: BatteryTestComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./battery-test/battery-test.module').then(
+            (m) => m.BatteryTestModule
+          ),
+      },
+    ],
   },
   {
     path: '',

@@ -1,3 +1,4 @@
+import { ComponentStoreService } from './../../../../../services/component-store.service';
 import { UserService, _User } from './../../../../../services/user.service';
 import { CellService } from './../../../../../services/cell.service';
 import { CellTemplate } from './../../../../../models/CellTemplate';
@@ -11,7 +12,6 @@ import { Cell, CellClass } from 'src/app/models/Cell';
   templateUrl: './add-cells.component.html',
   styleUrls: ['./add-cells.component.css'],
 })
-
 export class AddCellsComponent implements OnInit, OnDestroy {
   showSpinnerButton: boolean = false;
   isSaveDisabled: boolean = false;
@@ -20,9 +20,14 @@ export class AddCellsComponent implements OnInit, OnDestroy {
   selectedCellTemplate?: CellTemplate = undefined;
   cell: Cell = new CellClass();
   selectedUser?: _User[];
-  users:_User[] = [];
+  users: _User[] = [];
+  userSub: Subscription | undefined = undefined;
 
-  constructor(private _cellService: CellService,private _userService:UserService) {}
+  constructor(
+    private _cellService: CellService,
+    private _userService: UserService,
+    private _componentStoreService: ComponentStoreService
+  ) {}
 
   ngOnInit(): void {
     const sub: Subscription = this._cellService
@@ -45,30 +50,61 @@ export class AddCellsComponent implements OnInit, OnDestroy {
     this.cell.maxVolt = this.selectedCellTemplate?.maxVoltage;
     this.cell.minVolt = this.selectedCellTemplate?.minVoltage;
   }
-  save(myForm: NgForm) {
+  save() {
     this.isSaveDisabled = true;
     this.showSpinnerButton = true;
     const assignedUsers = [];
-    if(this.selectedUser){
-      for(let user of this.selectedUser){
-        assignedUsers.push({_id:user._id,accessType:'write'});
+    if (this.selectedUser) {
+      for (let user of this.selectedUser) {
+        assignedUsers.push({ _id: user._id, accessType: 'write' });
       }
     }
     this.cell.users = assignedUsers;
-    const sub = this._cellService.addCell(this.cell).subscribe((d: any) => {
-      this.isSaveDisabled = false;
-      this.showSpinnerButton = false;
+    const sub = this._cellService.addCell(this.cell).subscribe({
+      next: (v) => {
+        console.log(v);
+        this.showSpinnerButton = false;
+        this.isSaveDisabled = false;
+        this._componentStoreService.sendToastMsg({
+          msg: 'Cell created successfully!',
+          color: 'green',
+        });
+      },
+      error: (e) => {
+        console.error(e);
+        this.showSpinnerButton = false;
+        this.isSaveDisabled = false;
+        this._componentStoreService.sendToastMsg({
+          msg: 'Cell creation failed!',
+          color: 'red',
+        });
+      },
     });
     this.subs?.push(sub);
     console.log(this.selectedUser);
   }
-  getUsers(searchStr:string){
-    if (searchStr.length > 0){
-      const sub = this._userService.getUsers(searchStr).subscribe((users:_User[])=>{
-        this.users = users;
-      })
-    }else{
-      this.users = []
+  getUsers(searchStr: string = '') {
+    this.userSub?.unsubscribe();
+    this.users = [];
+    searchStr = searchStr.trim();
+    if (searchStr.length > 0) {
+      this.userSub = this._userService
+        .getUsers(searchStr)
+        .subscribe((users: _User[]) => {
+          //console.log(this.selectedUser)
+          if (this.selectedUser) {
+            //remove existing users from search string
+            this.selectedUser.forEach((user: _User) => {
+              let remIndex = users.findIndex((u) => u._id == user._id);
+              if (remIndex !== -1) {
+                users.splice(remIndex, 1);
+              }
+            });
+          }
+          this.users = users;
+        });
+    } else {
+      this.users = [];
     }
   }
   ngOnDestroy(): void {

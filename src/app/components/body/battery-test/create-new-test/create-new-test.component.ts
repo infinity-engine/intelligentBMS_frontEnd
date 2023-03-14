@@ -1,6 +1,10 @@
+import { ComponentStoreService } from './../../../../services/component-store.service';
+import { Subscription } from 'rxjs';
+import { Cell } from 'src/app/models/Cell';
+import { CellService } from './../../../../services/cell.service';
 import { _TestChamber } from './../../../../models/TestChamber';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DriveCycle } from 'src/app/models/DriveCycle';
 import * as Papa from 'papaparse';
 
@@ -18,7 +22,7 @@ import { Test } from 'src/app/models/Test';
   templateUrl: './create-new-test.component.html',
   styleUrls: ['./create-new-test.component.css'],
 })
-export class CreateNewTestComponent implements OnInit {
+export class CreateNewTestComponent implements OnInit, OnDestroy {
   maxRowAllowed: number = 10;
   allSelectedChannel: ChannelFields[] = [];
   isAddChBtnDisabled: boolean = true;
@@ -29,10 +33,17 @@ export class CreateNewTestComponent implements OnInit {
   scheduledDate: any = new Date();
   showSpinnerButton: boolean = false; //inside schedule button
   showSpinnerConnection: boolean = true;
+  availableCells: Cell[] = [];
+  subs: Subscription[] = [];
+  cellSub: Subscription | undefined = undefined;
 
   @ViewChild('csvReader') csvReader: any;
 
-  constructor(private _testChamberService: TestChamberService) {}
+  constructor(
+    private _testChamberService: TestChamberService,
+    private _cellService: CellService,
+    private _componentStoreService: ComponentStoreService
+  ) {}
 
   ngOnInit(): void {
     this._testChamberService.getChambers().subscribe((data) => {
@@ -203,13 +214,27 @@ export class CreateNewTestComponent implements OnInit {
       testConfig: this.currentPayload,
       testScheduleDate: this.scheduledDate,
     };
-    this._testChamberService
+    let sub = this._testChamberService
       .createTest(this.selectedTestChamber._id, currentTest)
-      .subscribe((data) => {
-        //success
-        this.showSpinnerButton = false;
-        console.log(data);
+      .subscribe({
+        next: (v) => {
+          this.showSpinnerButton = false;
+          console.log(v);
+          this._componentStoreService.sendToastMsg({
+            msg: 'Test added successfully',
+            color: 'green',
+          });
+        },
+        error: (e)=>{
+          console.log(e);
+          this._componentStoreService.sendToastMsg({
+            msg: 'Test add failed!',
+            color: 'red',
+          });
+          this.showSpinnerButton = false;
+        }
       });
+    this.subs.push(sub);
   }
 
   update() {}
@@ -278,7 +303,9 @@ export class CreateNewTestComponent implements OnInit {
             );
           }
           if (this.currentPayload?.channels) {
-            this.currentPayload.channels[ch_index].testFormats[row_id].fields[1].value = driveCycle;
+            this.currentPayload.channels[ch_index].testFormats[
+              row_id
+            ].fields[1].value = driveCycle;
           }
           //console.log(this.currentPayload?.channels);
         } catch (err) {
@@ -290,5 +317,24 @@ export class CreateNewTestComponent implements OnInit {
 
   isValidCSVFile(file: any) {
     return file.name.endsWith('.csv');
+  }
+  findCells(searchStr: string = '') {
+    this.cellSub?.unsubscribe();
+    this.availableCells = [];
+    const modifiedSearchStr = searchStr.trim();
+    if (modifiedSearchStr) {
+      this.cellSub = this._cellService
+        .getCellForExperiment(modifiedSearchStr)
+        .subscribe((cells: any) => {
+          this.availableCells = cells;
+        });
+    } else {
+      this.availableCells = [];
+    }
+  }
+  ngOnDestroy(): void {
+    this.subs.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
 }

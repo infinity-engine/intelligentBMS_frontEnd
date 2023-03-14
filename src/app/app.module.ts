@@ -1,7 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from './shared/shared.module';
-import { NgChartsModule } from 'ng2-charts';
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
 
@@ -17,12 +16,11 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { DeviceDataComponent } from './components/body/dashboard/device-data/device-data.component';
 import { HttpClientModule } from '@angular/common/http';
-import { BatteryTestComponent } from './components/body/battery-test/battery-test.component';
-import { NoResultComponent } from './components/body/battery-test/no-result/no-result.component';
-import { ShowTestResultComponent } from './components/body/battery-test/show-test-result/show-test-result.component';
-import { CreateNewTestComponent } from './components/body/battery-test/create-new-test/create-new-test.component';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DevicesDefaultComponent } from './components/body/devices/devices-default/devices-default.component';
+import { APP_BASE_HREF, PlatformLocation } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -34,10 +32,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     DocsComponent,
     DashboardComponent,
     DeviceDataComponent,
-    BatteryTestComponent,
-    NoResultComponent,
-    ShowTestResultComponent,
-    CreateNewTestComponent
+    DevicesDefaultComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -50,17 +45,21 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
       animationDuration: 300,
     }),
     HttpClientModule,
-    NgChartsModule,
     SharedModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,
       multi: true,
-    },
+    },{
+      provide:APP_BASE_HREF,
+      useFactory:(s:PlatformLocation)=>{s.getBaseHrefFromDOM()},
+      deps:[PlatformLocation]
+    }
   ],
   bootstrap: [AppComponent],
 })

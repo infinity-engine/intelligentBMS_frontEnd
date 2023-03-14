@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   noOfDevices:number|undefined = undefined;
   noOfDevicesConnected:number|undefined = undefined;
   isOnOverView:boolean = true;//controls whthere the all pack has been shown or a particular pack details is appearing
-  subscriptions:Subscription[]|undefined = undefined;
+  subscriptions:Subscription[] = [];
 
   breadCrumbs:BreadCrumbs[]= [];
   

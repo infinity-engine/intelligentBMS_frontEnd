@@ -8,9 +8,9 @@
   background-size: contain;
   background-position: center;
 }
-.text-center span{
-    font-size: 200px;
-    color:#19151540;
+.text-center span {
+  font-size: 200px;
+  color: #19151540;
 }
 
 .about {
@@ -48,39 +48,47 @@
   padding-top: 20px;
   padding-bottom: 50px;
 }
-.control  div  {
+.control div {
   padding: 10px;
 }
-#collapse-btn{
-    height: 50px;
+#collapse-btn {
+  height: 50px;
 }
 
 button {
-    background-color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    color: #333;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    position: relative;
-    overflow: hidden;
-    z-index: 0;
-  }
-  
-  button::before {
-    content: "";
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    right: -20px;
-    bottom: -20px;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.2));
-    filter: blur(30px);
-    z-index: -1;
-  }
-  
-  button:hover::before {
-    filter: blur(10px);
-  }
-  
+  background-color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(0, 0, 0, 0.2)
+  );
+  filter: blur(30px);
+  z-index: -1;
+}
+
+button:hover::before {
+  filter: blur(10px);
+}
+
+.control button {
+  height: 100%;
+  width: 100%;
+}

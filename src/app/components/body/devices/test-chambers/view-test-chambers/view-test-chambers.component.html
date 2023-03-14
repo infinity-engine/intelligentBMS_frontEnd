@@ -20,43 +20,45 @@
     />
   </div>
 </div>
-<div class="all-chambers table-responsive">
-  <table class="table-hover table caption-top">
-    <caption>
-      List of assgined test chambers to you.
-    </caption>
-    <thead>
-      <tr>
-        <th scope="col">Chamber Name</th>
-        <th scope="col">Max. Channels</th>
-        <th scope="col">Access Type</th>
-        <th scope="col">Created On</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container
-        *ngFor="
-          let testChamber of availableTestChambers
-            | slice : (page - 1) * pageSize : page * pageSize;
-          let i = index
-        "
-      >
-        <tr (click)="selectTestChamber(testChamber._id)">
-          <td>{{ testChamber.name }}</td>
-          <td>{{ testChamber.maxNoOfChannels }}</td>
-          <td>{{ testChamber.accessType }}</td>
-          <td>{{ testChamber.createdOn }}</td>
+<div class="all-chambers">
+  <div class="table-responsive">
+    <table class="table-hover table caption-top">
+      <caption>
+        List of assgined test chambers to you.
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Chamber Name</th>
+          <th scope="col">Max. Channels</th>
+          <th scope="col">Access Type</th>
+          <th scope="col">Created On</th>
         </tr>
-      </ng-container>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <ng-container
+          *ngFor="
+            let testChamber of availableTestChambers
+              | slice : (page - 1) * pageSize : page * pageSize;
+            let i = index
+          "
+        >
+          <tr (click)="selectTestChamber(testChamber._id)">
+            <td>{{ testChamber.name }}</td>
+            <td>{{ testChamber.maxNoOfChannels }}</td>
+            <td>{{ testChamber.accessType }}</td>
+            <td>{{ testChamber.createdOn }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
   <div class="row justify-content-center">
     <div class="col pagination justify-content-center">
       <ngb-pagination
         [(page)]="page"
         [pageSize]="pageSize"
         [collectionSize]="availableTestChambers.length"
-        [maxSize]="5"
+        [maxSize]="2"
         [rotate]="true"
         [ellipses]="true"
         [boundaryLinks]="true"

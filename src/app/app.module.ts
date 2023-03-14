@@ -18,6 +18,9 @@ import { DeviceDataComponent } from './components/body/dashboard/device-data/dev
 import { HttpClientModule } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DevicesDefaultComponent } from './components/body/devices/devices-default/devices-default.component';
+import { APP_BASE_HREF, PlatformLocation } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     DocsComponent,
     DashboardComponent,
     DeviceDataComponent,
+    DevicesDefaultComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -43,14 +47,19 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     HttpClientModule,
     SharedModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,
       multi: true,
-    },
+    },{
+      provide:APP_BASE_HREF,
+      useFactory:(s:PlatformLocation)=>{s.getBaseHrefFromDOM()},
+      deps:[PlatformLocation]
+    }
   ],
   bootstrap: [AppComponent],
 })

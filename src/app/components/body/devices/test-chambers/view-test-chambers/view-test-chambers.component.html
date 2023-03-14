@@ -1,1 +1,141 @@
-<p>view-test-chambers works!</p>
+<div class="row justify-content-between">
+  <div class="col">
+    <button
+      class="btn btn-dark"
+      type="button"
+      routerLink="../"
+      skipLocationChange="true"
+    >
+      Back
+    </button>
+  </div>
+  <div class="col">
+    <input
+      [(ngModel)]="searchStr"
+      name="search-field"
+      type="text"
+      class="form-control"
+      placeholder="Search by name.."
+      (ngModelChange)="filter()"
+    />
+  </div>
+</div>
+<div class="all-chambers table-responsive">
+  <table class="table-hover table caption-top">
+    <caption>
+      List of assgined test chambers to you.
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Chamber Name</th>
+        <th scope="col">Max. Channels</th>
+        <th scope="col">Access Type</th>
+        <th scope="col">Created On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container
+        *ngFor="
+          let testChamber of availableTestChambers
+            | slice : (page - 1) * pageSize : page * pageSize;
+          let i = index
+        "
+      >
+        <tr (click)="selectTestChamber(testChamber._id)">
+          <td>{{ testChamber.name }}</td>
+          <td>{{ testChamber.maxNoOfChannels }}</td>
+          <td>{{ testChamber.accessType }}</td>
+          <td>{{ testChamber.createdOn }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <div class="row justify-content-center">
+    <div class="col pagination justify-content-center">
+      <ngb-pagination
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [collectionSize]="availableTestChambers.length"
+        [maxSize]="5"
+        [rotate]="true"
+        [ellipses]="true"
+        [boundaryLinks]="true"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="selectedTestChamber">
+  <div class="card chamber-details">
+    <div class="card-header">
+      <div class="row justify-content-between">
+        <div class="col">Test Chamber</div>
+        <div class="col-md-2 text-end">
+          <span style="vertical-align: sub"
+            >Connected
+            <div
+              class="spinner-grow spinner-grow-sm text-primary"
+              role="status"
+              *ngIf="true"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">Name</div>
+        <div class="col-md-8">{{ selectedTestChamber.name }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Controller</div>
+        <div class="col-md-8">{{ selectedTestChamber.controller }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Version</div>
+        <div class="col-md-8">{{ selectedTestChamber.version }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">About</div>
+        <div class="col-md-8">{{ selectedTestChamber.about }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Maximum Temperature (°C)</div>
+        <div class="col-md-8">{{ selectedTestChamber.maxTemp }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Minimum Temperature (°C)</div>
+        <div class="col-md-8">{{ selectedTestChamber.minTemp }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Location</div>
+        <div class="col-md-8">{{ selectedTestChamber.location }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Created On</div>
+        <div class="col-md-8">{{ selectedTestChamber.createdOn }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Maximum No. of Channels</div>
+        <div class="col-md-8">{{ selectedTestChamber.maxNoOfChannels }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Access Type</div>
+        <div class="col-md-8">{{ selectedTestChamber.accessType }}</div>
+      </div>
+      <ng-container *ngIf="selectedTestChamber.accessType == 'admin'">
+        <div class="row">
+          <div class="col-md-4">Assigned Users</div>
+          <div class="col-md-8">
+            <span
+              class="badge bg-secondary user"
+              *ngFor="let user of selectedTestChamber.assignedUsers"
+              >{{ user.name }}</span
+            >
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

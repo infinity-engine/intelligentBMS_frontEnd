@@ -1,3 +1,4 @@
+import { DevicesDefaultComponent } from './components/body/devices/devices-default/devices-default.component';
 import { BatteryTestComponent } from './components/body/battery-test/battery-test.component';
 import { DeviceDataComponent } from './components/body/dashboard/device-data/device-data.component';
 import { DashboardComponent } from './components/body/dashboard/dashboard.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: DevicesComponent,
     children: [
+      { path: 'default', component: DevicesDefaultComponent },
       {
         path: 'cells',
         loadChildren: () =>
@@ -48,6 +50,7 @@ const routes: Routes = [
             (m) => m.TestChambersModule
           ),
       },
+      { path: '', redirectTo: 'default', pathMatch: 'full' },
     ],
   },
   {

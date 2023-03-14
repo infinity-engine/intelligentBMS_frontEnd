@@ -183,10 +183,14 @@
                 (search)="findCells($event.term)"
                 loadingText="geting cell..."
                 placeholder="Select Cell"
-                (clear)="clearCellSelection()"
-                (focus)="clearCellSelection()"
+                (clear)="findCells()"
+                (focus)="findCells()"
               >
-                <ng-option *ngFor="let cell of availableCells" [value]="cell._id">{{cell.cellName}}</ng-option>
+                <ng-option
+                  *ngFor="let cell of availableCells"
+                  [value]="cell._id"
+                  >{{ cell.cellName }}</ng-option
+                >
               </ng-select>
             </div>
             <div class="col-md-5">
@@ -457,8 +461,7 @@
       </div>
       <div class="row align-items-center">
         <div class="col">
-          <span></span
-          ><span style="vertical-align: sub"
+          <span style="vertical-align: sub"
             >Connected
             <div
               class="spinner-grow spinner-grow-sm text-primary"

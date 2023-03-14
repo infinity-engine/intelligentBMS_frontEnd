@@ -1,0 +1,18 @@
+.all-chambers{
+    border: 1px solid gray;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 10px;
+}
+.all-chambers>table>tbody tr{
+    cursor: pointer;
+}
+.user{
+    margin-right: 2px;
+}
+.chamber-details{
+    margin-top: 10px;
+}
+.chamber-details .card-body .row{
+    border-bottom: 1px solid rgba(128, 128, 128, 0.06);
+}

@@ -7,15 +7,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'add-cells',
+    path:'add',
     component:AddCellsComponent
   },
   {
-    path:'edit-cells',
+    path:'edit',
     component:EditCellsComponent
   },
   {
-    path:'view-cells',
+    path:'view',
     component:ViewCellsComponent
   },
   {

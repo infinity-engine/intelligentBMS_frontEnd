@@ -31,14 +31,5 @@ export class BatteryTestComponent implements OnInit {
       }
     }
   }
-  createNewTestChamber(){
-    const testChamber = new TestChamber({})
-    const {...plainObject} = testChamber
-    //console.log(plainObject)
-    this._testChS.createNewTestChamber(plainObject).subscribe(d=>{
-      console.log(d)
-    })
-    
-  }
 
 }

@@ -225,14 +225,14 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
             color: 'green',
           });
         },
-        error: (e)=>{
+        error: (e) => {
           console.log(e);
           this._componentStoreService.sendToastMsg({
             msg: 'Test add failed!',
             color: 'red',
           });
           this.showSpinnerButton = false;
-        }
+        },
       });
     this.subs.push(sub);
   }

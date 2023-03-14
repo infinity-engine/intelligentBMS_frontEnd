@@ -38,13 +38,13 @@
   border-bottom: 1px solid rgba(128, 128, 128, 0.275);
 }
 #cell-image {
-  background-image: url("/assets/Classic_iOS_Battery_Icon.png");
+  background-image: url("/e_mobility/i-bms/assets/Classic_iOS_Battery_Icon.png");
 }
 #test-chamber-image {
-  background-image: url("/assets/test_chamber.png");
+  background-image: url("/e_mobility/i-bms/assets/test_chamber.png");
 }
 #battery-pack-image {
-  background-image: url("/assets/battery-pack.png");
+  background-image: url("/e_mobility/i-bms/assets/battery-pack.png");
 }
 .device-container .card-body {
   text-align: left;

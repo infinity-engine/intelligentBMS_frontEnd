@@ -1,13 +1,39 @@
-<div class="row">
-    <div class="col-sm-8"><h5>Battery Test</h5></div>
-    <div class="col-sm-4 text-sm-end" >
-        <button *ngIf="activeComponent == 'NoTestResult'||activeComponent == 'ShowTestResult';else showResult" type="button" class="btn btn-danger" (click)="changeButtonStatus()">Create new test</button>
-        <ng-template #showResult><button type="button" class="btn btn-danger" (click)="changeButtonStatus()">Show test results</button></ng-template>
+<div class="row justify-content-between">
+  <div class="col-sm-4"><h5>Battery Test</h5></div>
+  <div class="col-sm-4">
+    <div class="row">
+      <div class="col text-end">
+        <button
+          type="button"
+          class="btn btn-light"
+          routerLink="view"
+          skipLocationChange="true"
+        >
+          See all tests
+        </button>
+      </div>
+      <div class="col text-end">
+        <button
+          class="btn btn-danger"
+          type="button"
+          routerLink="add"
+          skipLocationChange="true"
+        >
+          Create new test
+        </button>
+      </div>
     </div>
+  </div>
 </div>
+<div class="row live-test-container">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        Ongoing Tests
+        <div class="badge bg-danger">live</div>
+      </div>
 
-<ng-container [ngSwitch]="activeComponent">
-    <app-no-result *ngSwitchCase="'NoTestResult'"></app-no-result>
-    <app-create-new-test *ngSwitchCase="'CreateNewTest'"></app-create-new-test>
-    <app-show-test-result *ngSwitchCase="'ShowTestResult'"></app-show-test-result>
-</ng-container>
+      <div class="card-body">There is no test running at the moment.</div>
+    </div>
+  </div>
+</div>

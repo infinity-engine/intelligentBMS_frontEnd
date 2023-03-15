@@ -10,7 +10,7 @@ export interface SelectField {
 export interface TextField {
   type: 'text';
   id: number;
-  value: 'at' | 'for' | 'Run' | 'until' | 'volt.'| 'seconds.';
+  value: 'at' | 'for' | 'Run' | 'until' | 'volt.' | 'seconds.';
   visibility: boolean;
   template_width: number;
 }
@@ -25,7 +25,7 @@ export interface InputField {
 export interface FileField {
   type: 'file';
   id: number;
-  value: DriveCycle|null;
+  value: DriveCycle | null;
   visibility: boolean;
   template_width: number;
 }
@@ -189,7 +189,8 @@ const testFormats: TestFormat[] = [
         value: null,
         visibility: true,
         template_width: 3,
-      } as InputField,{
+      } as InputField,
+      {
         id: 3,
         type: 'text',
         value: 'seconds.',
@@ -213,7 +214,6 @@ export interface ChannelFields {
 }
 export interface PayLoad {
   channels: ChannelFields[] | undefined;
-  testId: Number | undefined;
   testName: String | undefined;
   testDesc: String | undefined;
   isConAmTe: boolean | undefined;

@@ -28,12 +28,66 @@
 <div class="row live-test-container">
   <div class="col">
     <div class="card">
-      <div class="card-header">
-        Ongoing Tests
-        <div class="badge bg-danger">live</div>
+      <div class="card-header header-black">
+        <div class="row justify-content-between">
+          <div class="col">
+            Ongoing Tests
+            <div class="badge bg-danger">live</div>
+          </div>
+          <div class="col text-end">
+            <span class="material-symbols-outlined"> labs </span>
+          </div>
+        </div>
       </div>
 
-      <div class="card-body">There is no test running at the moment.</div>
+      <div
+        class="card-body"
+        *ngIf="liveTests.length == 0; else live_test_template"
+      >
+        There is no test running at the moment.
+      </div>
+      <ng-template #live_test_template>
+        <div class="card-body live-tests-container">
+          <div class="row">
+            <div class="col-md-4" *ngFor="let test of liveTests">
+              <div class="card">
+                <div class="card-header">{{ test.testName }}</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3">Test Id:</div>
+                    <div class="col">{{ test.testId }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">Status:</div>
+                    <div class="col">{{ test.status }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">Channels:</div>
+                    <div class="col">
+                      <div class="row">
+                        <div class="col-md-6" *ngFor="let ch of test.channels">
+                          <div class="progress">
+                            <div
+                              class="progress-bar"
+                              role="progressbar"
+                              style="width: 25%"
+                              aria-valuenow="25"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                            >
+                              {{ ch.onRows }}%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

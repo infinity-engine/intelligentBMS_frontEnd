@@ -56,7 +56,6 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
 
   init() {
     this.currentPayload = {
-      testId: undefined,
       testDesc: undefined,
       testName: undefined,
       channels: this.allSelectedChannel,

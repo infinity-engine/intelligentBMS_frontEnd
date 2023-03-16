@@ -23,16 +23,40 @@ let a = {
   testName: 'Basics 101',
   status: 'Running',
   channels: [
-    { channelNo: 1, status: 'Completed', onRows: 2, totalRows: 2 },
-    { channelNo: 1, status: 'Running', onRows: 3, totalRows: 6 },
+    {
+      channelNo: 1,
+      statusCh: 'Running',
+      chMultiplierIndex: 2,
+      chMultiplier: 4,
+      onRows: 2,
+      totalRows: 4,
+      statusRow: 'Running',
+      rowMultiplierIndex: 2,
+      rowMultiplier: 4,
+    },
+    {
+      channelNo: 2,
+      statusCh: 'Running',
+      chMultiplierIndex: 2,
+      chMultiplier: 5,
+      onRows: 3,
+      totalRows: 4,
+      statusRow: 'Running',
+      rowMultiplierIndex: 2,
+      rowMultiplier: 3,
+    },
   ],
 };
 export interface TestChannel {
-  channelNo?: Number;
-  status?: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
-  onRows?: Number; //tells about on which rows the current experiment is going on
-  totalRows?: Number; //gives how many total rows are there in a particular experiment
-  progress?: Number;
+  channelNo: number;
+  statusCh: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
+  chMultiplierIndex: number;
+  chMultiplier: number;
+  onRows: number;
+  totalRows: number;
+  statusRow: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
+  rowMultiplierIndex: number;
+  rowMultiplier: number;
 }
 
 export interface TestResultDeep {

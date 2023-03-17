@@ -6,7 +6,7 @@
         <button
           type="button"
           class="btn btn-light"
-          routerLink="view"
+          routerLink="view-all"
           skipLocationChange="true"
         >
           See all tests
@@ -49,7 +49,12 @@
       <ng-template #live_test_template>
         <div class="card-body live-tests-container">
           <div class="row">
-            <div class="col-md-6" *ngFor="let test of liveTests">
+            <div
+              class="col-12"
+              *ngFor="let test of liveTests"
+              [routerLink]="['view', test._id]"
+              skipLocationChange="true"
+            >
               <div class="card live-test">
                 <div class="card-header">
                   <div class="row justify-content-between">
@@ -60,7 +65,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-3"><strong>Test Id:</strong></div>
-                    <div class="col">{{ test.testId }}</div>
+                    <div class="col">{{ test._id }}</div>
                   </div>
                   <div class="row">
                     <div class="col-md-3"><strong>Status:</strong></div>
@@ -71,9 +76,13 @@
                     <div class="col align-self-center">
                       <div class="row align-items-center">
                         <div class="col-md-6" *ngFor="let ch of test.channels">
+                          <small
+                            >Channel {{ ch.channelNo }} :
+                            {{ ch.statusCh }}</small
+                          >
                           <div class="progress">
                             <div
-                              class="progress-bar progress-bar-striped progress-bar-animated"
+                              class="progress-bar progress-bar-striped bg-success"
                               role="progressbar"
                               [attr.aria-valuenow]="
                                 (ch.chMultiplierIndex / ch.chMultiplier) * 100
@@ -83,8 +92,15 @@
                               [style.width.%]="
                                 (ch.chMultiplierIndex / ch.chMultiplier) * 100
                               "
+                              [class]="
+                                ch.statusCh == 'Running'
+                                  ? 'progress-bar-animated'
+                                  : null
+                              "
                             >
-                              {{ ch.channelNo }}
+                              {{
+                                (ch.chMultiplierIndex / ch.chMultiplier) * 100
+                              }}%
                             </div>
                           </div>
                         </div>

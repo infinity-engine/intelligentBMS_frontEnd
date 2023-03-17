@@ -3,10 +3,12 @@ import { CreateNewTestComponent } from './../components/body/battery-test/create
 import { BatteryTestComponent } from './../components/body/battery-test/battery-test.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ShowAllTestsResultComponent } from '../components/body/battery-test/show-all-tests-result/show-all-tests-result.component';
 
 const routes: Routes = [
   { path: 'add', component: CreateNewTestComponent },
-  { path: 'view', component: ShowTestResultComponent },
+  { path: 'view/:testId', component: ShowTestResultComponent },
+  { path: 'view-all', component: ShowAllTestsResultComponent },
   { path: '', component: BatteryTestComponent },
 ];
 

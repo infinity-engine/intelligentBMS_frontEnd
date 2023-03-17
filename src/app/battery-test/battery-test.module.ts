@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BatteryTestRoutingModule } from './battery-test-routing.module';
+import { ShowAllTestsResultComponent } from '../components/body/battery-test/show-all-tests-result/show-all-tests-result.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,14 @@ import { BatteryTestRoutingModule } from './battery-test-routing.module';
     CreateNewTestComponent,
     NoResultComponent,
     ShowTestResultComponent,
+    ShowAllTestsResultComponent,
   ],
   imports: [
     CommonModule,
     BatteryTestRoutingModule,
     NgSelectModule,
     SharedModule,
-    NgChartsModule
+    NgChartsModule,
   ],
 })
 export class BatteryTestModule {}

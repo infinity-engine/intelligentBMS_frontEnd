@@ -1,3 +1,4 @@
+import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { _TestResultLight } from './../../../models/TestResult';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
@@ -11,178 +12,33 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class BatteryTestComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   liveTests: _TestResultLight[] = [];
-  constructor(private location: Location) {}
+  sub?: Subscription;
+  delay: number = 10000;
+  constructor(
+    private location: Location,
+    private _testChamberService: TestChamberService
+  ) {}
 
   ngOnInit(): void {
     if (window.location.hostname != 'localhost') {
       this.location.replaceState('./'); //on prod
     }
-    this.liveTests = [
-      {
-        testId: '123',
-        chamberName: 'Test Chamber 1',
-        testName: 'Basics 101',
-        status: 'Running',
-        channels: [
-          {
-            channelNo: 1,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 4,
-            onRows: 2,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 4,
-          },
-          {
-            channelNo: 2,
-            statusCh: 'Running',
-            chMultiplierIndex: 1,
-            chMultiplier: 5,
-            onRows: 3,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 3,
-          },
-          {
-            channelNo: 2,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 5,
-            onRows: 3,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 3,
-          },
-          {
-            channelNo: 2,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 10,
-            onRows: 3,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 3,
-          },
-        ],
+    this.getTests();
+    setInterval(() => {
+      this.getTests();
+    }, this.delay);
+  }
+  getTests() {
+    this.sub = this._testChamberService.getLiveTests().subscribe({
+      next: (tests: any) => {
+        this.liveTests = tests;
+        this.liveTests.sort((a: any, b: any) => (a._id > b._id ? 1 : -1));
       },
-      {
-        testId: '657',
-        chamberName: 'Test Chamber 3',
-        testName: 'Basics 101',
-        status: 'Running',
-        channels: [
-          {
-            channelNo: 1,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 4,
-            onRows: 2,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 4,
-          },
-          {
-            channelNo: 2,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 5,
-            onRows: 3,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 3,
-          },
-        ],
+      error: (err) => {
+        console.log(err);
+        this.liveTests = [];
       },
-      {
-        testId: '657',
-        chamberName: 'Test Chamber 3',
-        testName: 'Basics 101',
-        status: 'Running',
-        channels: [
-          {
-            channelNo: 1,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 4,
-            onRows: 2,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 4,
-          },
-          {
-            channelNo: 2,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 5,
-            onRows: 3,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 3,
-          },
-        ],
-      },
-      {
-        testId: '123',
-        chamberName: 'Test Chamber 1',
-        testName: 'Basics 101',
-        status: 'Running',
-        channels: [
-          {
-            channelNo: 1,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 4,
-            onRows: 2,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 4,
-          },
-          {
-            channelNo: 2,
-            statusCh: 'Running',
-            chMultiplierIndex: 1,
-            chMultiplier: 5,
-            onRows: 3,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 3,
-          },
-          {
-            channelNo: 2,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 5,
-            onRows: 3,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 3,
-          },
-          {
-            channelNo: 2,
-            statusCh: 'Running',
-            chMultiplierIndex: 2,
-            chMultiplier: 10,
-            onRows: 3,
-            totalRows: 4,
-            statusRow: 'Running',
-            rowMultiplierIndex: 2,
-            rowMultiplier: 3,
-          },
-        ],
-      },
-    ];
+    });
   }
   ngOnDestroy(): void {
     this.subs.forEach((sub) => {

@@ -35,6 +35,12 @@ export class TestChamberService {
       })
       .pipe(retry(3), catchError(this.errorHandler));
   }
+  getLiveTests() {
+    return this.http
+      .get(`${environment.apiUri}/api/protected/test-chamber/live-tests`)
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
+
   private errorHandler(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error(

@@ -11,42 +11,13 @@ export interface TestResultLight {
   testDetails?: string;
 }
 export interface _TestResultLight {
-  testId?: string;
+  _id?: string;
   chamberName?: string;
   testName?: string;
   status?: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
   channels?: TestChannel[];
 }
-let a = {
-  testId: '123',
-  chamberName: 'Test Chamber 1',
-  testName: 'Basics 101',
-  status: 'Running',
-  channels: [
-    {
-      channelNo: 1,
-      statusCh: 'Running',
-      chMultiplierIndex: 2,
-      chMultiplier: 4,
-      onRows: 2,
-      totalRows: 4,
-      statusRow: 'Running',
-      rowMultiplierIndex: 2,
-      rowMultiplier: 4,
-    },
-    {
-      channelNo: 2,
-      statusCh: 'Running',
-      chMultiplierIndex: 2,
-      chMultiplier: 5,
-      onRows: 3,
-      totalRows: 4,
-      statusRow: 'Running',
-      rowMultiplierIndex: 2,
-      rowMultiplier: 3,
-    },
-  ],
-};
+
 export interface TestChannel {
   channelNo: number;
   statusCh: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';

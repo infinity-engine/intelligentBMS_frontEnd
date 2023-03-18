@@ -1,4 +1,7 @@
-import { TestDataService } from './../../../../services/test-data.service';
+import { _TestResultDeep } from './../../../../models/TestResult';
+import { TestChamberService } from 'src/app/services/test-chamber.service';
+import { Subscription, switchMap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import {
   ChartConfiguration,
   ChartEvent,
@@ -20,9 +23,30 @@ interface Charts {
   styleUrls: ['./show-test-result.component.css'],
 })
 export class ShowTestResultComponent implements OnInit, OnDestroy {
-  constructor(private testData: TestDataService) {}
+  subs: Subscription[] = [];
+  testInfo?: _TestResultDeep;
+  constructor(
+    private route: ActivatedRoute,
+    private _testChamberService: TestChamberService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const os$ = this.route.paramMap.pipe(
+      switchMap((params) => {
+        const testId = params.get('testId');
+        const chamberId = params.get('chamberId');
+        return this._testChamberService.getTestData(
+          chamberId as any,
+          testId as any
+        );
+      })
+    );
+    os$.subscribe((testInfo: _TestResultDeep) => {
+      this.testInfo = testInfo;
+    });
+  }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subs.forEach((sub) => sub.unsubscribe());
+  }
 }

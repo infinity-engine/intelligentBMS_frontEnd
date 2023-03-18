@@ -1,0 +1,24 @@
+.test-info-container {
+  margin-top: 10px;
+}
+.test-info-container > .card-header {
+  background-color: #010305cf;
+  color: white;
+}
+.channel-container {
+  border-top: 5px solid #91699b57;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.badge .material-symbols-outlined {
+  font-size: inherit;
+}
+.badge > span {
+  height: 100%;
+  padding: 0px 2px;
+  vertical-align: middle;
+  font-size: large;
+}
+.badge {
+  margin: 0px 2px;
+}

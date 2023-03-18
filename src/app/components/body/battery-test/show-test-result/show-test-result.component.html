@@ -2,11 +2,72 @@
   <div class="col-md-1">
     <button
       type="button"
-      class="btn btn-dark"
-      routerLink="../../"
+      class="btn btn-light"
+      routerLink="../../../"
       skipLocationChange="true"
     >
       Back
     </button>
+  </div>
+</div>
+<div class="card test-info-container" *ngIf="testInfo">
+  <div class="card-header">
+    <div class="row">
+      <div class="col">Test Data</div>
+      <div class="col text-end">Connected</div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4"><strong>Test Id:</strong></div>
+      <div class="col-md-8">{{ testInfo._id }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"><strong>Test Name:</strong></div>
+      <div class="col-md-8">{{ testInfo.testName }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"><strong>Chamber Name:</strong></div>
+      <div class="col-md-8">{{ testInfo.chamberName }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"><strong>Status:</strong></div>
+      <div class="col-md-8">{{ testInfo.status }}</div>
+    </div>
+    <div class="channel-container row">
+      <div class="col-6" *ngFor="let channel of testInfo.channels">
+        <div class="card">
+          <div class="card-header">
+            <div class="row justify-content-between">
+              <div class="col">Channel {{ channel.channelNumber }}</div>
+              <div class="col text-end">{{ channel.status }}</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row" *ngFor="let row of channel.testFormats">
+              <div class="col">
+                <span class="badge bg-secondary">
+                  <ng-container *ngFor="let field of row.fields">
+                    <span *ngIf="field.visibility">{{ field.value }}</span>
+                  </ng-container>
+                </span>
+                <span class="badge bg-warning">
+                  <span class="material-symbols-outlined align-middle field">
+                    cycle
+                  </span>
+                  <span>{{ row.multiplier }}</span>
+                </span>
+                <span class="badge bg-danger">
+                  <span class="material-symbols-outlined align-middle field">
+                    device_thermostat
+                  </span>
+                  <span> {{ row.ambTemp }}°C</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

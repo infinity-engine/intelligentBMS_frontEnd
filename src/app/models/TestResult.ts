@@ -1,3 +1,4 @@
+import { PayLoad, TestFormat } from './FormFields';
 export interface TestResultLight {
   channelId?: number;
   testMethod?: string;
@@ -13,6 +14,7 @@ export interface TestResultLight {
 export interface _TestResultLight {
   _id?: string;
   chamberName?: string;
+  chamberId?: string;
   testName?: string;
   status?: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
   channels?: TestChannel[];
@@ -28,6 +30,53 @@ export interface TestChannel {
   statusRow: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
   rowMultiplierIndex: number;
   rowMultiplier: number;
+}
+export interface TestChannelDeep {
+  channelNumber: number;
+  status: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
+  currentMultiplierIndex: number;
+  multiplier: number;
+  testFormats: TestFormat[];
+  rows: RowInfo[];
+}
+export interface _TestResultDeep {
+  _id?: string;
+  chamberName?: string;
+  chamberId?: string;
+  testName?: string;
+  status?: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
+  channels: TestChannelDeep[];
+  accessType: 'admin' | 'read' | 'write';
+}
+
+interface MeasuredParameters {
+  current: number[];
+  voltage: number[];
+  chamberTemp: number[];
+  chamberHum: number[];
+  cellTemp: number[][];
+  time: number[];
+}
+
+interface RowInfo {
+  rowNo: number;
+  measuredParameters: MeasuredParameters;
+  derivedParameters: any;
+  status: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';
+  currentMultiplierIndex?: number;
+  multiplier?: number;
+}
+
+interface Channel {
+  rows: RowInfo[];
+  channelNo: number;
+  status: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';
+  currentMultiplierIndex?: number;
+  multiplier?: number;
+}
+
+export interface TestResultDocument {
+  channels: Channel[];
 }
 
 export interface TestResultDeep {

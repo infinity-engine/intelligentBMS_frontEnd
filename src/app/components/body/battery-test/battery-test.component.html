@@ -52,7 +52,7 @@
             <div
               class="col-12"
               *ngFor="let test of liveTests"
-              [routerLink]="['view', test._id]"
+              [routerLink]="['view', test.chamberId, test._id]"
               skipLocationChange="true"
             >
               <div class="card live-test">

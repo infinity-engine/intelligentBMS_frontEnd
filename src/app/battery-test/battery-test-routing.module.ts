@@ -7,7 +7,7 @@ import { ShowAllTestsResultComponent } from '../components/body/battery-test/sho
 
 const routes: Routes = [
   { path: 'add', component: CreateNewTestComponent },
-  { path: 'view/:testId', component: ShowTestResultComponent },
+  { path: 'view/:chamberId/:testId', component: ShowTestResultComponent },
   { path: 'view-all', component: ShowAllTestsResultComponent },
   { path: '', component: BatteryTestComponent },
 ];

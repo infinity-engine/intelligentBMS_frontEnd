@@ -63,8 +63,8 @@ interface RowInfo {
   measuredParameters: MeasuredParameters;
   derivedParameters: any;
   status: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';
-  currentMultiplierIndex?: number;
-  multiplier?: number;
+  currentMultiplierIndex: number;
+  multiplier: number;
 }
 
 interface Channel {

@@ -44,5 +44,6 @@ export class BatteryTestComponent implements OnInit, OnDestroy {
     this.subs.forEach((sub) => {
       sub.unsubscribe();
     });
+    this.sub?.unsubscribe();
   }
 }

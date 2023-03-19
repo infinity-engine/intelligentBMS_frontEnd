@@ -38,6 +38,8 @@ export interface TestChannelDeep {
   multiplier: number;
   testFormats: TestFormat[];
   rows: RowInfo[];
+  chStartDate?: Date;
+  chEndDate?: Date;
 }
 export interface _TestResultDeep {
   _id?: string;
@@ -47,6 +49,9 @@ export interface _TestResultDeep {
   status?: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
   channels: TestChannelDeep[];
   accessType: 'admin' | 'read' | 'write';
+  testStartDate?: Date;
+  testEndDate?: Date;
+  testScheduleDate?: Date;
 }
 
 interface MeasuredParameters {
@@ -65,6 +70,8 @@ interface RowInfo {
   status: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';
   currentMultiplierIndex: number;
   multiplier: number;
+  rowStartDate?: Date;
+  rowEndDate?: Date;
 }
 
 interface Channel {

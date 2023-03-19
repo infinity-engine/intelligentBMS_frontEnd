@@ -22,3 +22,14 @@
 .badge {
   margin: 0px 2px;
 }
+.overall .row {
+  margin-bottom: 3px;
+  font-family: Verdana, sans-serif;
+}
+.show-chart,.download {
+  margin: 0px 10px;
+}
+.show-chart:hover,.download:hover {
+  color: red;
+  cursor: pointer;
+}

@@ -18,22 +18,37 @@
     </div>
   </div>
   <div class="card-body">
-    <div class="row">
-      <div class="col-md-4"><strong>Test Id:</strong></div>
-      <div class="col-md-8">{{ testInfo._id }}</div>
+    <div class="overall">
+      <div class="row">
+        <div class="col-md-4"><strong>Test Id:</strong></div>
+        <div class="col-md-8">{{ testInfo._id }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Test Name:</strong></div>
+        <div class="col-md-8">{{ testInfo.testName }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Chamber Name:</strong></div>
+        <div class="col-md-8">{{ testInfo.chamberName }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Status:</strong></div>
+        <div class="col-md-8">{{ testInfo.status }}</div>
+      </div>
+      <div class="row" *ngIf="testInfo.testScheduleDate">
+        <div class="col-4"><strong>Test Scheduled Date</strong></div>
+        <div class="col-8">{{ testInfo.testScheduleDate }}</div>
+      </div>
+      <div class="row" *ngIf="testInfo.testStartDate">
+        <div class="col-4"><strong>Test Start Date</strong></div>
+        <div class="col-8">{{ testInfo.testStartDate }}</div>
+      </div>
+      <div class="row" *ngIf="testInfo.testEndDate">
+        <div class="col-4"><strong>Test End Date</strong></div>
+        <div class="col-8">{{ testInfo.testEndDate }}</div>
+      </div>
     </div>
-    <div class="row">
-      <div class="col-md-4"><strong>Test Name:</strong></div>
-      <div class="col-md-8">{{ testInfo.testName }}</div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"><strong>Chamber Name:</strong></div>
-      <div class="col-md-8">{{ testInfo.chamberName }}</div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"><strong>Status:</strong></div>
-      <div class="col-md-8">{{ testInfo.status }}</div>
-    </div>
+
     <div class="channel-container">
       <div class="row" *ngFor="let channel of testInfo.channels">
         <div class="col">
@@ -41,7 +56,30 @@
             <div class="card-header">
               <div class="row justify-content-between">
                 <div class="col">Channel {{ channel.channelNumber }}</div>
-                <div class="col text-end">{{ channel.status }}</div>
+                <div class="col text-end">
+                  <ng-container
+                    *ngIf="channel.status && channel.status !== 'Scheduled'"
+                  >
+                    <span
+                      class="material-symbols-outlined show-chart align-middle text-center"
+                    >
+                      monitoring
+                    </span>
+                    <span
+                      class="material-symbols-outlined download align-middle text-center"
+                    >
+                      download
+                    </span>
+                  </ng-container>
+                  {{ channel.status }}
+                  <div
+                    class="spinner-grow spinner-grow-sm text-primary align-middle"
+                    role="status"
+                    *ngIf="channel.status === 'Running'"
+                  >
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="card-body">
@@ -57,14 +95,14 @@
                     class="row mb-2 justify-content-between align-items-center"
                   >
                     <div class="col">
-                      <span class="badge bg-secondary">
+                      <span class="badge bg-info">
                         <ng-container *ngFor="let field of row.fields">
                           <span *ngIf="field.visibility">{{
                             field.value
                           }}</span>
                         </ng-container>
                       </span>
-                      <span class="badge bg-warning">
+                      <span class="badge bg-info">
                         <span
                           class="material-symbols-outlined align-middle field"
                         >
@@ -72,7 +110,7 @@
                         </span>
                         <span>{{ row.multiplier }}</span>
                       </span>
-                      <span class="badge bg-danger">
+                      <span class="badge bg-info">
                         <span
                           class="material-symbols-outlined align-middle field"
                         >
@@ -96,11 +134,7 @@
                     "
                   >
                     <div class="col-md-1 text-center">
-                      {{
-                        (channel.rows[i].currentMultiplierIndex /
-                          channel.rows[i].multiplier) *
-                          100 | number : "1.0-2"
-                      }}%
+                      @ {{ channel.rows[i].currentMultiplierIndex }}
                     </div>
                     <div class="col">
                       <div class="progress" style="padding: 0px">
@@ -137,13 +171,79 @@
                   </ng-template>
                 </div>
               </div>
+              <div class="row mb-3" style="border-top: 1px solid gray">
+                <div class="col text-start">Overall</div>
+              </div>
+              <ng-container
+                *ngIf="
+                  channel.status && channel.status !== 'Scheduled';
+                  else default_overall
+                "
+              >
+                <div class="row mb-2">
+                  <div class="col-2">Current Cycle</div>
+                  <div class="col-10">
+                    <div class="row align-items-center">
+                      <div class="col-md-1">
+                        {{ channel.currentMultiplierIndex }}
+                      </div>
+                      <div class="col-md-11">
+                        <div class="progress" style="padding: 0px">
+                          <div
+                            class="progress-bar bg-danger progress-bar-striped"
+                            role="progressbar"
+                            [style.width.%]="
+                              channel.currentMultiplierIndex &&
+                              channel.multiplier
+                                ? (channel.currentMultiplierIndex /
+                                    channel.multiplier) *
+                                  100
+                                : 0
+                            "
+                            [attr.aria-valuenow]="
+                              channel.currentMultiplierIndex &&
+                              channel.multiplier
+                                ? (channel.currentMultiplierIndex /
+                                    channel.multiplier) *
+                                  100
+                                : 0
+                            "
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            [class]="
+                              channel.status === 'Running'
+                                ? 'progress-bar-animated'
+                                : null
+                            "
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="channel.chStartDate">
+                  <div class="col-2">Channel Start Date</div>
+                  <div class="col-10">{{ channel.chStartDate }}</div>
+                </div>
+                <div class="row" *ngIf="channel.chEndDate">
+                  <div class="col-2">Channel Start Date</div>
+                  <div class="col-10">{{ channel.chEndDate }}</div>
+                </div>
+              </ng-container>
+
+              <ng-template #default_overall>
+                <div class="row mb-w">
+                  <div class="col">Channel result not available</div>
+                </div>
+              </ng-template>
             </div>
           </div>
         </div>
       </div>
+      <div class="row mb-3" style="border-top: 1px solid gray"></div>
       <div class="row">
         <div class="col">
-          <small>*progress shows in terms of multiplier count completed.</small>
+          <small>@ Progress shows in terms of multiplier count.</small>
         </div>
       </div>
     </div>

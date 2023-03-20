@@ -172,6 +172,7 @@ export class ShowAllTestsResultComponent implements OnInit, OnDestroy {
     };
     this.allCharts?.push(chart);
   }
+
   cloneExp() {}
   stopExp() {}
   changeButtonStatus(data: any) {

@@ -54,19 +54,19 @@ export interface _TestResultDeep {
   testScheduleDate?: Date;
 }
 
-interface MeasuredParameters {
-  current: number[];
-  voltage: number[];
-  chamberTemp: number[];
-  chamberHum: number[];
-  cellTemp: number[][];
-  time: number[];
+export interface MeasuredParameters {
+  current?: number[];
+  voltage?: number[];
+  chamberTemp?: number[];
+  chamberHum?: number[];
+  cellTemp?: number[][];
+  time?: number[];
 }
 
-interface RowInfo {
+export interface RowInfo {
   rowNo: number;
   measuredParameters: MeasuredParameters;
-  derivedParameters: any;
+  derivedParameters?: any;
   status: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';
   currentMultiplierIndex: number;
   multiplier: number;
@@ -74,7 +74,7 @@ interface RowInfo {
   rowEndDate?: Date;
 }
 
-interface Channel {
+export interface Channel {
   rows: RowInfo[];
   channelNo: number;
   status: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';

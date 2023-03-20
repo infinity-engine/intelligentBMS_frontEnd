@@ -37,15 +37,21 @@
       </div>
       <div class="row" *ngIf="testInfo.testScheduleDate">
         <div class="col-4"><strong>Test Scheduled Date</strong></div>
-        <div class="col-8">{{ testInfo.testScheduleDate }}</div>
+        <div class="col-8">
+          {{ testInfo.testScheduleDate | date : "MMM d, y, h:mm a" }}
+        </div>
       </div>
       <div class="row" *ngIf="testInfo.testStartDate">
         <div class="col-4"><strong>Test Start Date</strong></div>
-        <div class="col-8">{{ testInfo.testStartDate }}</div>
+        <div class="col-8">
+          {{ testInfo.testStartDate | date : "MMM d, y, h:mm a" }}
+        </div>
       </div>
       <div class="row" *ngIf="testInfo.testEndDate">
         <div class="col-4"><strong>Test End Date</strong></div>
-        <div class="col-8">{{ testInfo.testEndDate }}</div>
+        <div class="col-8">
+          {{ testInfo.testEndDate | date : "MMM d, y, h:mm a" }}
+        </div>
       </div>
     </div>
 
@@ -60,20 +66,23 @@
                   <ng-container
                     *ngIf="channel.status && channel.status !== 'Scheduled'"
                   >
-                    <span
-                      class="material-symbols-outlined show-chart align-middle text-center"
-                    >
-                      monitoring
-                    </span>
-                    <span
-                      class="material-symbols-outlined download align-middle text-center"
-                    >
-                      download
+                    <span class="text-nowrap">
+                      <span
+                        class="material-symbols-outlined show-chart align-middle text-center"
+                        (click)="showChartView(channel.channelNumber)"
+                      >
+                        monitoring
+                      </span>
+                      <span
+                        class="material-symbols-outlined download align-middle text-center"
+                      >
+                        download
+                      </span>
                     </span>
                   </ng-container>
                   {{ channel.status }}
                   <div
-                    class="spinner-grow spinner-grow-sm text-primary align-middle"
+                    class="spinner-border spinner-border-sm text-primary align-middle"
                     role="status"
                     *ngIf="channel.status === 'Running'"
                   >
@@ -97,9 +106,15 @@
                     <div class="col">
                       <span class="badge bg-info">
                         <ng-container *ngFor="let field of row.fields">
-                          <span *ngIf="field.visibility">{{
-                            field.value
-                          }}</span>
+                          <ng-container *ngIf="field.visibility">
+                            <span
+                              *ngIf="field.type !== 'file'; else drive_cycle"
+                              >{{ field.value }}</span
+                            >
+                            <ng-template #drive_cycle>
+                              <span>X</span>
+                            </ng-template>
+                          </ng-container>
                         </ng-container>
                       </span>
                       <span class="badge bg-info">
@@ -223,11 +238,15 @@
                 </div>
                 <div class="row" *ngIf="channel.chStartDate">
                   <div class="col-2">Channel Start Date</div>
-                  <div class="col-10">{{ channel.chStartDate }}</div>
+                  <div class="col-10">
+                    {{ channel.chStartDate | date : "MMM d, y, h:mm a" }}
+                  </div>
                 </div>
                 <div class="row" *ngIf="channel.chEndDate">
                   <div class="col-2">Channel Start Date</div>
-                  <div class="col-10">{{ channel.chEndDate }}</div>
+                  <div class="col-10">
+                    {{ channel.chEndDate | date : "MMM d, y, h:mm a" }}
+                  </div>
                 </div>
               </ng-container>
 
@@ -249,3 +268,44 @@
     </div>
   </div>
 </div>
+<ng-container *ngIf="showChart">
+  <div class="chart-background" (click)="onClickParent($event)">
+    <div class="charts" (click)="onClickChild($event)">
+      <div class="card">
+        <div class="card-header">
+          <div class="row justify-content-between">
+            <div class="col">
+              <span
+                class="material-symbols-outlined align-middle cross"
+                (click)="toggleShowChart()"
+              >
+                close
+              </span>
+              <span class="align-middle">Charts</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <ng-container *ngIf="allCharts.length > 0; else no_chart">
+            <div class="row justify-content-center">
+              <div class="col-md-6" *ngFor="let chart of allCharts">
+                <canvas
+                  baseChart
+                  height="150"
+                  [data]="chart.chartData"
+                  [options]="chart.ChartOptions"
+                  [type]="chart.ChartType"
+                  #chart
+                >
+                </canvas>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #no_chart>
+            <span> Something wrong has happended, with the chart data!</span>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

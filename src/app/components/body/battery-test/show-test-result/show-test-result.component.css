@@ -26,10 +26,41 @@
   margin-bottom: 3px;
   font-family: Verdana, sans-serif;
 }
-.show-chart,.download {
+.show-chart,
+.download,
+.cross {
   margin: 0px 10px;
 }
-.show-chart:hover,.download:hover {
+.show-chart:hover,
+.download:hover,
+.cross:hover {
   color: red;
   cursor: pointer;
+}
+.chart-background {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.192);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+.cross {
+  float: right;
+}
+
+.charts {
+  position: relative;
+  top: 10%;
+  z-index: 2;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  overflow-y: auto;
+}
+.card {
+  margin: 0px 10px;
 }

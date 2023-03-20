@@ -61,6 +61,6 @@
   height: 80%;
   overflow-y: auto;
 }
-.card {
+.chart-background .card {
   margin: 0px 10px;
 }

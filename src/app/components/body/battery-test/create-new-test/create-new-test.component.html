@@ -1,3 +1,15 @@
+<div class="row justify-content-start">
+  <div class="col-md-1">
+    <button
+      type="button"
+      class="btn btn-dark"
+      routerLink="../"
+      skipLocationChange="true"
+    >
+      Back
+    </button>
+  </div>
+</div>
 <form #testScript="ngForm" (ngSubmit)="save()">
   <div class="card">
     <div class="card-header">
@@ -57,7 +69,6 @@
             id="testId"
             aria-describedby="info_testId"
             disabled
-            [(ngModel)]="currentPayload!.testId"
             name="testId"
           />
         </div>
@@ -69,7 +80,7 @@
       </div>
       <div class="row">
         <div class="col-md-4">
-          <label for="testName">Test Name</label>
+          <label for="testName" class="required-ast">Test Name</label>
         </div>
         <div class="col-md-3">
           <input
@@ -81,6 +92,7 @@
             placeholder="e.g. Cyclic Charge Discharge"
             [(ngModel)]="currentPayload!.testName"
             name="testName"
+            required=""
           />
         </div>
         <div class="col-md-5">
@@ -108,7 +120,9 @@
       <ng-container *ngIf="currentPayload?.isConAmTe">
         <div class="row">
           <div class="col-md-4">
-            <label for="field__conAmTem">Ambient Temperature</label>
+            <label for="field__conAmTem" class="required-ast"
+              >Ambient Temperature</label
+            >
           </div>
           <div class="col-md-3">
             <input
@@ -120,6 +134,7 @@
               placeholder="e.g. 25"
               [(ngModel)]="currentPayload!.ambTemp"
               name="field_conAmTem"
+              required
             />
           </div>
           <div class="col-md-5">
@@ -141,7 +156,9 @@
         >
           <div class="row">
             <div class="col-md-4">
-              <label for="select_ch_{{ ch_index }}" class="form-label"
+              <label
+                for="select_ch_{{ ch_index }}"
+                class="form-label required-ast"
                 >Channel Number</label
               >
             </div>
@@ -152,6 +169,7 @@
                 name="channel_select_{{ ch_index }}"
                 class="form-select"
                 id="select_ch_{{ ch_index }}"
+                required
               >
                 <option [ngValue]="undefined" disabled>Choose</option>
                 <option
@@ -171,7 +189,9 @@
 
           <div class="row">
             <div class="col-md-4">
-              <label for="cell_id_{{ ch_index }}" class="form-label"
+              <label
+                for="cell_id_{{ ch_index }}"
+                class="form-label required-ast"
                 >Cell ID</label
               >
             </div>
@@ -185,6 +205,7 @@
                 placeholder="Select Cell"
                 (clear)="findCells()"
                 (focus)="findCells()"
+                required
               >
                 <ng-option
                   *ngFor="let cell of availableCells"
@@ -218,6 +239,7 @@
                     type="number"
                     [(ngModel)]="currentChannel.overallRowMultiplier"
                     name="overall_multiplier_{{ ch_index }}"
+                    required
                   />
                 </div>
               </div>
@@ -356,6 +378,7 @@
                                 name="row_multiplier-of-row-{{
                                   row_id
                                 }}-of-ch-{{ ch_index }}"
+                                required
                               />
                             </div>
                           </div>
@@ -491,7 +514,11 @@
           />
         </div>
         <div class="col-md-2 justify-content-end text-end">
-          <button type="submit" class="btn btn-danger">
+          <button
+            type="submit"
+            [disabled]="!testScript.valid || isSaveDisabled"
+            class="btn btn-danger"
+          >
             Schedule
             <div
               class="spinner-grow spinner-grow spinner-grow-sm text-light"

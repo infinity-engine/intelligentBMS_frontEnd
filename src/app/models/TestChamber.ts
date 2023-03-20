@@ -15,6 +15,7 @@ export interface _TestChamber {
   testPerformed?: Test[];
   createdOn?: Date;
   maxNoOfChannels?: number;
+  isConnected?: Boolean;
   lastSeen?: Date;
   accessType?: 'admin' | 'write' | 'read'; //only specific to front end
 }
@@ -23,15 +24,16 @@ export interface _TestChamber {
 export class TestChamber {
   constructor(
     public _id?: string,
-    public name?:string,
-    public controller?:string,
-    public version?:string,
-    public about?:string,
-    public maxTemp?:number,
-    public minTemp?:number,
-    public location?:string,
-    public assignedUsers?:any,
-    public maxNoOfChannels?:number) {
-      this.maxNoOfChannels = 1
-    }
+    public name?: string,
+    public controller?: string,
+    public version?: string,
+    public about?: string,
+    public maxTemp?: number,
+    public minTemp?: number,
+    public location?: string,
+    public assignedUsers?: any,
+    public maxNoOfChannels?: number
+  ) {
+    this.maxNoOfChannels = 1;
+  }
 }

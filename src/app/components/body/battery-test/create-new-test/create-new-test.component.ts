@@ -36,6 +36,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   availableCells: Cell[] = [];
   subs: Subscription[] = [];
   cellSub: Subscription | undefined = undefined;
+  isSaveDisabled: boolean = false;
 
   @ViewChild('csvReader') csvReader: any;
 
@@ -56,7 +57,6 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
 
   init() {
     this.currentPayload = {
-      testId: undefined,
       testDesc: undefined,
       testName: undefined,
       channels: this.allSelectedChannel,
@@ -210,6 +210,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
 
   save() {
     this.showSpinnerButton = true;
+    this.isSaveDisabled = true;
     const currentTest: Test = {
       testConfig: this.currentPayload,
       testScheduleDate: this.scheduledDate,
@@ -219,6 +220,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (v) => {
           this.showSpinnerButton = false;
+          this.isSaveDisabled = false;
           console.log(v);
           this._componentStoreService.sendToastMsg({
             msg: 'Test added successfully',
@@ -232,6 +234,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
             color: 'red',
           });
           this.showSpinnerButton = false;
+          this.isSaveDisabled = false;
         },
       });
     this.subs.push(sub);
@@ -336,5 +339,8 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
     this.subs.forEach((sub) => {
       sub.unsubscribe();
     });
+  }
+  log(data: any) {
+    console.log(data);
   }
 }

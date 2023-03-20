@@ -1,169 +1,298 @@
-import { Subscription } from 'rxjs';
-import { TestResultDeep, TestResultLight } from './../../../../models/TestResult';
-import { TestDataService } from './../../../../services/test-data.service';
-import { ChartConfiguration, ChartEvent, ChartType, ChartOptions } from 'chart.js';
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import {
+  _TestResultDeep,
+  TestChannelDeep,
+  RowInfo,
+} from './../../../../models/TestResult';
+import { TestChamberService } from 'src/app/services/test-chamber.service';
+import { Subscription, switchMap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+
+import {
+  ChartConfiguration,
+  ChartEvent,
+  ChartType,
+  ChartOptions,
+} from 'chart.js';
+import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
+import { BaseChartDirective } from 'ng2-charts';
 
 interface Charts {
-  name?: string,
-  chartData?: ChartConfiguration['data'] | any,
-  ChartOptions?: ChartConfiguration['options'] | any,
-  ChartType: ChartType
+  name?: string;
+  chartData?: ChartConfiguration['data'] | any;
+  ChartOptions?: ChartConfiguration['options'] | any;
+  ChartType: ChartType;
 }
 
 @Component({
   selector: 'app-show-test-result',
   templateUrl: './show-test-result.component.html',
-  styleUrls: ['./show-test-result.component.css']
+  styleUrls: ['./show-test-result.component.css'],
 })
 export class ShowTestResultComponent implements OnInit, OnDestroy {
-  allCharts?: Charts[] = [];
-  subscriptions?: Subscription[]=[];
-  deepSbs?:Subscription;
-  allTestResultLight?:TestResultLight[];
-  currentTestResultLight?: TestResultLight;
-  currentTestResultDeep?:TestResultDeep['Pulse charging'] | TestResultDeep['Charge/discharge experiment'] | any;
-  btnValue?:'Start'|'Pause'|'Resume' = 'Start';
-  btnColor?:'rgb(13, 110, 253)'|'green'|'yellow' = 'rgb(13, 110, 253)';
+  subs: Subscription[] = [];
+  testInfo?: _TestResultDeep;
+  showChart: boolean = false;
+  allCharts: Charts[] = [];
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  constructor(private testData: TestDataService) {
+  constructor(
+    private route: ActivatedRoute,
+    private _testChamberService: TestChamberService
+  ) {}
 
+  toggleShowChart() {
+    this.showChart = !this.showChart;
+  }
+  onClickChild(event: MouseEvent) {
+    event.stopPropagation();
   }
 
-  ngOnInit(): void {
-    let sbs = this.testData.getTestDataLight().subscribe((result:TestResultLight[])=>{
-      this.allTestResultLight = [...result];
-    });
-    this.subscriptions?.push(sbs);
+  onClickParent(event: MouseEvent) {
+    this.toggleShowChart();
   }
-
-  setCurrentTestResult(testId:any){
-    this.deepSbs?.unsubscribe();
-    if(testId){
-      this.deepSbs = this.testData.getTestDataDeep().subscribe((result: TestResultDeep['Charge/discharge experiment']) => {
-        this.currentTestResultDeep = {...result} as any;
-        this.createChart({...result});
-        this.currentTestResultLight = {
-          "channelId": 1,
-          "testMethod": "Charge/discharge experiment",
-          "testNumber": "CV001",
-          "testName": "Charge/discharge experiment test 1",
-          "testId": "CV001",
-          "status": "Paused",
-          "isCompleted": false,
-          "connectionStatus": "Disconnected",
-          "testDetails": "This is a demo test."
-        };
-      })
-    }
-  }
-
-  // events
-  chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
-  chartHovered({ event, active }: { event?: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-
-
-  createChart(result: TestResultDeep['Charge/discharge experiment'] | TestResultDeep['Pulse charging']) {
+  showChartView(channelNo: number) {
     this.allCharts = [];
-    //push current values
-    let chart: Charts = {
-      name: 'Current',
-      chartData: {
-        datasets: [{
-          data: result?.data?.current?.yValue as any,
-          label: 'Current'
-        }
-        ],
-        labels: result?.data?.current?.xvalue,
-      },
-      ChartOptions: {},
-      ChartType: 'line'
-    }
-    this.allCharts?.push(chart);
+    const channel: TestChannelDeep | undefined = this.testInfo?.channels.find(
+      (ch) => ch.channelNumber === channelNo
+    );
 
-    //push voltages value
-    chart = {
-      name: 'Voltage',
-      chartData: {
-        datasets: [{
-          data: result?.data?.voltage?.yValue as any,
-          label: 'Voltage'
-        }
-        ],
-        labels: result?.data?.voltage?.xvalue,
-      },
-      ChartOptions: {},
-      ChartType: 'line'
+    this.toggleShowChart();
+    if (!channel) {
+      return;
     }
-    this.allCharts?.push(chart);
+    let current: number[] = [];
+    let voltage: number[] = [];
+    let chamberTemp: number[] = [];
+    let chamberHum: number[] = [];
+    let cellTemp: number[][] = [];
+    let time: number[] = [];
+    channel.rows.forEach((row: RowInfo) => {
+      if (row.measuredParameters.current) {
+        current.push(...row.measuredParameters.current);
+      }
+      if (row.measuredParameters.voltage) {
+        voltage.push(...row.measuredParameters.voltage);
+      }
+      if (row.measuredParameters.chamberTemp) {
+        chamberTemp.push(...row.measuredParameters.chamberTemp);
+      }
+      if (row.measuredParameters.chamberHum) {
+        chamberHum.push(...row.measuredParameters.chamberHum);
+      }
+      if (row.measuredParameters.cellTemp) {
+        cellTemp.push(...row.measuredParameters.cellTemp);
+      }
+      if (row.measuredParameters.time) {
+        time.push(...row.measuredParameters.time);
+      }
+    });
 
-    //push ambient temperature values
-    chart = {
-      name: 'Ambient Temperature',
-      chartData: {
-        datasets: [{
-          data: result?.data?.ambientTemperature?.yValue as any,
-          label: 'Ambient Temperature'
-        }
-        ],
-        labels: result?.data?.ambientTemperature?.xvalue,
-      },
-      ChartOptions: {},
-      ChartType: 'line'
+    if (current.length > 0) {
+      let chart: Charts = {
+        name: 'Current',
+        chartData: {
+          datasets: [
+            {
+              data: current,
+              label: 'Current',
+            },
+          ],
+          labels: time,
+        },
+        ChartOptions: {
+          scales: {
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time(S)',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Cell Current (A)',
+                },
+              },
+            ],
+          },
+        },
+        ChartType: 'line',
+      };
+      this.allCharts.push(chart);
+      setInterval(() => {
+        chart.chartData.datasets[0].data.push(5);
+        chart.chartData.labels.push(chart.chartData.labels.length * 2);
+
+        this.chart?.update();
+      }, 1000);
     }
-    this.allCharts?.push(chart);
-
-    //push cell temperature values
-    chart = {
-      name: 'Cell Temperatures',
-      chartData: {
-        datasets: [],
-        labels: []
-      },
-      ChartOptions: {},
-      ChartType: 'line'
-
+    if (voltage.length > 0) {
+      let chart: Charts = {
+        name: 'Voltage',
+        chartData: {
+          datasets: [
+            {
+              data: voltage,
+              label: 'Voltage',
+            },
+          ],
+          labels: time,
+        },
+        ChartOptions: {
+          scales: {
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time(S)',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Cell Voltage(V)',
+                },
+              },
+            ],
+          },
+        },
+        ChartType: 'line',
+      };
+      this.allCharts.push(chart);
     }
-    result?.data?.cellTemperature?.forEach((val, index, arr) => {
-      chart.chartData.datasets.push({ data: val.yValue, label: 'Sensor' + (index + 1) });
-      chart.chartData.labels = val.xvalue;
-    })
-    this.allCharts?.push(chart);
-
-    //push charge data inthe chart
-    chart = {
-      name: 'Charge Flow',
-      chartData: {
-        datasets: [{
-          data: result?.data?.chargeFlow?.yValue as any,
-          label: 'Charge Flow'
-        }
-        ],
-        labels: result?.data?.chargeFlow?.xvalue,
-      },
-      ChartOptions: {},
-      ChartType: 'line'
+    if (chamberTemp.length > 0) {
+      let chart: Charts = {
+        name: 'Chamber Temperature',
+        chartData: {
+          datasets: [
+            {
+              data: chamberTemp,
+              label: 'Chamber Temperature',
+            },
+          ],
+          labels: time,
+        },
+        ChartOptions: {
+          scales: {
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time(S)',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Chamber Temperature (°C)',
+                },
+              },
+            ],
+          },
+        },
+        ChartType: 'line',
+      };
+      this.allCharts.push(chart);
     }
-    this.allCharts?.push(chart);
+    if (chamberHum.length > 0) {
+      let chart: Charts = {
+        name: 'Chamber Humidity',
+        chartData: {
+          datasets: [
+            {
+              data: chamberHum,
+              label: 'Chamber Humidity',
+            },
+          ],
+          labels: time,
+        },
+        ChartOptions: {
+          scales: {
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time(S)',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Chamber Humidity(%)',
+                },
+              },
+            ],
+          },
+        },
+        ChartType: 'line',
+      };
+      this.allCharts.push(chart);
+    }
+
+    if (cellTemp.length > 0) {
+      let chart: Charts = {
+        name: 'Cell Temperature',
+        chartData: {
+          datasets: [],
+          labels: time,
+        },
+        ChartOptions: {
+          scales: {
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time(S)',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Cell Temperatures(°C)',
+                },
+              },
+            ],
+          },
+        },
+        ChartType: 'line',
+      };
+      cellTemp.forEach((val, index) => {
+        chart.chartData.datasets.push({
+          data: val,
+          label: 'Sensor' + (index + 1),
+        });
+      });
+      this.allCharts.push(chart);
+    }
   }
-  cloneExp(){
+  ngOnInit(): void {
+    const os$ = this.route.paramMap.pipe(
+      switchMap((params) => {
+        const testId = params.get('testId');
+        const chamberId = params.get('chamberId');
+        return this._testChamberService.getTestData(
+          chamberId as any,
+          testId as any
+        );
+      })
+    );
+    os$.subscribe((testInfo: _TestResultDeep) => {
+      this.testInfo = testInfo;
+    });
+  }
 
-  }
-  stopExp(){
-
-  }
-  changeButtonStatus(data:any){
-    console.log(data);
-  }
   ngOnDestroy(): void {
-    this.subscriptions?.forEach(subs => {
-      subs.unsubscribe();
-    })
+    this.subs.forEach((sub) => sub.unsubscribe());
   }
-
 }

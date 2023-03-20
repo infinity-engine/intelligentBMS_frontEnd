@@ -116,7 +116,9 @@
       </div>
       <div class="row">
         <div class="col-md-4">Created On</div>
-        <div class="col-md-8">{{ selectedTestChamber.createdOn }}</div>
+        <div class="col-md-8">
+          {{ selectedTestChamber.createdOn | date : "MMM d, y, h:mm a" }}
+        </div>
       </div>
       <div class="row">
         <div class="col-md-4">Maximum No. of Channels</div>

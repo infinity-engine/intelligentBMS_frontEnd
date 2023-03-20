@@ -2,7 +2,7 @@ import { Test } from 'src/app/models/Test';
 import { _TestChamber } from './../models/TestChamber';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { retry, catchError, share } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -35,6 +35,21 @@ export class TestChamberService {
       })
       .pipe(retry(3), catchError(this.errorHandler));
   }
+  getLiveTests() {
+    return this.http
+      .get(`${environment.apiUri}/api/protected/test-chamber/live-tests`)
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
+
+  getTestData(chamberId: string, testId: string): Observable<any> {
+    return this.http
+      .post(`${environment.apiUri}/api/protected/test-chamber/test-data`, {
+        chamberId: chamberId,
+        testId: testId,
+      })
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
+
   private errorHandler(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error(

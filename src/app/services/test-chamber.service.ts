@@ -43,9 +43,41 @@ export class TestChamberService {
 
   getTestData(chamberId: string, testId: string): Observable<any> {
     return this.http
-      .post(`${environment.apiUri}/api/protected/test-chamber/test-data`, {
+      .post(`${environment.apiUri}/api/protected/test-chamber/get-test-data`, {
         chamberId: chamberId,
         testId: testId,
+      })
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
+
+  getQuickResponse(
+    chamberId: string,
+    testId: string,
+    channelNo: number,
+    indexAfter: number = 0
+  ): Observable<any> {
+    return this.http
+      .post(
+        `${environment.apiUri}/api/protected/test-chamber/get-test-result`,
+        {
+          chamberId: chamberId,
+          testId: testId,
+          channelNo: channelNo,
+          indexAfter: indexAfter,
+        }
+      )
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
+  forceStatus(
+    chamberId: string,
+    testId: string,
+    forceStatus: string | null
+  ): Observable<any> {
+    return this.http
+      .post(`${environment.apiUri}/api/protected/test-chamber/force-status`, {
+        chamberId: chamberId,
+        testId: testId,
+        forcedStatus: forceStatus,
       })
       .pipe(retry(3), catchError(this.errorHandler));
   }

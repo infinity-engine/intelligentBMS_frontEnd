@@ -59,13 +59,17 @@ export interface MeasuredParameters {
   voltage?: number[];
   chamberTemp?: number[];
   chamberHum?: number[];
-  cellTemp?: number[][];
+  cellTemp?: SensorObj[];
   time?: number[];
+}
+export interface SensorObj {
+  sensorId: number;
+  values: number[];
 }
 
 export interface RowInfo {
   rowNo: number;
-  measuredParameters: MeasuredParameters;
+  measuredParameters?: MeasuredParameters;
   derivedParameters?: any;
   status: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';
   currentMultiplierIndex: number;
@@ -209,4 +213,10 @@ export interface TestResultDeep {
       dischargeRating?: { valu?: number; unit?: string };
     };
   };
+}
+
+export interface QuickResponseMeasurement {
+  channelNo: Number;
+  statusCh: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
+  measuredParameters: MeasuredParameters;
 }

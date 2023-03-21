@@ -14,6 +14,7 @@ export class BatteryTestComponent implements OnInit, OnDestroy {
   liveTests: _TestResultLight[] = [];
   sub?: Subscription;
   delay: number = 10000;
+  interValId?: any;
   constructor(
     private location: Location,
     private _testChamberService: TestChamberService
@@ -24,7 +25,7 @@ export class BatteryTestComponent implements OnInit, OnDestroy {
       this.location.replaceState('./'); //on prod
     }
     this.getTests();
-    setInterval(() => {
+    this.interValId = setInterval(() => {
       this.getTests();
     }, this.delay);
   }
@@ -33,6 +34,7 @@ export class BatteryTestComponent implements OnInit, OnDestroy {
       next: (tests: any) => {
         this.liveTests = tests;
         this.liveTests.sort((a: any, b: any) => (a._id > b._id ? 1 : -1));
+        this.sub?.unsubscribe();
       },
       error: (err) => {
         console.log(err);
@@ -45,5 +47,6 @@ export class BatteryTestComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
     this.sub?.unsubscribe();
+    clearInterval(this.interValId);
   }
 }

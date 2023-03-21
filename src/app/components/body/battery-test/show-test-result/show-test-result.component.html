@@ -53,6 +53,40 @@
           {{ testInfo.testEndDate | date : "MMM d, y, h:mm a" }}
         </div>
       </div>
+      <div class="row justify-content-end text-end">
+        <div class="col-md-1 mb-2" *ngIf="testInfo.status === 'Scheduled'">
+          <div class="btn btn-info" type="button" (click)="edit()">
+            <span class="material-symbols-outlined align-middle"> edit </span>
+          </div>
+        </div>
+        <ng-container *ngIf="testInfo.status === 'Running'">
+          <div class="col-md-1 mb-2" type="button" (click)="pause()">
+            <div class="btn btn-warning">
+              <span class="material-symbols-outlined align-middle">
+                pause
+              </span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #resume_btn>
+          <div class="col-md-1 mb-2" type="button" (click)="play()">
+            <div class="btn btn-success">
+              <span class="material-symbols-outlined align-middle"> play </span>
+            </div>
+          </div>
+        </ng-template>
+        <div class="col-md-1 mb-2">
+          <div class="btn btn-danger">
+            <span
+              class="material-symbols-outlined align-middle"
+              type="button"
+              (click)="stop()"
+            >
+              stop
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="channel-container">
@@ -288,14 +322,16 @@
         <div class="card-body">
           <ng-container *ngIf="allCharts.length > 0; else no_chart">
             <div class="row justify-content-center">
-              <div class="col-md-6" *ngFor="let chart of allCharts">
+              <div
+                class="col-md-6"
+                *ngFor="let chart of allCharts; let i = index"
+              >
                 <canvas
                   baseChart
                   height="150"
                   [data]="chart.chartData"
                   [options]="chart.ChartOptions"
                   [type]="chart.ChartType"
-                  #chart
                 >
                 </canvas>
               </div>
@@ -309,3 +345,27 @@
     </div>
   </div>
 </ng-container>
+
+<ng-template #myModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
+    <button
+      type="button"
+      class="close btn btn-danger"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">X</span>
+    </button>
+  </div>
+  <div class="modal-body">{{modalBody}}</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>

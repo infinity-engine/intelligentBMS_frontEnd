@@ -27,9 +27,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.store.toastMsg$.subscribe((msg) => {
       this.showToastMsg(msg);
-      console.log(msg);
+      //console.log(msg);
     });
-    console.log("base",this.baseHref)
+    console.log('base', this.baseHref);
   }
   showToastMsg(msg: ToastMsg) {
     this.toastMsg = msg.msg;

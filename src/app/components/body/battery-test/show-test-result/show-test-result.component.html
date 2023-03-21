@@ -338,7 +338,7 @@
             </div>
           </ng-container>
           <ng-template #no_chart>
-            <span> Something wrong has happended, with the chart data!</span>
+            <span> Hold on, loading your charts.</span>
           </ng-template>
         </div>
       </div>
@@ -348,7 +348,7 @@
 
 <ng-template #myModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{ modalTitle }}</h4>
     <button
       type="button"
       class="close btn btn-danger"
@@ -358,7 +358,7 @@
       <span aria-hidden="true">X</span>
     </button>
   </div>
-  <div class="modal-body">{{modalBody}}</div>
+  <div class="modal-body">{{ modalBody }}</div>
   <div class="modal-footer">
     <button
       type="button"

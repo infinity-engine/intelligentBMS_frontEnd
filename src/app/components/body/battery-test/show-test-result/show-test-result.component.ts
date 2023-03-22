@@ -88,10 +88,13 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           this.testId as any,
           channelNo as any
         )
-        .subscribe((data) => {
+        .subscribe((data: QuickResponseMeasurement) => {
           this.createChart(data);
           this.quickResponses.push(data);
-          this.keepUpdatingChart(data);
+          if (data.statusCh === 'Running') {
+            //if channel is running then only keep updating the channel
+            this.keepUpdatingChart(data);
+          }
           sub.unsubscribe();
         });
     }

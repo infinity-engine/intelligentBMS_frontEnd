@@ -20,7 +20,7 @@
   font-size: large;
 }
 .badge {
-  margin: 0px 2px;
+  margin: 2px 2px;
 }
 .overall .row {
   margin-bottom: 3px;
@@ -63,4 +63,7 @@
 }
 .chart-background .card {
   margin: 0px 10px;
+}
+.control button {
+  margin: 0px 2px;
 }

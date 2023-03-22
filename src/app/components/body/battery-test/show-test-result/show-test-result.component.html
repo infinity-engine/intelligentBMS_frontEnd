@@ -53,38 +53,36 @@
           {{ testInfo.testEndDate | date : "MMM d, y, h:mm a" }}
         </div>
       </div>
-      <div class="row justify-content-end text-end">
-        <div class="col-md-1 mb-2" *ngIf="testInfo.status === 'Scheduled'">
-          <div class="btn btn-info" type="button" (click)="edit()">
-            <span class="material-symbols-outlined align-middle"> edit </span>
-          </div>
-        </div>
-        <ng-container *ngIf="testInfo.status === 'Running'">
-          <div class="col-md-1 mb-2" type="button" (click)="pause()">
-            <div class="btn btn-warning">
+      <div class="row control justify-content-end text-end">
+        <div class="col">
+          <ng-container *ngIf="testInfo.status === 'Scheduled'">
+            <button class="btn btn-info" type="button" (click)="edit()">
+              <span class="material-symbols-outlined align-middle"> edit </span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="testInfo.status === 'Running'">
+            <button class="btn btn-warning" type="button" (click)="pause()">
               <span class="material-symbols-outlined align-middle">
                 pause
               </span>
-            </div>
-          </div>
-        </ng-container>
-        <ng-template #resume_btn>
-          <div class="col-md-1 mb-2" type="button" (click)="play()">
-            <div class="btn btn-success">
+            </button>
+          </ng-container>
+          <ng-template #resume_btn>
+            <button type="button" class="btn btn-success" (click)="play()">
               <span class="material-symbols-outlined align-middle"> play </span>
-            </div>
-          </div>
-        </ng-template>
-        <div class="col-md-1 mb-2">
-          <div class="btn btn-danger">
-            <span
-              class="material-symbols-outlined align-middle"
-              type="button"
-              (click)="stop()"
-            >
-              stop
-            </span>
-          </div>
+            </button>
+          </ng-template>
+          <ng-container *ngIf="testInfo.status !== 'Scheduled'">
+            <button type="button" class="btn btn-danger">
+              <span
+                class="material-symbols-outlined align-middle"
+                type="button"
+                (click)="stop()"
+              >
+                stop
+              </span>
+            </button>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -109,6 +107,7 @@
                       </span>
                       <span
                         class="material-symbols-outlined download align-middle text-center"
+                        (click)="download(channel.channelNumber)"
                       >
                         download
                       </span>
@@ -214,7 +213,9 @@
                   <ng-template #default_template>
                     <div class="row mb-2">
                       <div class="col">
-                        <small>Not yet started.</small>
+                        <small style="padding-left: 3px"
+                          >Not yet started.</small
+                        >
                       </div>
                     </div>
                   </ng-template>
@@ -230,8 +231,8 @@
                 "
               >
                 <div class="row mb-2">
-                  <div class="col-2">Current Cycle</div>
-                  <div class="col-10">
+                  <div class="col-md-2">Current Cycle</div>
+                  <div class="col-md-10">
                     <div class="row align-items-center">
                       <div class="col-md-1">
                         {{ channel.currentMultiplierIndex }}

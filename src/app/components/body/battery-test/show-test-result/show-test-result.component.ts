@@ -9,6 +9,7 @@ import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { of, Subscription, switchMap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { saveAs } from 'file-saver';
 
 import { ChartConfiguration, ChartType } from 'chart.js';
 import {
@@ -415,6 +416,23 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
     this.subs.push(sub);
   }
 
+  download(channelNo: number) {
+    this._testChamberService
+      .downloadTestResult(this.chamberId as any, this.testId as any, channelNo)
+      .subscribe((response) => {
+        const blob = new Blob([response.body], {
+          type: 'text/csv;charset=utf-8;',
+        });
+        const url = URL.createObjectURL(blob);
+        const contentDispositionHeader = response.headers.get(
+          'content-disposition'
+        );
+        const filename = contentDispositionHeader
+          ? contentDispositionHeader.split('filename=')[1].replace(/"/g, '')
+          : 'testResult.csv';
+        saveAs(url, filename);
+      });
+  }
   ngOnDestroy(): void {
     this.subs.forEach((sub) => sub.unsubscribe());
     this.testInfoSub?.unsubscribe();

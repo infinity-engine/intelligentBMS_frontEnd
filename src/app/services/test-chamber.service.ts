@@ -1,6 +1,10 @@
 import { Test } from 'src/app/models/Test';
 import { _TestChamber } from './../models/TestChamber';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
 import { retry, catchError, share } from 'rxjs/operators';
@@ -68,6 +72,7 @@ export class TestChamberService {
       )
       .pipe(retry(3), catchError(this.errorHandler));
   }
+
   forceStatus(
     chamberId: string,
     testId: string,
@@ -80,6 +85,32 @@ export class TestChamberService {
         forcedStatus: forceStatus,
       })
       .pipe(retry(3), catchError(this.errorHandler));
+  }
+
+  downloadTestResult(
+    chamberId: string,
+    testId: string,
+    channelNo: number
+  ): Observable<any> {
+    const option = {
+      headers: new HttpHeaders({
+        'Content-Type': 'text/csv',
+      }),
+      responseType: 'blob' as const,
+      observe: 'response' as const,
+    };
+    const body = {
+      chamberId: chamberId,
+      testId: testId,
+      channelNo: channelNo,
+    };
+    return this.http
+      .post(
+        `${environment.apiUri}/api/protected/test-chamber/download-test-result`,
+        body,
+        option
+      )
+      .pipe(catchError(this.errorHandler));
   }
 
   private errorHandler(error: HttpErrorResponse) {

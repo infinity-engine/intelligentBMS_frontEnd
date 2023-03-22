@@ -46,7 +46,7 @@
             <td>{{ testChamber.name }}</td>
             <td>{{ testChamber.maxNoOfChannels }}</td>
             <td>{{ testChamber.accessType }}</td>
-            <td>{{ testChamber.createdOn }}</td>
+            <td>{{ testChamber.createdOn | date : "MMM d, y, h:mm a" }}</td>
           </tr>
         </ng-container>
       </tbody>

@@ -1,44 +1,47 @@
-.card{
-    margin-top:20px;
+.card {
+  margin-top: 20px;
 }
-.card-body .row{
-    margin:10px 0px;
+.card-body .row {
+  margin: 10px 0px;
 }
-textarea{
-    resize: none;
+.btn {
+  width: 100%;
 }
-.channel-container{
-    border: 1px solid rgba(19, 19, 18, 0.234);
-    border-radius: 5px;
+textarea {
+  resize: none;
 }
-.channel{
-    border: 1px solid rgba(19, 19, 18, 0.234);
-    margin:5px;
-    border-radius: 5px;
-    border-right: 4px solid rgba(19, 19, 18, 0.234);
-    border-left: 4px solid rgba(19, 19, 18, 0.234);
+.channel-container {
+  border: 1px solid rgba(19, 19, 18, 0.234);
+  border-radius: 5px;
 }
-.channel:hover{
-    border-right: 4px solid rgba(70, 0, 149, 0.649);
-    border-left: 4px solid rgba(70, 0, 149, 0.649);
+.channel {
+  border: 1px solid rgba(19, 19, 18, 0.234);
+  margin: 5px;
+  border-radius: 5px;
+  border-right: 4px solid rgba(19, 19, 18, 0.234);
+  border-left: 4px solid rgba(19, 19, 18, 0.234);
 }
-.text-center{
-    text-align: center;
-    margin-top: 5px;
-    margin-bottom: 0px;
+.channel:hover {
+  border-right: 4px solid rgba(70, 0, 149, 0.649);
+  border-left: 4px solid rgba(70, 0, 149, 0.649);
 }
-.no-padding-root > *{
-    padding: 0px;
+.text-center {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
-.test-format-row{
-    border: 1px solid rgba(107, 107, 107, 0.146);
-    border-radius: 5px;
-    margin: 10px;
+.no-padding-root > * {
+  padding: 0px;
+}
+.test-format-row {
+  border: 1px solid rgba(107, 107, 107, 0.146);
+  border-radius: 5px;
+  margin: 10px;
 }
 
-.required-ast::after{
-    content: " *";
-    color: red;
+.required-ast::after {
+  content: " *";
+  color: red;
 }
 
 /* Chrome, Safari, Edge, Opera */

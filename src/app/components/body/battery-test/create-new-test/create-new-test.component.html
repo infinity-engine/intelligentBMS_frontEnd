@@ -419,7 +419,7 @@
               </ng-container>
 
               <div class="row justify-content-end">
-                <div class="col-md-3 text-end">
+                <div class="col-md-3 text-end mb-2">
                   <button
                     class="btn btn-success"
                     (click)="addRow(ch_index)"
@@ -432,7 +432,7 @@
                     <span class="align-middle"> Add</span>
                   </button>
                 </div>
-                <div class="col-md-3 text-end">
+                <div class="col-md-3 text-end mb-2">
                   <button
                     class="btn btn-warning"
                     (click)="removeRow(ch_index)"
@@ -451,7 +451,7 @@
         </div>
         <ng-container *ngIf="currentPayload?.isConAmTe">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
               <button
                 type="button"
                 class="btn btn-secondary"
@@ -466,7 +466,7 @@
                 <span class="align-middle"> Add Channel</span>
               </button>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
               <button
                 type="button"
                 class="btn btn-danger"
@@ -495,7 +495,7 @@
             </div>
           </span>
         </div>
-        <div class="col-md-2 justify-content-end">
+        <div class="col-md-2 justify-content-end mb-2">
           <input
             class="form-control"
             type="date"
@@ -504,7 +504,7 @@
             name="date"
           />
         </div>
-        <div class="col-md-2 justify-content-end">
+        <div class="col-md-2 justify-content-end mb-2">
           <input
             class="form-control"
             type="time"
@@ -513,7 +513,7 @@
             name="time"
           />
         </div>
-        <div class="col-md-2 justify-content-end text-end">
+        <div class="col-md-2 justify-content-end text-end mb-2">
           <button
             type="submit"
             [disabled]="!testScript.valid || isSaveDisabled"

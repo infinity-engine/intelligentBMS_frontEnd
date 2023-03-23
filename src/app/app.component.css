@@ -6,7 +6,7 @@
 .toast {
   position: fixed;
   align-items: center;
-  right: 20px;
-  bottom: 50%;
-  z-index: 3;
+  right: 12px;
+  bottom: 13%;
+  z-index: 10;
 }

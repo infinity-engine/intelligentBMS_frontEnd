@@ -7,9 +7,20 @@ import { ShowAllTestsResultComponent } from '../components/body/battery-test/sho
 
 const routes: Routes = [
   { path: 'add', component: CreateNewTestComponent },
-  { path: 'view/:chamberId/:testId', component: ShowTestResultComponent },
-  { path: 'view-all', component: ShowAllTestsResultComponent },
-  { path: '', component: BatteryTestComponent },
+  {
+    path: 'view-all',
+    component: ShowAllTestsResultComponent,
+    children: [
+      { path: 'view/:chamberId/:testId', component: ShowTestResultComponent },
+    ],
+  },
+  {
+    path: '',
+    component: BatteryTestComponent,
+    children: [
+      { path: 'view/:chamberId/:testId', component: ShowTestResultComponent },
+    ],
+  },
 ];
 
 @NgModule({

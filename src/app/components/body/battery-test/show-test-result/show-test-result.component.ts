@@ -21,6 +21,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
+import { Location } from '@angular/common';
 
 interface Charts {
   name?: string;
@@ -56,7 +57,8 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private _testChamberService: TestChamberService,
     private _componentStoreService: ComponentStoreService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private location: Location
   ) {}
 
   toggleShowChart() {
@@ -88,10 +90,13 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           this.testId as any,
           channelNo as any
         )
-        .subscribe((data) => {
+        .subscribe((data: QuickResponseMeasurement) => {
           this.createChart(data);
           this.quickResponses.push(data);
-          this.keepUpdatingChart(data);
+          if (data.statusCh === 'Running') {
+            //if channel is running then only keep updating the channel
+            this.keepUpdatingChart(data);
+          }
           sub.unsubscribe();
         });
     }
@@ -354,6 +359,9 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (window.location.hostname != 'localhost') {
+      this.location.replaceState('./'); //on prod
+    }
     const os$ = this.route.paramMap.pipe(
       switchMap((params) => {
         this.testId = params.get('testId');

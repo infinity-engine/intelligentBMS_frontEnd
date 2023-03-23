@@ -18,6 +18,7 @@ export interface _TestResultLight {
   testName?: string;
   status?: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
   channels?: TestChannel[];
+  createdOn?: Date;
 }
 
 export interface TestChannel {

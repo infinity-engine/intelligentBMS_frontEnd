@@ -1,4 +1,3 @@
-import { APP_BASE_HREF } from '@angular/common';
 import { TestService } from './services/test.service';
 import { ToastMsg } from './models/ToastMsg';
 import { ComponentStoreService } from './services/component-store.service';
@@ -20,8 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: ComponentStoreService,
-    private _testService: TestService,
-    @Inject(APP_BASE_HREF) public baseHref: string
+    private _testService: TestService
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +27,6 @@ export class AppComponent implements OnInit {
       this.showToastMsg(msg);
       //console.log(msg);
     });
-    console.log('base', this.baseHref);
   }
   showToastMsg(msg: ToastMsg) {
     this.toastMsg = msg.msg;

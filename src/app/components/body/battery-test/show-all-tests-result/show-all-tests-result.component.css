@@ -1,12 +1,3 @@
-.all-tests,
-.single-test {
-  border: 1px solid gray;
-  margin-top: 20px;
-  border-radius: 5px;
-}
-.all-tests > table > tbody tr {
+.all-test tr:hover {
   cursor: pointer;
-}
-.card {
-  margin: 10px;
 }

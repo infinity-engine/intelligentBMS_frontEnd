@@ -10,7 +10,7 @@
     <div class="row" style="margin: 0px;">
         <div class="col-md-9">
             <div class="row">
-                <div *ngFor="let device of devices;let i = index;" class="col-lg-5 pack" [routerLink]="['./deviceData',device.id]" [skipLocationChange]="true" (click)="goToPackDetails()">
+                <div *ngFor="let device of devices;let i = index;" class="col-lg-5 pack" [routerLink]="['./device-data',device.id]" [skipLocationChange]="true" (click)="goToPackDetails()">
                     <div class="row head">
                         <div class="col-md-8 name">{{device.name}}</div>
                         <div class="col-md-4 connecion-status">Connected <i class="fa fa-circle"></i></div>

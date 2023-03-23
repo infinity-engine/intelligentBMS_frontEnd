@@ -20,7 +20,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'deviceData/:deviceId',
+        path: 'device-data/:deviceId',
         component: DeviceDataComponent,
       },
     ],
@@ -58,7 +58,7 @@ const routes: Routes = [
     component: DocsComponent,
   },
   {
-    path: 'batteryTest',
+    path: 'battery-test',
     canActivate: [AuthGuard],
     children: [
       {

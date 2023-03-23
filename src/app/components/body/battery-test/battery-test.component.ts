@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { _TestResultLight } from './../../../models/TestResult';
 import { Subscription } from 'rxjs';
@@ -15,9 +16,11 @@ export class BatteryTestComponent implements OnInit, OnDestroy {
   sub?: Subscription;
   delay: number = 10000;
   interValId?: any;
+  isTestInfoViewEnabled: boolean = false;
   constructor(
     private location: Location,
-    private _testChamberService: TestChamberService
+    private _testChamberService: TestChamberService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -48,5 +51,8 @@ export class BatteryTestComponent implements OnInit, OnDestroy {
     });
     this.sub?.unsubscribe();
     clearInterval(this.interValId);
+  }
+  changeView() {
+    this.isTestInfoViewEnabled = !this.isTestInfoViewEnabled;
   }
 }

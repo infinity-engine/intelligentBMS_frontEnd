@@ -20,57 +20,72 @@
     />
   </div>
 </div>
+
 <div class="all-cells">
-  <div class="table-responsive">
-    <table class="table-hover table caption-top">
-      <caption>
-        List of assgined test cells to you.
-      </caption>
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Nominal Voltage (V)</th>
-          <th scope="col">Nominal Capacity (mAh)</th>
-          <th scope="col">Cell Chemistry</th>
-          <th scope="col">Access Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container
-          *ngFor="
-            let cell of availableCells
-              | slice : (page - 1) * pageSize : page * pageSize;
-            let i = index
-          "
-        >
-          <tr (click)="selectCell(cell._id)">
-            <td>{{ cell.cellName }}</td>
-            <td>{{ cell.nomVolt }}</td>
-            <td>{{ cell.nomCap }}</td>
-            <td>{{ cell.cellChemistry }}</td>
-            <td>{{ cell.accessType }}</td>
+  <ng-container *ngIf="this.availableCellsSource.length > 0; else default_msg">
+    <div class="table-responsive">
+      <table class="table-hover table caption-top">
+        <caption>
+          List of assgined test cells to you.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Nominal Voltage (V)</th>
+            <th scope="col">Nominal Capacity (mAh)</th>
+            <th scope="col">Cell Chemistry</th>
+            <th scope="col">Access Type</th>
           </tr>
-        </ng-container>
-      </tbody>
-    </table>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col pagination justify-content-center">
-      <ngb-pagination
-        [(page)]="page"
-        [pageSize]="pageSize"
-        [collectionSize]="availableCells.length"
-        [maxSize]="2"
-        [rotate]="true"
-        [ellipses]="true"
-        [boundaryLinks]="true"
-      ></ngb-pagination>
+        </thead>
+        <tbody>
+          <ng-container
+            *ngFor="
+              let cell of availableCells
+                | slice : (page - 1) * pageSize : page * pageSize;
+              let i = index
+            "
+          >
+            <tr (click)="selectCell(cell._id)">
+              <td>{{ cell.cellName }}</td>
+              <td>{{ cell.nomVolt }}</td>
+              <td>{{ cell.nomCap }}</td>
+              <td>{{ cell.cellChemistry }}</td>
+              <td>{{ cell.accessType }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
     </div>
-  </div>
+    <ngb-pagination
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="availableCells.length"
+      [maxSize]="2"
+      [rotate]="true"
+      [ellipses]="true"
+      [boundaryLinks]="true"
+      class="d-flex justify-content-center"
+    ></ngb-pagination>
+  </ng-container>
 </div>
+<ng-template #default_msg>
+  <span>{{ placeHolderMsg }}</span>
+</ng-template>
+
 <ng-container *ngIf="selectedCell">
   <div class="card cell-details">
-    <div class="card-header">About the cell</div>
+    <div class="card-header">
+      <div class="row" justify-content-between>
+        <div class="col-6">About the Cell</div>
+        <div class="col-6 text-end">
+          <ng-container *ngIf="selectedCell.accessType === 'admin'">
+            <span class="material-symbols-outlined align-middle edit">
+              edit
+            </span>
+          </ng-container>
+        </div>
+      </div>
+    </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-4">Name</div>

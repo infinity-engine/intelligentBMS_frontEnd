@@ -16,14 +16,22 @@ export class ViewCellsComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   searchStr: string = '';
   selectedCell: Cell | undefined = undefined;
+  placeHolderMsg: string = "You don't have any cells.";
 
   constructor(private _cellservice: CellService) {}
   ngOnInit(): void {
+    this.placeHolderMsg = 'Getting the information...';
     const sub = this._cellservice.getCells().subscribe({
       next: (data: any) => {
         this.availableCellsSource = data;
         console.log(data);
         this.filter();
+        if (this.availableCellsSource.length == 0) {
+          this.placeHolderMsg = "You don't have any cells.";
+        }
+      },
+      error: (err) => {
+        this.placeHolderMsg = "It's weired, something wrong happened!";
       },
     });
     this.subs.push(sub);

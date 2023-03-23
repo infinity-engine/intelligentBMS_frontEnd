@@ -1,1 +1,314 @@
-<p>edit-test-chamber works!</p>
+<div class="row justify-content-start">
+  <div class="col-md-1">
+    <button
+      type="button"
+      class="btn btn-dark"
+      routerLink="../../view"
+      skipLocationChange="true"
+    >
+      Back
+    </button>
+  </div>
+</div>
+<form #myForm="ngForm" (ngSubmit)="save()">
+  <div class="card">
+    <div class="card-header">Create a new Test Chamber</div>
+    <div class="card-body">
+      <div class="card-text">
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_id">Chmaber Id</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_chamber_id"
+              id="input_chamber_id"
+              [ngModel]="chamber._id"
+              name="input_chamber_id"
+              disabled
+            />
+          </div>
+          <div class="col">
+            <small id="info_chamber_id" class="form-text"
+              >Unique identifier, generates automatically.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_name" class="required-ast"
+              >Chamber Name</label
+            >
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_chamber_name"
+              id="input_chamber_name"
+              placeholder="e.g. Chamber-01"
+              [(ngModel)]="chamber.name"
+              name="input_chamber_name"
+              required
+            />
+          </div>
+          <div class="col">
+            <small id="info_chamber_name" class="form-text"
+              >Give a name to your chamber, should be unique among the chambers
+              that you have access to.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_controller">Chamber controller</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_chamber_controller"
+              id="input_chamber_controller"
+              placeholder="e.g. CustomBuild with Atmel"
+              [(ngModel)]="chamber.controller"
+              name="input_chamber_controller"
+            />
+          </div>
+          <div class="col">
+            <small id="info_chamber_controller" class="form-text"
+              >About the electronic controller that is used to control the
+              chamber.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_version"
+              >Version of Chamber/Controller</label
+            >
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_chamber_version"
+              id="input_chamber_version"
+              placeholder="e.g. V1.0"
+              [(ngModel)]="chamber.version"
+              name="input_chamber_version"
+            />
+          </div>
+          <div class="col">
+            <small id="info_chamber_version" class="form-text"
+              >If you want to maintain a track record of you chamber or
+              controoler's version.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_about">About</label>
+          </div>
+          <div class="col-md-9">
+            <textarea
+              type=""
+              class="form-control"
+              id="input_chamber_about"
+              placeholder="Something which describes your test chamber."
+              [(ngModel)]="chamber.about"
+              name="input_chamber_about"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_max_temp" class="required-ast"
+              >Maximum Temperature</label
+            >
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              aria-describedby="info_chamber_max_temp"
+              id="input_chamber_max_temp"
+              placeholder="e.g. 80"
+              [(ngModel)]="chamber.maxTemp"
+              name="input_chamber_max_temp"
+              required
+            />
+          </div>
+          <div class="col">
+            <small id="info_chamber_max_temp" class="form-text"
+              >in °C. It gives the idea on how much max temperature your chamber
+              can produce or withstand.</small
+            >
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_min_temp" class="required-ast"
+              >Minimum Temperature</label
+            >
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              aria-describedby="info_chamber_min_temp"
+              id="input_chamber_min_temp"
+              placeholder="e.g. -20"
+              [(ngModel)]="chamber.minTemp"
+              name="input_chamber_min_temp"
+              required
+            />
+          </div>
+          <div class="col">
+            <small id="info_chamber_min_temp" class="form-text"
+              >in °C. It gives the idea on how much min temperature your chamber
+              can produce or withstand.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_location">Location</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_chamber_location"
+              id="input_chamber_location"
+              placeholder="Battery Lab,Co-Ordinates"
+              [(ngModel)]="chamber.location"
+              name="input_chamber_location"
+            />
+          </div>
+          <div class="col">
+            <small id="info_chamber_location" class="form-text">
+              Gives an idea about the physical location of your chamber.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_maxNoOfChannels" class="required-ast"
+              >Max no. of Channels</label
+            >
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              aria-describedby="info_chamber_maxNoOfChannels"
+              id="input_chamber_maxNoOfChannels"
+              placeholder="-20"
+              [(ngModel)]="chamber.maxNoOfChannels"
+              name="input_chamber_maxNoOfChannels"
+              required
+            />
+          </div>
+          <div class="col">
+            <small id="info_chamber_maxNoOfChannels" class="form-text">
+              How many independent channels that your chamber support. Each
+              channel can hold a different set of experiment.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_users"
+              >Assigned Users
+              <span class="badge bg-primary align-middle" title="Access Type"
+                >read</span
+              >
+            </label>
+          </div>
+          <div class="col-md-3">
+            <ng-select
+              [(ngModel)]="selectedUsersRead"
+              [multiple]="true"
+              (search)="getUsers($event.term)"
+              name="select_users_read"
+              (clear)="getUsers()"
+              (focus)="getUsers()"
+              id="input_chamber_users_read"
+              aria-describedby="info_chamber_users_read"
+              [items]="users"
+              bindLabel="name"
+            >
+            </ng-select>
+          </div>
+
+          <div class="col">
+            <small id="info_chamber_users_read" class="form-text"
+              >User can only view it's experiment results.</small
+            >
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_users"
+              >Assigned Users
+              <span class="badge bg-warning align-middle" title="Access Type"
+                >write</span
+              >
+            </label>
+          </div>
+          <div class="col-md-3">
+            <ng-select
+              [(ngModel)]="selectedUsersWrite"
+              [multiple]="true"
+              (search)="getUsers($event.term)"
+              name="select_users_write"
+              (clear)="getUsers()"
+              (focus)="getUsers()"
+              id="input_chamber_users_write"
+              aria-describedby="info_chamber_users_write"
+              [items]="users"
+              bindLabel="name"
+            >
+            </ng-select>
+          </div>
+
+          <div class="col">
+            <small id="info_chamber_users_write" class="form-text"
+              >User can view it's experiment results and also can set up an
+              experiment on it.</small
+            >
+          </div>
+        </div>
+
+        <div class="row justify-content-end">
+          <div class="col-md-2 text-end">
+            <button
+              class="btn btn-success"
+              type="submit"
+              [disabled]="isSaveDisabled || !myForm.valid"
+            >
+              Save
+              <div
+                class="spinner-grow spinner-grow spinner-grow-sm text-light"
+                role="status"
+                *ngIf="showSpinnerButton"
+              >
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

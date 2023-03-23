@@ -1,6 +1,5 @@
 import { ComponentStoreService } from './../../../../../services/component-store.service';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
-import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {
   _User,
@@ -58,7 +57,7 @@ export class AddTestChamberComponent implements OnDestroy {
   save() {
     this.showSpinnerButton = true;
     let assignedUsers: _UserLight[] = [];
-    this.users.forEach((user: _User) => {
+    this.selectedUser?.forEach((user: _User) => {
       assignedUsers.push({ _id: user._id, accessType: 'read' });
     });
     this.chamber.assignedUsers = assignedUsers;

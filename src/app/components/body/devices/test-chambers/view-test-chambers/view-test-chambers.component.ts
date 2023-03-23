@@ -16,14 +16,22 @@ export class ViewTestChambersComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   searchStr: string = '';
   selectedTestChamber: _TestChamber | undefined = undefined;
+  placeHolderMsg: string = "You don't have any Test Chambers.";
 
   constructor(private _testChamberService: TestChamberService) {}
   ngOnInit(): void {
+    this.placeHolderMsg = 'Getting the information...';
     const sub = this._testChamberService.getChambers().subscribe({
       next: (data: any) => {
         this.availableTestChambersSource = data;
         //console.log(data)
         this.filter();
+        if (this.availableTestChambersSource.length == 0) {
+          this.placeHolderMsg = "You don't have any Test Chambers.";
+        }
+      },
+      error: (err) => {
+        this.placeHolderMsg = "It's weired, something wrong happened!";
       },
     });
     this.subs.push(sub);

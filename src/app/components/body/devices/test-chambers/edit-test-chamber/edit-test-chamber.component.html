@@ -12,7 +12,15 @@
 </div>
 <form #myForm="ngForm" (ngSubmit)="save()">
   <div class="card">
-    <div class="card-header">Create a new Test Chamber</div>
+    <div class="card-header">
+      <div class="row">
+        <div class="col-6">Edit the Test Chamber</div>
+        <div class="col-6 text-end align-middle">
+          <span class="material-symbols-outlined delete" (click)="deleteChannel()">
+          delete_forever
+          </span></div>
+      </div>
+    </div>
     <div class="card-body">
       <div class="card-text">
         <div class="row align-items-center">
@@ -312,3 +320,26 @@
     </div>
   </div>
 </form>
+<ng-template #myModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ modalTitle }}</h4>
+    <button
+      type="button"
+      class="close btn btn-danger"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">X</span>
+    </button>
+  </div>
+  <div class="modal-body">{{ modalBody }}</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>

@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ComponentStoreService } from './../../../../../services/component-store.service';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { Subscription, switchMap } from 'rxjs';
@@ -8,8 +8,8 @@ import {
   _UserLight,
 } from './../../../../../services/user.service';
 import { TestChamber, _TestChamber } from './../../../../../models/TestChamber';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { randomInt } from 'crypto';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-edit-test-chamber',
@@ -26,12 +26,17 @@ export class EditTestChamberComponent implements OnInit, OnDestroy {
   showSpinnerButton: boolean = false;
   subs: Subscription[] = [];
   chamberId?: string | null;
+  modalBody?: string;
+  modalTitle?: string;
 
+  @ViewChild('myModal') modal: any;
   constructor(
     private _userService: UserService,
     private _testChamberService: TestChamberService,
     private _componentStoreService: ComponentStoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private modalService: NgbModal
   ) {}
   ngOnInit(): void {
     const os$ = this.route.paramMap.pipe(
@@ -100,9 +105,10 @@ export class EditTestChamberComponent implements OnInit, OnDestroy {
           console.log(v);
           this.showSpinnerButton = false;
           this._componentStoreService.sendToastMsg({
-            msg: 'Chamber updated successfully',
+            msg: 'Chamber successfully updated.',
             color: 'green',
           });
+          this.router.navigate(['../../view'], { relativeTo: this.route });
         },
         error: (e) => {
           console.error(e);
@@ -114,6 +120,39 @@ export class EditTestChamberComponent implements OnInit, OnDestroy {
         },
       });
     this.subs.push(sub);
+  }
+  deleteChannel() {
+    this.modalTitle = 'Alert';
+    this.modalBody =
+      'Are you sure you want to delete the Test Chamber? All the test records associated with this will also get deleted.';
+    this.modalService.open(this.modal, { centered: true }).result.then(
+      (result) => {
+        //console.log('accepted');
+        const sub = this._testChamberService
+          .deleteTestChamber(this.chamberId as any)
+          .subscribe({
+            next: (res) => {
+              this._componentStoreService.sendToastMsg({
+                msg: 'Chamber successfully deleted!',
+                color: 'green',
+                timeOut: 10000,
+              });
+              this.router.navigate(['../../view'], { relativeTo: this.route });
+            },
+            error: (err) => {
+              console.log(err);
+              this._componentStoreService.sendToastMsg({
+                msg: 'Something wrong occured!',
+                color: 'red',
+                timeOut: 10000,
+              });
+            },
+          });
+      },
+      (reason) => {
+        //console.log('closed');
+      }
+    );
   }
   ngOnDestroy(): void {
     this.subs.forEach((sub) => sub.unsubscribe());

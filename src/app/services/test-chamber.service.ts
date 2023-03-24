@@ -36,6 +36,15 @@ export class TestChamberService {
       })
       .pipe(retry(3), catchError(this.errorHandler));
   }
+  deleteTestChamber(chamberId: string) {
+    let params = new HttpParams();
+    params = params.set('chamberId', chamberId);
+    return this.http
+      .delete(`${environment.apiUri}/api/protected/test-chamber`, {
+        params: params,
+      })
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
   updateTestChamber(chamberConfig: _TestChamber) {
     return this.http
       .put(`${environment.apiUri}/api/protected/test-chamber`, {

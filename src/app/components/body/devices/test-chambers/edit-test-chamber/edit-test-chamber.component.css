@@ -1,11 +1,11 @@
-.card{
-    margin-top:20px;
+.card {
+  margin-top: 20px;
 }
-.card-body .row{
-    margin:10px 0px;
+.card-body .row {
+  margin: 10px 0px;
 }
-textarea{
-    resize: none;
+textarea {
+  resize: none;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -14,7 +14,14 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.required-ast::after{
-    content: " *";
-    color: red;
+.required-ast::after {
+  content: " *";
+  color: red;
+}
+.delete {
+  margin: 0px 2px;
+}
+.delete:hover {
+  color: red;
+  cursor: pointer;
 }

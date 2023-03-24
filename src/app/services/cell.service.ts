@@ -55,7 +55,7 @@ export class CellService {
     return this.http
       .put(
         `${environment.apiUri}/api/protected/cell/cell-info/for-experiment`,
-        { payload: payload }
+        { ...payload }
       )
       .pipe(retry(2), catchError(this.errorHandler));
   }

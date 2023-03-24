@@ -56,8 +56,8 @@ export class EditCellsComponent implements OnInit, OnDestroy {
         return this._cellService.getCells(this.cellId);
       })
     );
-    sub = os$.subscribe((cells: any) => {
-      this.cell = cells[0];
+    sub = os$.subscribe((cell_: any) => {
+      this.cell = cell_;
       this.selectedUsersRead = [];
       this.selectedUsersWrite = [];
       this.cell.assignedUsers?.forEach((user: _UserLight) => {

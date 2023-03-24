@@ -4,7 +4,6 @@ import { CellService } from './../../../../../services/cell.service';
 import { CellTemplate } from './../../../../../models/CellTemplate';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Cell, CellClass } from 'src/app/models/Cell';
 
 @Component({

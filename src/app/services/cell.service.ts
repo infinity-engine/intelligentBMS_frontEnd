@@ -39,10 +39,35 @@ export class CellService {
       .pipe(retry(2), catchError(this.errorHandler));
   }
 
-  getCells() {
+  getCells(cellId?: string) {
     //return all the cell on which you have any type of access
+    let params = new HttpParams();
+    if (cellId) {
+      params = params.set('cellId', cellId);
+    }
     return this.http
-      .get(`${environment.apiUri}/api/protected/cell/cell-info/`)
+      .get(`${environment.apiUri}/api/protected/cell/cell-info/`, {
+        params: params,
+      })
+      .pipe(retry(2), catchError(this.errorHandler));
+  }
+  updateCell(payload: Cell) {
+    return this.http
+      .put(
+        `${environment.apiUri}/api/protected/cell/cell-info/for-experiment`,
+        { payload: payload }
+      )
+      .pipe(retry(2), catchError(this.errorHandler));
+  }
+
+  markForDelete(cellId: string) {
+    let params = new HttpParams();
+    params = params.set('cellId', cellId);
+    return this.http
+      .delete(
+        `${environment.apiUri}/api/protected/cell/cell-info/for-experiment`,
+        { params: params }
+      )
       .pipe(retry(2), catchError(this.errorHandler));
   }
 

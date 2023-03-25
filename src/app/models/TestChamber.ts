@@ -1,5 +1,4 @@
 import { _UserLight } from './../services/user.service';
-import { Test } from './Test';
 
 //what you get from the back end
 export interface _TestChamber {
@@ -12,7 +11,7 @@ export interface _TestChamber {
   minTemp?: number; //in °C
   location?: string;
   assignedUsers?: _UserLight[]; //could be present if the user is admin to this chamber, otherwise this won't be present
-  testPerformed?: Test[];
+  testPerformed?: { testId: string }[];
   createdOn?: Date;
   maxNoOfChannels?: number;
   isConnected?: Boolean;

@@ -28,6 +28,8 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   isAddChBtnDisabled: boolean = true;
   isRemChBtnDisabled: boolean = true;
   currentPayload?: PayLoad;
+  testName?: string;
+  testDesc?: string;
   testChambers?: _TestChamber[] = [];
   selectedTestChamber: _TestChamber | null | any = null;
   scheduledDate: any = new Date();
@@ -57,8 +59,6 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
 
   init() {
     this.currentPayload = {
-      testDesc: undefined,
-      testName: undefined,
       channels: this.allSelectedChannel,
       isConAmTe: true,
       ambTemp: 25,
@@ -214,6 +214,8 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
     const currentTest: Test = {
       testConfig: this.currentPayload,
       testScheduleDate: this.scheduledDate,
+      testName: this.testName,
+      testDesc: this.testDesc,
     };
     let sub = this._testChamberService
       .createTest(this.selectedTestChamber._id, currentTest)

@@ -4,9 +4,10 @@
   border-radius: 5px;
   padding: 10px;
 }
-.all-chambers > table > tbody tr {
+.all-chambers tr:hover {
   cursor: pointer;
 }
+
 .user {
   margin-right: 2px;
 }
@@ -18,4 +19,11 @@
 }
 .chamber-details .card-body .col-md-4 {
   font-weight: bold;
+}
+.edit:hover {
+  color: red;
+  cursor: pointer;
+}
+.edit {
+  margin: 0px 6px;
 }

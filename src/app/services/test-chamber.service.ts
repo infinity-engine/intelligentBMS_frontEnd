@@ -4,6 +4,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
@@ -16,16 +17,37 @@ import { environment } from 'src/environments/environment';
 export class TestChamberService {
   constructor(private http: HttpClient) {}
 
-  getChambers() {
+  getChambers(chamberId: any = undefined) {
+    let params = new HttpParams();
+    if (chamberId) {
+      params = params.set('chamberId', chamberId);
+    }
     return this.http
-      .get(`${environment.apiUri}/api/protected/test-chamber`)
+      .get(`${environment.apiUri}/api/protected/test-chamber`, {
+        params: params,
+      })
       .pipe(share(), retry(3), catchError(this.errorHandler));
   }
   createNewTestChamber(chamberConfig: _TestChamber) {
     //angular stripped out the key which has the value undefined.
-    //console.log(chamberConfig);
     return this.http
       .post(`${environment.apiUri}/api/protected/test-chamber`, {
+        ...chamberConfig,
+      })
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
+  deleteTestChamber(chamberId: string) {
+    let params = new HttpParams();
+    params = params.set('chamberId', chamberId);
+    return this.http
+      .delete(`${environment.apiUri}/api/protected/test-chamber`, {
+        params: params,
+      })
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
+  updateTestChamber(chamberConfig: _TestChamber) {
+    return this.http
+      .put(`${environment.apiUri}/api/protected/test-chamber`, {
         ...chamberConfig,
       })
       .pipe(retry(3), catchError(this.errorHandler));
@@ -49,6 +71,7 @@ export class TestChamberService {
       .get(`${environment.apiUri}/api/protected/test-chamber/all-tests`)
       .pipe(retry(3), catchError(this.errorHandler));
   }
+
   getTestData(chamberId: string, testId: string): Observable<any> {
     return this.http
       .post(`${environment.apiUri}/api/protected/test-chamber/get-test-data`, {

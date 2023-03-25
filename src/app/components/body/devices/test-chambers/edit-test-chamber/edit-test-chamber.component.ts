@@ -1,4 +1,4 @@
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ComponentStoreService } from './../../../../../services/component-store.service';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { Subscription, switchMap } from 'rxjs';
@@ -108,7 +108,10 @@ export class EditTestChamberComponent implements OnInit, OnDestroy {
             msg: 'Chamber successfully updated.',
             color: 'green',
           });
-          this.router.navigate(['../../view'], { relativeTo: this.route });
+          this.router.navigate(['../../view'], {
+            relativeTo: this.route,
+            skipLocationChange: true,
+          });
         },
         error: (e) => {
           console.error(e);
@@ -124,7 +127,7 @@ export class EditTestChamberComponent implements OnInit, OnDestroy {
   deleteChannel() {
     this.modalTitle = 'Alert';
     this.modalBody =
-      'Are you sure you want to delete the Test Chamber? All the test records associated with this will also get deleted.';
+      'Are you sure you want to mark this chamber for deletion? Once done, no one would have access to it.';
     this.modalService.open(this.modal, { centered: true }).result.then(
       (result) => {
         //console.log('accepted');
@@ -137,7 +140,10 @@ export class EditTestChamberComponent implements OnInit, OnDestroy {
                 color: 'green',
                 timeOut: 10000,
               });
-              this.router.navigate(['../../view'], { relativeTo: this.route });
+              this.router.navigate(['../../view'], {
+                relativeTo: this.route,
+                skipLocationChange: true,
+              });
             },
             error: (err) => {
               console.log(err);

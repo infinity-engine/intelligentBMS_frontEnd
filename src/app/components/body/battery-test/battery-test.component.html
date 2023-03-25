@@ -53,7 +53,7 @@
               <div
                 class="col-12"
                 *ngFor="let test of liveTests"
-                [routerLink]="['view', test.chamberId, test._id]"
+                [routerLink]="['view', test.createdOnChamber, test._id]"
                 skipLocationChange="true"
                 (click)="changeView()"
               >
@@ -61,7 +61,9 @@
                   <div class="card-header">
                     <div class="row justify-content-between">
                       <div class="col">{{ test.testName }}</div>
-                      <div class="col text-end">{{ test.chamberName }}</div>
+                      <div class="col text-end">
+                        {{ test.chamberName }}
+                      </div>
                     </div>
                   </div>
                   <div class="card-body">

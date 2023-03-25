@@ -103,7 +103,10 @@ export class EditCellsComponent implements OnInit, OnDestroy {
           msg: 'Cell successfully updated.',
           color: 'green',
         });
-        this.router.navigate(['../../view'], { relativeTo: this.route });
+        this.router.navigate(['../../view'], {
+          relativeTo: this.route,
+          skipLocationChange: true,
+        });
       },
       error: (e) => {
         console.error(e);
@@ -120,7 +123,7 @@ export class EditCellsComponent implements OnInit, OnDestroy {
   deleteChannel() {
     this.modalTitle = 'Alert';
     this.modalBody =
-      "Are you sure you want to mark the cell for deletion? Once done you won't have any aceess to it.";
+      'Are you sure you want to mark this cell for deletion? Once done, no one would have access to it.';
     this.modalService.open(this.modal, { centered: true }).result.then(
       (result) => {
         //console.log('accepted');
@@ -133,7 +136,10 @@ export class EditCellsComponent implements OnInit, OnDestroy {
                 color: 'green',
                 timeOut: 10000,
               });
-              this.router.navigate(['../../view'], { relativeTo: this.route });
+              this.router.navigate(['../../view'], {
+                relativeTo: this.route,
+                skipLocationChange: true,
+              });
             },
             error: (err) => {
               console.log(err);

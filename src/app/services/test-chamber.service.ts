@@ -71,6 +71,7 @@ export class TestChamberService {
       .get(`${environment.apiUri}/api/protected/test-chamber/all-tests`)
       .pipe(retry(3), catchError(this.errorHandler));
   }
+
   getTestData(chamberId: string, testId: string): Observable<any> {
     return this.http
       .post(`${environment.apiUri}/api/protected/test-chamber/get-test-data`, {

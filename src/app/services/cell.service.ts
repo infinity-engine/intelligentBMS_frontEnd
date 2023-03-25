@@ -22,6 +22,7 @@ export class CellService {
       .get(`${environment.apiUri}/api/protected/cell/cell-templates`)
       .pipe(share(), retry(3), catchError(this.errorHandler));
   }
+
   addCell(cell: Cell) {
     return this.http
       .post(`${environment.apiUri}/api/protected/cell/cell-info`, cell)
@@ -31,10 +32,14 @@ export class CellService {
   getCellForExperiment(searchStr: string) {
     //return on the cells on which you can perform an experiment
     // in other words in which you have admin or write access
+    let params = new HttpParams();
+    if (searchStr) {
+      params = params.set('searchStr', searchStr);
+    }
     return this.http
-      .post(
+      .get(
         `${environment.apiUri}/api/protected/cell/cell-info/for-experiment`,
-        { searchStr: searchStr }
+        { params: params }
       )
       .pipe(retry(2), catchError(this.errorHandler));
   }
@@ -51,12 +56,10 @@ export class CellService {
       })
       .pipe(retry(2), catchError(this.errorHandler));
   }
+
   updateCell(payload: Cell) {
     return this.http
-      .put(
-        `${environment.apiUri}/api/protected/cell/cell-info/for-experiment`,
-        { ...payload }
-      )
+      .put(`${environment.apiUri}/api/protected/cell/cell-info`, { ...payload })
       .pipe(retry(2), catchError(this.errorHandler));
   }
 
@@ -64,10 +67,9 @@ export class CellService {
     let params = new HttpParams();
     params = params.set('cellId', cellId);
     return this.http
-      .delete(
-        `${environment.apiUri}/api/protected/cell/cell-info/for-experiment`,
-        { params: params }
-      )
+      .delete(`${environment.apiUri}/api/protected/cell/cell-info`, {
+        params: params,
+      })
       .pipe(retry(2), catchError(this.errorHandler));
   }
 

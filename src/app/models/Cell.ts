@@ -16,6 +16,7 @@ export interface Cell {
   users?: any[];
   accessType?: string;
   assignedUsers?: _UserLight[];
+  testsPerformed?: { testConfigChannelId: string }[];
 }
 
 export class CellClass implements Cell {

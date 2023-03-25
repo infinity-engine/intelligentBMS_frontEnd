@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { ComponentStoreService } from './../../../../../services/component-store.service';
 import { UserService, _User } from './../../../../../services/user.service';
 import { CellService } from './../../../../../services/cell.service';
@@ -25,7 +26,9 @@ export class AddCellsComponent implements OnInit, OnDestroy {
   constructor(
     private _cellService: CellService,
     private _userService: UserService,
-    private _componentStoreService: ComponentStoreService
+    private _componentStoreService: ComponentStoreService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +58,7 @@ export class AddCellsComponent implements OnInit, OnDestroy {
     const assignedUsers = [];
     if (this.selectedUser) {
       for (let user of this.selectedUser) {
-        assignedUsers.push({ _id: user._id, accessType: 'write' });
+        assignedUsers.push({ _id: user._id, accessType: 'view' });
       }
     }
     this.cell.users = assignedUsers;
@@ -67,6 +70,10 @@ export class AddCellsComponent implements OnInit, OnDestroy {
         this._componentStoreService.sendToastMsg({
           msg: 'Cell created successfully!',
           color: 'green',
+        });
+        this.router.navigate(['../view'], {
+          relativeTo: this.route,
+          skipLocationChange: true,
         });
       },
       error: (e) => {

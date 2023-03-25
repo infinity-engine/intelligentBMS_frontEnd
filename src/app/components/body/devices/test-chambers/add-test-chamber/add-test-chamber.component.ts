@@ -8,6 +8,7 @@ import {
 } from './../../../../../services/user.service';
 import { TestChamber } from './../../../../../models/TestChamber';
 import { Component, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-test-chamber',
@@ -26,7 +27,9 @@ export class AddTestChamberComponent implements OnDestroy {
   constructor(
     private _userService: UserService,
     private _testChamberService: TestChamberService,
-    private _componentStoreService: ComponentStoreService
+    private _componentStoreService: ComponentStoreService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   getUsers(searchStr: string = '') {
@@ -70,6 +73,10 @@ export class AddTestChamberComponent implements OnDestroy {
           this._componentStoreService.sendToastMsg({
             msg: 'Chamber created successfully',
             color: 'green',
+          });
+          this.router.navigate(['../view'], {
+            relativeTo: this.route,
+            skipLocationChange: true,
           });
         },
         error: (e) => {

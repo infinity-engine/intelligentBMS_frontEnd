@@ -8,7 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "analyzer": "webpack-bundle-analyzer dist/intelligent-bms/stats.json",
-    "explorer": "source-map-explorer dist/intelligent-bms/**/*.js"
+    "explorer": "source-map-explorer dist/intelligent-bms/**/*.js",
+    "compodoc:build": "compodoc -p tsconfig.doc.json",
+    "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
+    "compodoc:serve": "compodoc -s"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +26,7 @@
     "@angular/platform-browser-dynamic": "^15.1.4",
     "@angular/router": "^15.1.4",
     "@auth0/auth0-angular": "^1.10.0",
+    "@compodoc/compodoc": "^1.1.19",
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@ng-select/ng-select": "^10.0.3",
     "@popperjs/core": "^2.10.2",

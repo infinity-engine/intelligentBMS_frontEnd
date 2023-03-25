@@ -1,0 +1,949 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>intelligent-bms documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">intelligent-bms documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li
+  >
+  HeadNavComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/header/head-nav/head-nav.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-head-nav</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./head-nav.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./head-nav.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#authUser" >authUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#sub" >sub</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#logIn" >logIn</a>
+                            </li>
+                            <li>
+                                <a href="#logOut" >logOut</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(auth: AuthService, location: <a href="https://angular.io/api/common/Location" target="_blank">Location</a>, _user: <a href="../injectables/UserService.html" target="_self">UserService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/header/head-nav/head-nav.component.ts:15</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>auth</td>
+                                                  
+                                                        <td>
+                                                                    <code>AuthService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>location</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/Location" target="_blank" >Location</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_user</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logIn"></a>
+                    <span class="name">
+                        <span ><b>logIn</b></span>
+                        <a href="#logIn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logIn()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">src/app/components/header/head-nav/head-nav.component.ts:51</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logOut"></a>
+                    <span class="name">
+                        <span ><b>logOut</b></span>
+                        <a href="#logOut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logOut()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">src/app/components/header/head-nav/head-nav.component.ts:54</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/app/components/header/head-nav/head-nav.component.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/components/header/head-nav/head-nav.component.ts:22</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authUser"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>authUser</b></span>
+                        <a href="#authUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/header/head-nav/head-nav.component.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sub"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>sub</b></span>
+                        <a href="#sub"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/header/head-nav/head-nav.component.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { UserService } from &#x27;./../../../services/user.service&#x27;;
+import { of, Subscription, switchMap, Observable } from &#x27;rxjs&#x27;;
+import { Location } from &#x27;@angular/common&#x27;;
+import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { AuthService } from &#x27;@auth0/auth0-angular&#x27;;
+import { User } from &#x27;@auth0/auth0-angular&#x27;;
+
+@Component({
+  selector: &#x27;app-head-nav&#x27;,
+  templateUrl: &#x27;./head-nav.component.html&#x27;,
+  styleUrls: [&#x27;./head-nav.component.css&#x27;],
+})
+export class HeadNavComponent implements OnInit, OnDestroy {
+  sub?: Subscription;
+  authUser?: any;
+  constructor(
+    private auth: AuthService,
+    private location: Location,
+    private _user: UserService
+  ) {}
+
+  ngOnInit(): void {
+    const os$:Observable&lt;any&gt; &#x3D; this.auth.user$.pipe(
+      switchMap((firstResponse: any) &#x3D;&gt; {
+        this.authUser &#x3D; firstResponse;
+        if (this.authUser) {
+          return this._user.verifyUser(this.authUser as any).pipe(
+            switchMap((secondResponse: any) &#x3D;&gt; {
+              if (secondResponse) {
+                return of(&#x27;Exists on API DB&#x27;);
+              } else {
+                return this._user.createUser(this.authUser as any).pipe(switchMap((thirdResponse:any)&#x3D;&gt;{
+                  if (thirdResponse){
+                    return of(&quot;Inserted in API DB&quot;)
+                  }else{
+                    return of(&quot;Inset failed of API DB&quot;)
+                  }
+                }))
+              }
+            })
+          );
+        } else {
+          return of(null);
+        }
+      })
+    );
+    this.sub &#x3D; os$.subscribe(msg &#x3D;&gt;{
+      console.log(&quot;User: &quot;,msg)
+    })
+  }
+  logIn() {
+    this.auth.loginWithRedirect();
+  }
+  logOut() {
+    this.auth.logout();
+  }
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;navbar-container&quot;&gt;
+  &lt;nav class&#x3D;&quot;navbar navbar-expand-lg bg-light&quot;&gt;
+    &lt;div class&#x3D;&quot;container&quot;&gt;
+      &lt;a class&#x3D;&quot;navbar-brand&quot; href&#x3D;&quot;/&quot;&gt;
+        &lt;svg
+          width&#x3D;&quot;50&quot;
+          height&#x3D;&quot;50&quot;
+          viewBox&#x3D;&quot;0 0 1168 1190&quot;
+          fill&#x3D;&quot;none&quot;
+          xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;
+        &gt;
+          &lt;g id&#x3D;&quot;logo&quot;&gt;
+            &lt;g id&#x3D;&quot;swoosh&quot;&gt;
+              &lt;circle
+                id&#x3D;&quot;Ellipse 1&quot;
+                cx&#x3D;&quot;584&quot;
+                cy&#x3D;&quot;584&quot;
+                r&#x3D;&quot;502.5&quot;
+                stroke&#x3D;&quot;black&quot;
+                stroke-width&#x3D;&quot;9&quot;
+              /&gt;
+              &lt;circle
+                id&#x3D;&quot;Ellipse 6&quot;
+                cx&#x3D;&quot;558.5&quot;
+                cy&#x3D;&quot;653.5&quot;
+                r&#x3D;&quot;528&quot;
+                stroke&#x3D;&quot;black&quot;
+                stroke-width&#x3D;&quot;9&quot;
+              /&gt;
+              &lt;circle
+                id&#x3D;&quot;Ellipse 5&quot;
+                cx&#x3D;&quot;584&quot;
+                cy&#x3D;&quot;533&quot;
+                r&#x3D;&quot;502.5&quot;
+                stroke&#x3D;&quot;#D14545&quot;
+                stroke-width&#x3D;&quot;9&quot;
+              /&gt;
+              &lt;circle
+                id&#x3D;&quot;Ellipse 4&quot;
+                cx&#x3D;&quot;611.5&quot;
+                cy&#x3D;&quot;655.5&quot;
+                r&#x3D;&quot;530&quot;
+                stroke&#x3D;&quot;#3F2A91&quot;
+                stroke-width&#x3D;&quot;9&quot;
+              /&gt;
+              &lt;circle
+                id&#x3D;&quot;Ellipse 3&quot;
+                cx&#x3D;&quot;533&quot;
+                cy&#x3D;&quot;610&quot;
+                r&#x3D;&quot;528.5&quot;
+                stroke&#x3D;&quot;#DB2626&quot;
+                stroke-opacity&#x3D;&quot;0.73&quot;
+                stroke-width&#x3D;&quot;9&quot;
+              /&gt;
+              &lt;circle
+                id&#x3D;&quot;Ellipse 2&quot;
+                cx&#x3D;&quot;584&quot;
+                cy&#x3D;&quot;584&quot;
+                r&#x3D;&quot;579.5&quot;
+                stroke&#x3D;&quot;#3996CB&quot;
+                stroke-width&#x3D;&quot;9&quot;
+              /&gt;
+            &lt;/g&gt;
+            &lt;g id&#x3D;&quot;name&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M277.9 548.2V709H251.5V548.2H277.9ZM265 487.9C269 487.9 272.5 489.3 275.5 492.1C278.7 494.7 280.3 498.9 280.3 504.7C280.3 510.3 278.7 514.5 275.5 517.3C272.5 520.1 269 521.5 265 521.5C260.6 521.5 256.9 520.1 253.9 517.3C250.9 514.5 249.4 510.3 249.4 504.7C249.4 498.9 250.9 494.7 253.9 492.1C256.9 489.3 260.6 487.9 265 487.9Z&quot;
+                fill&#x3D;&quot;#4C6078&quot;
+              /&gt;
+              &lt;path
+                d&#x3D;&quot;M393.644 494.8C411.444 494.8 426.344 496.5 438.344 499.9C450.544 503.3 459.644 508.9 465.644 516.7C471.844 524.5 474.944 534.9 474.944 547.9C474.944 556.3 473.344 563.8 470.144 570.4C467.144 576.8 462.544 582.2 456.344 586.6C450.344 590.8 442.944 593.7 434.144 595.3V596.8C443.144 598.2 451.244 600.8 458.444 604.6C465.844 608.4 471.644 613.8 475.844 620.8C480.044 627.8 482.144 636.9 482.144 648.1C482.144 661.1 479.144 672.2 473.144 681.4C467.144 690.4 458.544 697.3 447.344 702.1C436.344 706.7 423.144 709 407.744 709H332.444V494.8H393.644ZM399.044 586C417.444 586 430.044 583.1 436.844 577.3C443.644 571.3 447.044 562.5 447.044 550.9C447.044 539.1 442.844 530.7 434.444 525.7C426.244 520.5 413.044 517.9 394.844 517.9H359.444V586H399.044ZM359.444 608.5V686.2H402.644C421.644 686.2 434.844 682.5 442.244 675.1C449.644 667.7 453.344 658 453.344 646C453.344 638.4 451.644 631.8 448.244 626.2C445.044 620.6 439.544 616.3 431.744 613.3C424.144 610.1 413.744 608.5 400.544 608.5H359.444ZM921.229 651.7C921.229 664.5 918.129 675.4 911.929 684.4C905.729 693.2 896.829 700 885.229 704.8C873.829 709.6 860.329 712 844.729 712C836.729 712 829.029 711.6 821.629 710.8C814.429 710 807.829 708.9 801.829 707.5C795.829 705.9 790.529 704 785.929 701.8V676C793.129 679.2 802.029 682.1 812.629 684.7C823.429 687.3 834.529 688.6 845.929 688.6C856.529 688.6 865.429 687.2 872.629 684.4C879.829 681.6 885.229 677.6 888.829 672.4C892.429 667.2 894.229 661.1 894.229 654.1C894.229 647.1 892.729 641.2 889.729 636.4C886.729 631.6 881.529 627.2 874.129 623.2C866.929 619 856.829 614.6 843.829 610C834.629 606.6 826.529 603 819.529 599.2C812.729 595.2 807.029 590.7 802.429 585.7C797.829 580.7 794.329 575 791.929 568.6C789.729 562.2 788.629 554.8 788.629 546.4C788.629 535 791.529 525.3 797.329 517.3C803.129 509.1 811.129 502.8 821.329 498.4C831.729 494 843.629 491.8 857.029 491.8C868.829 491.8 879.629 492.9 889.429 495.1C899.229 497.3 908.129 500.2 916.129 503.8L907.729 526.9C900.329 523.7 892.229 521 883.429 518.8C874.829 516.6 865.829 515.5 856.429 515.5C847.429 515.5 839.929 516.8 833.929 519.4C827.929 522 823.429 525.7 820.429 530.5C817.429 535.1 815.929 540.5 815.929 546.7C815.929 553.9 817.429 559.9 820.429 564.7C823.429 569.5 828.329 573.8 835.129 577.6C841.929 581.4 851.129 585.5 862.729 589.9C875.329 594.5 885.929 599.5 894.529 604.9C903.329 610.1 909.929 616.4 914.329 623.8C918.929 631.2 921.229 640.5 921.229 651.7Z&quot;
+                fill&#x3D;&quot;#D8EBEA&quot;
+              /&gt;
+              &lt;path
+                d&#x3D;&quot;M622.061 709L551.561 521.2H550.361C550.761 525.2 551.061 530.3 551.261 536.5C551.661 542.7 551.961 549.5 552.161 556.9C552.361 564.1 552.461 571.5 552.461 579.1V709H527.561V494.8H567.461L633.461 670.3H634.661L701.861 494.8H741.461V709H714.761V577.3C714.761 570.3 714.861 563.4 715.061 556.6C715.261 549.6 715.561 543.1 715.961 537.1C716.361 530.9 716.661 525.7 716.861 521.5H715.661L644.261 709H622.061Z&quot;
+                fill&#x3D;&quot;#332A4B&quot;
+              /&gt;
+              &lt;path
+                d&#x3D;&quot;M277.9 548.2H299.9V526.2H277.9V548.2ZM277.9 709V731H299.9V709H277.9ZM251.5 709H229.5V731H251.5V709ZM251.5 548.2V526.2H229.5V548.2H251.5ZM275.5 492.1L260.489 508.183L261.041 508.698L261.627 509.174L275.5 492.1ZM275.5 517.3L261.013 500.743L260.747 500.976L260.489 501.217L275.5 517.3ZM253.9 517.3L268.911 501.217L268.911 501.217L253.9 517.3ZM253.9 492.1L268.308 508.725L268.615 508.46L268.911 508.183L253.9 492.1ZM255.9 548.2V709H299.9V548.2H255.9ZM277.9 687H251.5V731H277.9V687ZM273.5 709V548.2H229.5V709H273.5ZM251.5 570.2H277.9V526.2H251.5V570.2ZM265 509.9C264.374 509.9 263.459 509.778 262.454 509.376C261.459 508.978 260.803 508.477 260.489 508.183L290.511 476.017C283.554 469.524 274.73 465.9 265 465.9V509.9ZM261.627 509.174C259.958 507.818 258.991 506.212 258.541 505.032C258.156 504.022 258.3 503.737 258.3 504.7H302.3C302.3 495.099 299.566 483.307 289.373 475.025L261.627 509.174ZM258.3 504.7C258.3 505.457 258.186 505.15 258.541 504.218C258.946 503.155 259.752 501.847 261.013 500.743L289.987 533.857C299.361 525.655 302.3 514.512 302.3 504.7H258.3ZM260.489 501.217C260.803 500.923 261.459 500.422 262.454 500.024C263.459 499.622 264.374 499.5 265 499.5V543.5C274.73 543.5 283.554 539.876 290.511 533.383L260.489 501.217ZM265 499.5C265.163 499.5 265.809 499.533 266.711 499.874C267.639 500.225 268.398 500.738 268.911 501.217L238.889 533.383C246.274 540.276 255.468 543.5 265 543.5V499.5ZM268.911 501.217C270.198 502.418 270.916 503.735 271.243 504.651C271.527 505.444 271.4 505.596 271.4 504.7H227.4C227.4 514.095 229.988 525.076 238.889 533.383L268.911 501.217ZM271.4 504.7C271.4 503.604 271.553 503.732 271.243 504.599C270.88 505.618 270.011 507.25 268.308 508.725L239.492 475.475C229.787 483.885 227.4 495.525 227.4 504.7H271.4ZM268.911 508.183C268.398 508.662 267.639 509.175 266.711 509.526C265.809 509.867 265.163 509.9 265 509.9V465.9C255.468 465.9 246.274 469.124 238.889 476.017L268.911 508.183ZM438.344 499.9L432.346 521.067L432.392 521.08L432.438 521.092L438.344 499.9ZM465.644 516.7L448.206 530.114L448.313 530.252L448.422 530.389L465.644 516.7ZM470.144 570.4L450.348 560.802L450.285 560.932L450.224 561.062L470.144 570.4ZM456.344 586.6L468.96 604.623L469.018 604.582L469.076 604.541L456.344 586.6ZM434.144 595.3L430.208 573.655L412.144 576.939V595.3H434.144ZM434.144 596.8H412.144V615.642L430.762 618.539L434.144 596.8ZM458.444 604.6L448.175 624.056L448.284 624.114L448.394 624.17L458.444 604.6ZM475.844 620.8L494.709 609.481L494.709 609.481L475.844 620.8ZM473.144 681.4L491.449 693.603L491.511 693.511L491.571 693.418L473.144 681.4ZM447.344 702.1L455.831 722.397L455.921 722.359L456.01 722.321L447.344 702.1ZM332.444 709H310.444V731H332.444V709ZM332.444 494.8V472.8H310.444V494.8H332.444ZM436.844 577.3L451.121 594.038L451.261 593.919L451.399 593.796L436.844 577.3ZM434.444 525.7L422.662 544.279L422.924 544.446L423.191 544.604L434.444 525.7ZM359.444 517.9V495.9H337.444V517.9H359.444ZM359.444 586H337.444V608H359.444V586ZM359.444 608.5V586.5H337.444V608.5H359.444ZM359.444 686.2H337.444V708.2H359.444V686.2ZM442.244 675.1L457.8 690.656L457.8 690.656L442.244 675.1ZM448.244 626.2L429.142 637.115L429.287 637.368L429.438 637.618L448.244 626.2ZM431.744 613.3L423.207 633.576L423.524 633.71L423.846 633.834L431.744 613.3ZM393.644 516.8C410.203 516.8 422.933 518.4 432.346 521.067L444.341 478.733C429.755 474.6 412.684 472.8 393.644 472.8V516.8ZM432.438 521.092C441.376 523.583 445.846 527.045 448.206 530.114L483.081 503.286C473.442 490.755 459.711 483.017 444.25 478.708L432.438 521.092ZM448.422 530.389C450.696 533.25 452.944 538.345 452.944 547.9H496.944C496.944 531.455 492.992 515.75 482.866 503.011L448.422 530.389ZM452.944 547.9C452.944 553.459 451.9 557.6 450.348 560.802L489.94 579.998C494.787 570 496.944 559.141 496.944 547.9H452.944ZM450.224 561.062C448.958 563.763 446.954 566.286 443.611 568.659L469.076 604.541C478.133 598.114 485.33 589.837 490.064 579.738L450.224 561.062ZM443.728 568.577C440.836 570.601 436.563 572.499 430.208 573.655L438.079 616.945C449.324 614.901 459.852 610.999 468.96 604.623L443.728 568.577ZM412.144 595.3V596.8H456.144V595.3H412.144ZM430.762 618.539C437.639 619.608 443.368 621.52 448.175 624.056L468.712 585.144C459.119 580.08 448.648 576.792 437.525 575.061L430.762 618.539ZM448.394 624.17C452.217 626.134 454.932 628.708 456.979 632.119L494.709 609.481C488.355 598.892 479.471 590.666 468.493 585.03L448.394 624.17ZM456.979 632.119C458.501 634.656 460.144 639.463 460.144 648.1H504.144C504.144 634.337 501.586 620.944 494.709 609.481L456.979 632.119ZM460.144 648.1C460.144 657.629 457.985 664.37 454.716 669.382L491.571 693.418C500.303 680.03 504.144 664.571 504.144 648.1H460.144ZM454.839 669.197C451.497 674.209 446.467 678.54 438.678 681.879L456.01 722.321C470.62 716.06 482.79 706.591 491.449 693.603L454.839 669.197ZM438.856 681.803C431.204 685.003 421.042 687 407.744 687V731C425.246 731 441.483 728.397 455.831 722.397L438.856 681.803ZM407.744 687H332.444V731H407.744V687ZM354.444 709V494.8H310.444V709H354.444ZM332.444 516.8H393.644V472.8H332.444V516.8ZM399.044 608C418.039 608 437.848 605.359 451.121 594.038L422.567 560.562C422.79 560.372 421.646 561.399 417.359 562.386C413.198 563.343 407.22 564 399.044 564V608ZM451.399 593.796C464.183 582.517 469.044 566.928 469.044 550.9H425.044C425.044 558.072 423.105 560.083 422.288 560.804L451.399 593.796ZM469.044 550.9C469.044 533.226 462.233 516.639 445.696 506.796L423.191 544.604C423.929 545.044 424.079 545.313 424.216 545.589C424.448 546.052 425.044 547.561 425.044 550.9H469.044ZM446.226 507.121C432.577 498.466 414.121 495.9 394.844 495.9V539.9C411.967 539.9 419.91 542.534 422.662 544.279L446.226 507.121ZM394.844 495.9H359.444V539.9H394.844V495.9ZM337.444 517.9V586H381.444V517.9H337.444ZM359.444 608H399.044V564H359.444V608ZM337.444 608.5V686.2H381.444V608.5H337.444ZM359.444 708.2H402.644V664.2H359.444V708.2ZM402.644 708.2C423.15 708.2 443.986 704.471 457.8 690.656L426.687 659.544C425.702 660.529 420.137 664.2 402.644 664.2V708.2ZM457.8 690.656C469.939 678.517 475.344 662.906 475.344 646H431.344C431.344 653.094 429.348 656.883 426.687 659.544L457.8 690.656ZM475.344 646C475.344 635.028 472.854 624.344 467.049 614.782L429.438 637.618C430.433 639.256 431.344 641.772 431.344 646H475.344ZM467.345 615.285C460.968 604.124 450.754 597.041 439.641 592.766L423.846 633.834C428.333 635.559 429.12 637.076 429.142 637.115L467.345 615.285ZM440.281 593.024C428.842 588.208 415.121 586.5 400.544 586.5V630.5C412.367 630.5 419.446 631.992 423.207 633.576L440.281 593.024ZM400.544 586.5H359.444V630.5H400.544V586.5ZM622.061 709L601.464 716.732L606.821 731H622.061V709ZM551.561 521.2L572.157 513.468L566.801 499.2H551.561V521.2ZM550.361 521.2V499.2H526.051L528.47 523.389L550.361 521.2ZM551.261 536.5L529.272 537.209L529.284 537.563L529.307 537.916L551.261 536.5ZM552.161 556.9L530.169 557.494L530.169 557.503L530.169 557.511L552.161 556.9ZM552.461 709V731H574.461V709H552.461ZM527.561 709H505.561V731H527.561V709ZM527.561 494.8V472.8H505.561V494.8H527.561ZM567.461 494.8L588.053 487.056L582.692 472.8H567.461V494.8ZM633.461 670.3L612.869 678.044L618.23 692.3H633.461V670.3ZM634.661 670.3V692.3H649.795L655.206 678.167L634.661 670.3ZM701.861 494.8V472.8H686.727L681.316 486.933L701.861 494.8ZM741.461 494.8H763.461V472.8H741.461V494.8ZM741.461 709V731H763.461V709H741.461ZM714.761 709H692.761V731H714.761V709ZM715.061 556.6L737.051 557.247L737.052 557.238L737.052 557.228L715.061 556.6ZM715.961 537.1L737.912 538.563L737.914 538.54L737.915 538.516L715.961 537.1ZM716.861 521.5L738.836 522.546L739.933 499.5H716.861V521.5ZM715.661 521.5V499.5H700.497L695.101 513.671L715.661 521.5ZM644.261 709V731H659.424L664.821 716.829L644.261 709ZM642.657 701.268L572.157 513.468L530.964 528.932L601.464 716.732L642.657 701.268ZM551.561 499.2H550.361V543.2H551.561V499.2ZM528.47 523.389C528.802 526.709 529.081 531.27 529.272 537.209L573.25 535.791C573.041 529.33 572.72 523.691 572.252 519.011L528.47 523.389ZM529.307 537.916C529.686 543.797 529.975 550.319 530.169 557.494L574.153 556.306C573.947 548.681 573.636 541.603 573.215 535.084L529.307 537.916ZM530.169 557.511C530.363 564.497 530.461 571.693 530.461 579.1H574.461C574.461 571.307 574.358 563.703 574.152 556.289L530.169 557.511ZM530.461 579.1V709H574.461V579.1H530.461ZM552.461 687H527.561V731H552.461V687ZM549.561 709V494.8H505.561V709H549.561ZM527.561 516.8H567.461V472.8H527.561V516.8ZM546.869 502.544L612.869 678.044L654.053 662.556L588.053 487.056L546.869 502.544ZM633.461 692.3H634.661V648.3H633.461V692.3ZM655.206 678.167L722.406 502.667L681.316 486.933L614.116 662.433L655.206 678.167ZM701.861 516.8H741.461V472.8H701.861V516.8ZM719.461 494.8V709H763.461V494.8H719.461ZM741.461 687H714.761V731H741.461V687ZM736.761 709V577.3H692.761V709H736.761ZM736.761 577.3C736.761 570.509 736.858 563.825 737.051 557.247L693.07 555.953C692.864 562.975 692.761 570.091 692.761 577.3H736.761ZM737.052 557.228C737.245 550.463 737.533 544.245 737.912 538.563L694.01 535.637C693.588 541.955 693.277 548.737 693.07 555.972L737.052 557.228ZM737.915 538.516C738.32 532.245 738.628 526.913 738.836 522.546L694.886 520.454C694.694 524.487 694.402 529.555 694.007 535.684L737.915 538.516ZM716.861 499.5H715.661V543.5H716.861V499.5ZM695.101 513.671L623.701 701.171L664.821 716.829L736.221 529.329L695.101 513.671ZM644.261 687H622.061V731H644.261V687ZM911.929 684.4L929.914 697.071L929.98 696.976L930.046 696.881L911.929 684.4ZM885.229 704.8L876.817 684.472L876.754 684.498L876.692 684.524L885.229 704.8ZM821.629 710.8L819.199 732.665L819.232 732.669L819.264 732.673L821.629 710.8ZM801.829 707.5L796.16 728.757L796.494 728.846L796.83 728.925L801.829 707.5ZM785.929 701.8H763.929V715.665L776.437 721.647L785.929 701.8ZM785.929 676L794.864 655.896L763.929 642.147V676H785.929ZM812.629 684.7L807.388 706.067L807.434 706.078L807.48 706.089L812.629 684.7ZM872.629 684.4L864.655 663.896L864.655 663.896L872.629 684.4ZM888.829 672.4L870.741 659.877L870.741 659.877L888.829 672.4ZM889.729 636.4L871.073 648.06L871.073 648.06L889.729 636.4ZM874.129 623.2L863.044 642.203L863.353 642.383L863.668 642.554L874.129 623.2ZM843.829 610L836.203 630.636L836.346 630.689L836.49 630.74L843.829 610ZM819.529 599.2L808.374 618.163L808.7 618.354L809.033 618.535L819.529 599.2ZM791.929 568.6L771.124 575.752L771.223 576.04L771.33 576.325L791.929 568.6ZM797.329 517.3L815.14 530.213L815.216 530.109L815.29 530.004L797.329 517.3ZM821.329 498.4L812.757 478.139L812.686 478.169L812.615 478.199L821.329 498.4ZM889.429 495.1L894.248 473.634L894.248 473.634L889.429 495.1ZM916.129 503.8L936.804 511.318L943.785 492.121L925.157 483.738L916.129 503.8ZM907.729 526.9L898.997 547.093L920.426 556.359L928.404 534.418L907.729 526.9ZM883.429 518.8L877.977 540.114L878.035 540.129L878.093 540.143L883.429 518.8ZM820.429 530.5L838.856 542.518L838.972 542.34L839.085 542.16L820.429 530.5ZM820.429 564.7L839.085 553.04L839.085 553.04L820.429 564.7ZM835.129 577.6L824.397 596.805L824.397 596.805L835.129 577.6ZM862.729 589.9L854.927 610.47L855.055 610.519L855.184 610.566L862.729 589.9ZM894.529 604.9L882.83 623.532L883.081 623.689L883.337 623.84L894.529 604.9ZM914.329 623.8L895.419 635.044L895.53 635.23L895.645 635.415L914.329 623.8ZM899.229 651.7C899.229 660.826 897.072 667.186 893.812 671.919L930.046 696.881C939.185 683.614 943.229 668.174 943.229 651.7H899.229ZM893.944 671.729C890.522 676.587 885.217 680.996 876.817 684.472L893.641 725.128C908.441 719.004 920.936 709.813 929.914 697.071L893.944 671.729ZM876.692 684.524C868.6 687.931 858.135 690 844.729 690V734C862.523 734 879.058 731.269 893.766 725.076L876.692 684.524ZM844.729 690C837.461 690 830.552 689.637 823.994 688.927L819.264 732.673C827.505 733.563 835.997 734 844.729 734V690ZM824.058 688.935C817.577 688.214 811.849 687.247 806.828 686.075L796.83 728.925C803.809 730.553 811.281 731.786 819.199 732.665L824.058 688.935ZM807.497 686.243C802.54 684.921 798.562 683.455 795.421 681.953L776.437 721.647C782.496 724.545 789.118 726.879 796.16 728.757L807.497 686.243ZM807.929 701.8V676H763.929V701.8H807.929ZM776.994 696.104C785.741 699.992 795.966 703.265 807.388 706.067L817.87 663.333C808.092 660.935 800.517 658.408 794.864 655.896L776.994 696.104ZM807.48 706.089C820.01 709.105 832.84 710.6 845.929 710.6V666.6C836.218 666.6 826.848 665.495 817.778 663.311L807.48 706.089ZM845.929 710.6C858.31 710.6 870.106 708.986 880.603 704.904L864.655 663.896C860.751 665.414 854.748 666.6 845.929 666.6V710.6ZM880.603 704.904C890.979 700.869 900.311 694.464 906.917 684.923L870.741 659.877C870.146 660.736 868.679 662.331 864.655 663.896L880.603 704.904ZM906.917 684.923C913.334 675.653 916.229 665.076 916.229 654.1H872.229C872.229 657.124 871.524 658.747 870.741 659.877L906.917 684.923ZM916.229 654.1C916.229 643.951 914.035 633.78 908.385 624.74L871.073 648.06C871.423 648.62 872.229 650.249 872.229 654.1H916.229ZM908.385 624.74C902.617 615.511 893.83 608.841 884.59 603.846L863.668 642.554C869.228 645.559 870.841 647.689 871.073 648.06L908.385 624.74ZM885.214 604.197C876.304 598.999 864.743 594.064 851.168 589.26L836.49 630.74C848.915 635.136 857.554 639.001 863.044 642.203L885.214 604.197ZM851.455 589.364C843.026 586.249 835.918 583.064 830.025 579.865L809.033 618.535C817.14 622.936 826.232 626.951 836.203 630.636L851.455 589.364ZM830.683 580.237C825.459 577.164 821.536 573.975 818.619 570.805L786.238 600.595C792.522 607.425 799.999 613.236 808.374 618.163L830.683 580.237ZM818.619 570.805C815.949 567.902 813.94 564.64 812.528 560.875L771.33 576.325C774.718 585.36 779.709 593.498 786.238 600.595L818.619 570.805ZM812.734 561.448C811.49 557.828 810.629 552.93 810.629 546.4H766.629C766.629 556.67 767.968 566.572 771.124 575.752L812.734 561.448ZM810.629 546.4C810.629 538.899 812.467 533.901 815.14 530.213L779.517 504.387C770.591 516.699 766.629 531.101 766.629 546.4H810.629ZM815.29 530.004C818.513 525.448 823.15 521.574 830.043 518.601L812.615 478.199C799.108 484.026 787.745 492.752 779.368 504.596L815.29 530.004ZM829.901 518.661C837.132 515.602 846.034 513.8 857.029 513.8V469.8C841.224 469.8 826.326 472.398 812.757 478.139L829.901 518.661ZM857.029 513.8C867.481 513.8 876.638 514.776 884.61 516.566L894.248 473.634C882.62 471.024 870.176 469.8 857.029 469.8V513.8ZM884.61 516.566C893.167 518.487 900.631 520.951 907.101 523.862L925.157 483.738C915.627 479.449 905.291 476.113 894.248 473.634L884.61 516.566ZM895.453 496.282L887.053 519.382L928.404 534.418L936.804 511.318L895.453 496.282ZM916.461 506.707C907.836 502.977 898.585 499.912 888.765 497.457L878.093 540.143C885.873 542.088 892.822 544.423 898.997 547.093L916.461 506.707ZM888.881 497.486C878.398 494.805 867.56 493.5 856.429 493.5V537.5C864.098 537.5 871.26 538.395 877.977 540.114L888.881 497.486ZM856.429 493.5C845.481 493.5 834.773 495.057 825.182 499.214L842.676 539.586C845.084 538.543 849.377 537.5 856.429 537.5V493.5ZM825.182 499.214C815.745 503.303 807.487 509.697 801.773 518.84L839.085 542.16C839.37 541.703 840.112 540.697 842.676 539.586L825.182 499.214ZM802.001 518.482C796.378 527.104 793.929 536.8 793.929 546.7H837.929C837.929 544.2 838.479 543.096 838.856 542.518L802.001 518.482ZM793.929 546.7C793.929 556.913 796.066 567.229 801.773 576.36L839.085 553.04C838.792 552.571 837.929 550.887 837.929 546.7H793.929ZM801.773 576.36C807.337 585.262 815.521 591.845 824.397 596.805L845.861 558.395C841.137 555.755 839.521 553.738 839.085 553.04L801.773 576.36ZM824.397 596.805C832.521 601.345 842.834 605.883 854.927 610.47L870.531 569.33C859.424 565.117 851.336 561.455 845.861 558.395L824.397 596.805ZM855.184 610.566C866.765 614.794 875.879 619.167 882.83 623.532L906.228 586.268C895.979 579.833 883.893 574.206 870.274 569.234L855.184 610.566ZM883.337 623.84C889.554 627.514 893.23 631.361 895.419 635.044L933.239 612.556C926.628 601.439 917.104 592.686 905.721 585.96L883.337 623.84ZM895.645 635.415C897.539 638.463 899.229 643.45 899.229 651.7H943.229C943.229 637.55 940.318 623.937 933.013 612.185L895.645 635.415Z&quot;
+                fill&#x3D;&quot;#0B112E&quot;
+              /&gt;
+            &lt;/g&gt;
+          &lt;/g&gt;
+        &lt;/svg&gt;
+      &lt;/a&gt;
+      &lt;button
+        class&#x3D;&quot;navbar-toggler&quot;
+        type&#x3D;&quot;button&quot;
+        data-bs-toggle&#x3D;&quot;collapse&quot;
+        data-bs-target&#x3D;&quot;#navbarSupportedContent&quot;
+        aria-controls&#x3D;&quot;navbarSupportedContent&quot;
+        aria-expanded&#x3D;&quot;false&quot;
+        aria-label&#x3D;&quot;Toggle navigation&quot;
+      &gt;
+        &lt;span class&#x3D;&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class&#x3D;&quot;collapse navbar-collapse&quot; id&#x3D;&quot;navbarSupportedContent&quot;&gt;
+        &lt;ul class&#x3D;&quot;navbar-nav ms-auto mb-2 mb-lg-0 align-items-start&quot;&gt;
+          &lt;li class&#x3D;&quot;nav-item&quot;&gt;
+            &lt;a
+              class&#x3D;&quot;nav-link&quot;
+              routerLink&#x3D;&quot;/dashboard&quot;
+              [skipLocationChange]&#x3D;&quot;true&quot;
+              routerLinkActive&#x3D;&quot;active-link&quot;
+              &gt;Dashboard&lt;/a
+            &gt;
+          &lt;/li&gt;
+          &lt;li class&#x3D;&quot;nav-item dropdown&quot; id&#x3D;&quot;device-dropdown-nav-item&quot;&gt;
+            &lt;a
+              class&#x3D;&quot;nav-link&quot;
+              routerLink&#x3D;&quot;/devices&quot;
+              [skipLocationChange]&#x3D;&quot;true&quot;
+              routerLinkActive&#x3D;&quot;active-link&quot;
+              id&#x3D;&quot;device-dropdown-button&quot;
+              aria-expanded&#x3D;&quot;false&quot;
+              &gt;Devices&lt;/a
+            &gt;
+            &lt;ul
+              class&#x3D;&quot;dropdown-menu dropdown-menu-end&quot;
+              id&#x3D;&quot;device-dropdown-menu&quot;
+              aria-labelledby&#x3D;&quot;device-dropdown-button&quot;
+            &gt;
+              &lt;li
+                class&#x3D;&quot;dropdown-item nav-item&quot;
+                routerLink&#x3D;&quot;/devices/test-chambers&quot;
+                [skipLocationChange]&#x3D;&quot;true&quot;
+                routerLinkActive&#x3D;&quot;active-link&quot;
+              &gt;
+                Test Chambers
+              &lt;/li&gt;
+              &lt;li
+                class&#x3D;&quot;dropdown-item&quot;
+                routerLink&#x3D;&quot;/devices/cells&quot;
+                [skipLocationChange]&#x3D;&quot;true&quot;
+                routerLinkActive&#x3D;&quot;active-link&quot;
+              &gt;
+                Cells
+              &lt;/li&gt;
+              &lt;li
+                class&#x3D;&quot;dropdown-item&quot;
+                routerLink&#x3D;&quot;/devices/battery-packs&quot;
+                [skipLocationChange]&#x3D;&quot;true&quot;
+                routerLinkActive&#x3D;&quot;active-link&quot;
+              &gt;
+                Battery Packs
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li class&#x3D;&quot;nav-item&quot;&gt;
+            &lt;a
+              class&#x3D;&quot;nav-link&quot;
+              routerLink&#x3D;&quot;/battery-test&quot;
+              [skipLocationChange]&#x3D;&quot;true&quot;
+              routerLinkActive&#x3D;&quot;active-link&quot;
+              &gt;Battery Test&lt;/a
+            &gt;
+          &lt;/li&gt;
+          &lt;li class&#x3D;&quot;nav-item&quot;&gt;
+            &lt;a
+              class&#x3D;&quot;nav-link&quot;
+              routerLink&#x3D;&quot;/docs&quot;
+              [skipLocationChange]&#x3D;&quot;true&quot;
+              routerLinkActive&#x3D;&quot;active-link&quot;
+              &gt;Documentation&lt;/a
+            &gt;
+          &lt;/li&gt;
+          &lt;li
+            *ngIf&#x3D;&quot;authUser as user; else loggedOut&quot;
+            class&#x3D;&quot;nav-item dropdown&quot;
+          &gt;
+            &lt;a
+              class&#x3D;&quot;nav-link dropdown-toggle dropdown-profile&quot;
+              href&#x3D;&quot;#&quot;
+              id&#x3D;&quot;navbarDropdown&quot;
+              role&#x3D;&quot;button&quot;
+              data-bs-toggle&#x3D;&quot;dropdown&quot;
+              aria-expanded&#x3D;&quot;false&quot;
+            &gt;
+              &lt;div
+                class&#x3D;&quot;user-picture&quot;
+                style&#x3D;&quot;background-image: url(&#x27;{{ user.picture }}&#x27;);&quot;
+              &gt;&lt;/div&gt;
+            &lt;/a&gt;
+            &lt;ul
+              class&#x3D;&quot;dropdown-menu dropdown-menu-end&quot;
+              aria-labelledby&#x3D;&quot;navbarDropdown&quot;
+            &gt;
+              &lt;li class&#x3D;&quot;user-info dropdown-item&quot;&gt;
+                &lt;span&gt;{{ user.name }}&lt;/span
+                &gt;&lt;br /&gt;
+                &lt;span&gt;{{ user.email }}&lt;/span&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;hr class&#x3D;&quot;dropdown-divider&quot; /&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a
+                  class&#x3D;&quot;dropdown-item&quot;
+                  routerLink&#x3D;&quot;./profile_info&quot;
+                  [skipLocationChange]&#x3D;&quot;true&quot;
+                  &gt;Your profile&lt;/a
+                &gt;
+              &lt;/li&gt;
+
+              &lt;li&gt;
+                &lt;a class&#x3D;&quot;dropdown-item&quot; (click)&#x3D;&quot;logOut()&quot; id&#x3D;&quot;log-out-btn&quot;
+                  &gt;Log out&lt;/a
+                &gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;ng-template #loggedOut&gt;
+            &lt;li class&#x3D;&quot;nav-item&quot;&gt;
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;logIn()&quot;&gt;
+                Log in
+              &lt;/button&gt;
+            &lt;/li&gt;
+          &lt;/ng-template&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./head-nav.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">#swoosh {
+  animation: rotation 1s ease-in-out alternate 2;
+  transform-origin: center;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.nav-link {
+  color: rgb(36, 41, 47);
+}
+
+.nav-link:hover {
+  color: rgba(36, 41, 47, 0.651);
+}
+
+.active-link {
+  color: rgb(46, 109, 185);
+}
+
+.dropdown-toggle::after {
+  content: none;
+}
+
+.user-picture {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  vertical-align: middle;
+}
+.user-picture:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.dropdown-menu {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.user-info:hover,
+.user-info:active {
+  background-color: transparent;
+}
+.dropdown-profile:active {
+  border: none;
+}
+#log-out-btn {
+  cursor: pointer;
+}
+#device-dropdown-nav-item:hover &gt; #device-dropdown-menu {
+  display: block;
+}
+#device-dropdown-menu &gt; li:hover {
+  cursor: pointer;
+}
+
+.navbar-container {
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  z-index: 4;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="navbar-container">  <nav class="navbar navbar-expand-lg bg-light">    <div class="container">      <a class="navbar-brand" href="/">        <svg          width="50"          height="50"          viewBox="0 0 1168 1190"          fill="none"          xmlns="http://www.w3.org/2000/svg"        >          <g id="logo">            <g id="swoosh">              <circle                id="Ellipse 1"                cx="584"                cy="584"                r="502.5"                stroke="black"                stroke-width="9"              />              <circle                id="Ellipse 6"                cx="558.5"                cy="653.5"                r="528"                stroke="black"                stroke-width="9"              />              <circle                id="Ellipse 5"                cx="584"                cy="533"                r="502.5"                stroke="#D14545"                stroke-width="9"              />              <circle                id="Ellipse 4"                cx="611.5"                cy="655.5"                r="530"                stroke="#3F2A91"                stroke-width="9"              />              <circle                id="Ellipse 3"                cx="533"                cy="610"                r="528.5"                stroke="#DB2626"                stroke-opacity="0.73"                stroke-width="9"              />              <circle                id="Ellipse 2"                cx="584"                cy="584"                r="579.5"                stroke="#3996CB"                stroke-width="9"              />            </g>            <g id="name">              <path                d="M277.9 548.2V709H251.5V548.2H277.9ZM265 487.9C269 487.9 272.5 489.3 275.5 492.1C278.7 494.7 280.3 498.9 280.3 504.7C280.3 510.3 278.7 514.5 275.5 517.3C272.5 520.1 269 521.5 265 521.5C260.6 521.5 256.9 520.1 253.9 517.3C250.9 514.5 249.4 510.3 249.4 504.7C249.4 498.9 250.9 494.7 253.9 492.1C256.9 489.3 260.6 487.9 265 487.9Z"                fill="#4C6078"              />              <path                d="M393.644 494.8C411.444 494.8 426.344 496.5 438.344 499.9C450.544 503.3 459.644 508.9 465.644 516.7C471.844 524.5 474.944 534.9 474.944 547.9C474.944 556.3 473.344 563.8 470.144 570.4C467.144 576.8 462.544 582.2 456.344 586.6C450.344 590.8 442.944 593.7 434.144 595.3V596.8C443.144 598.2 451.244 600.8 458.444 604.6C465.844 608.4 471.644 613.8 475.844 620.8C480.044 627.8 482.144 636.9 482.144 648.1C482.144 661.1 479.144 672.2 473.144 681.4C467.144 690.4 458.544 697.3 447.344 702.1C436.344 706.7 423.144 709 407.744 709H332.444V494.8H393.644ZM399.044 586C417.444 586 430.044 583.1 436.844 577.3C443.644 571.3 447.044 562.5 447.044 550.9C447.044 539.1 442.844 530.7 434.444 525.7C426.244 520.5 413.044 517.9 394.844 517.9H359.444V586H399.044ZM359.444 608.5V686.2H402.644C421.644 686.2 434.844 682.5 442.244 675.1C449.644 667.7 453.344 658 453.344 646C453.344 638.4 451.644 631.8 448.244 626.2C445.044 620.6 439.544 616.3 431.744 613.3C424.144 610.1 413.744 608.5 400.544 608.5H359.444ZM921.229 651.7C921.229 664.5 918.129 675.4 911.929 684.4C905.729 693.2 896.829 700 885.229 704.8C873.829 709.6 860.329 712 844.729 712C836.729 712 829.029 711.6 821.629 710.8C814.429 710 807.829 708.9 801.829 707.5C795.829 705.9 790.529 704 785.929 701.8V676C793.129 679.2 802.029 682.1 812.629 684.7C823.429 687.3 834.529 688.6 845.929 688.6C856.529 688.6 865.429 687.2 872.629 684.4C879.829 681.6 885.229 677.6 888.829 672.4C892.429 667.2 894.229 661.1 894.229 654.1C894.229 647.1 892.729 641.2 889.729 636.4C886.729 631.6 881.529 627.2 874.129 623.2C866.929 619 856.829 614.6 843.829 610C834.629 606.6 826.529 603 819.529 599.2C812.729 595.2 807.029 590.7 802.429 585.7C797.829 580.7 794.329 575 791.929 568.6C789.729 562.2 788.629 554.8 788.629 546.4C788.629 535 791.529 525.3 797.329 517.3C803.129 509.1 811.129 502.8 821.329 498.4C831.729 494 843.629 491.8 857.029 491.8C868.829 491.8 879.629 492.9 889.429 495.1C899.229 497.3 908.129 500.2 916.129 503.8L907.729 526.9C900.329 523.7 892.229 521 883.429 518.8C874.829 516.6 865.829 515.5 856.429 515.5C847.429 515.5 839.929 516.8 833.929 519.4C827.929 522 823.429 525.7 820.429 530.5C817.429 535.1 815.929 540.5 815.929 546.7C815.929 553.9 817.429 559.9 820.429 564.7C823.429 569.5 828.329 573.8 835.129 577.6C841.929 581.4 851.129 585.5 862.729 589.9C875.329 594.5 885.929 599.5 894.529 604.9C903.329 610.1 909.929 616.4 914.329 623.8C918.929 631.2 921.229 640.5 921.229 651.7Z"                fill="#D8EBEA"              />              <path                d="M622.061 709L551.561 521.2H550.361C550.761 525.2 551.061 530.3 551.261 536.5C551.661 542.7 551.961 549.5 552.161 556.9C552.361 564.1 552.461 571.5 552.461 579.1V709H527.561V494.8H567.461L633.461 670.3H634.661L701.861 494.8H741.461V709H714.761V577.3C714.761 570.3 714.861 563.4 715.061 556.6C715.261 549.6 715.561 543.1 715.961 537.1C716.361 530.9 716.661 525.7 716.861 521.5H715.661L644.261 709H622.061Z"                fill="#332A4B"              />              <path                d="M277.9 548.2H299.9V526.2H277.9V548.2ZM277.9 709V731H299.9V709H277.9ZM251.5 709H229.5V731H251.5V709ZM251.5 548.2V526.2H229.5V548.2H251.5ZM275.5 492.1L260.489 508.183L261.041 508.698L261.627 509.174L275.5 492.1ZM275.5 517.3L261.013 500.743L260.747 500.976L260.489 501.217L275.5 517.3ZM253.9 517.3L268.911 501.217L268.911 501.217L253.9 517.3ZM253.9 492.1L268.308 508.725L268.615 508.46L268.911 508.183L253.9 492.1ZM255.9 548.2V709H299.9V548.2H255.9ZM277.9 687H251.5V731H277.9V687ZM273.5 709V548.2H229.5V709H273.5ZM251.5 570.2H277.9V526.2H251.5V570.2ZM265 509.9C264.374 509.9 263.459 509.778 262.454 509.376C261.459 508.978 260.803 508.477 260.489 508.183L290.511 476.017C283.554 469.524 274.73 465.9 265 465.9V509.9ZM261.627 509.174C259.958 507.818 258.991 506.212 258.541 505.032C258.156 504.022 258.3 503.737 258.3 504.7H302.3C302.3 495.099 299.566 483.307 289.373 475.025L261.627 509.174ZM258.3 504.7C258.3 505.457 258.186 505.15 258.541 504.218C258.946 503.155 259.752 501.847 261.013 500.743L289.987 533.857C299.361 525.655 302.3 514.512 302.3 504.7H258.3ZM260.489 501.217C260.803 500.923 261.459 500.422 262.454 500.024C263.459 499.622 264.374 499.5 265 499.5V543.5C274.73 543.5 283.554 539.876 290.511 533.383L260.489 501.217ZM265 499.5C265.163 499.5 265.809 499.533 266.711 499.874C267.639 500.225 268.398 500.738 268.911 501.217L238.889 533.383C246.274 540.276 255.468 543.5 265 543.5V499.5ZM268.911 501.217C270.198 502.418 270.916 503.735 271.243 504.651C271.527 505.444 271.4 505.596 271.4 504.7H227.4C227.4 514.095 229.988 525.076 238.889 533.383L268.911 501.217ZM271.4 504.7C271.4 503.604 271.553 503.732 271.243 504.599C270.88 505.618 270.011 507.25 268.308 508.725L239.492 475.475C229.787 483.885 227.4 495.525 227.4 504.7H271.4ZM268.911 508.183C268.398 508.662 267.639 509.175 266.711 509.526C265.809 509.867 265.163 509.9 265 509.9V465.9C255.468 465.9 246.274 469.124 238.889 476.017L268.911 508.183ZM438.344 499.9L432.346 521.067L432.392 521.08L432.438 521.092L438.344 499.9ZM465.644 516.7L448.206 530.114L448.313 530.252L448.422 530.389L465.644 516.7ZM470.144 570.4L450.348 560.802L450.285 560.932L450.224 561.062L470.144 570.4ZM456.344 586.6L468.96 604.623L469.018 604.582L469.076 604.541L456.344 586.6ZM434.144 595.3L430.208 573.655L412.144 576.939V595.3H434.144ZM434.144 596.8H412.144V615.642L430.762 618.539L434.144 596.8ZM458.444 604.6L448.175 624.056L448.284 624.114L448.394 624.17L458.444 604.6ZM475.844 620.8L494.709 609.481L494.709 609.481L475.844 620.8ZM473.144 681.4L491.449 693.603L491.511 693.511L491.571 693.418L473.144 681.4ZM447.344 702.1L455.831 722.397L455.921 722.359L456.01 722.321L447.344 702.1ZM332.444 709H310.444V731H332.444V709ZM332.444 494.8V472.8H310.444V494.8H332.444ZM436.844 577.3L451.121 594.038L451.261 593.919L451.399 593.796L436.844 577.3ZM434.444 525.7L422.662 544.279L422.924 544.446L423.191 544.604L434.444 525.7ZM359.444 517.9V495.9H337.444V517.9H359.444ZM359.444 586H337.444V608H359.444V586ZM359.444 608.5V586.5H337.444V608.5H359.444ZM359.444 686.2H337.444V708.2H359.444V686.2ZM442.244 675.1L457.8 690.656L457.8 690.656L442.244 675.1ZM448.244 626.2L429.142 637.115L429.287 637.368L429.438 637.618L448.244 626.2ZM431.744 613.3L423.207 633.576L423.524 633.71L423.846 633.834L431.744 613.3ZM393.644 516.8C410.203 516.8 422.933 518.4 432.346 521.067L444.341 478.733C429.755 474.6 412.684 472.8 393.644 472.8V516.8ZM432.438 521.092C441.376 523.583 445.846 527.045 448.206 530.114L483.081 503.286C473.442 490.755 459.711 483.017 444.25 478.708L432.438 521.092ZM448.422 530.389C450.696 533.25 452.944 538.345 452.944 547.9H496.944C496.944 531.455 492.992 515.75 482.866 503.011L448.422 530.389ZM452.944 547.9C452.944 553.459 451.9 557.6 450.348 560.802L489.94 579.998C494.787 570 496.944 559.141 496.944 547.9H452.944ZM450.224 561.062C448.958 563.763 446.954 566.286 443.611 568.659L469.076 604.541C478.133 598.114 485.33 589.837 490.064 579.738L450.224 561.062ZM443.728 568.577C440.836 570.601 436.563 572.499 430.208 573.655L438.079 616.945C449.324 614.901 459.852 610.999 468.96 604.623L443.728 568.577ZM412.144 595.3V596.8H456.144V595.3H412.144ZM430.762 618.539C437.639 619.608 443.368 621.52 448.175 624.056L468.712 585.144C459.119 580.08 448.648 576.792 437.525 575.061L430.762 618.539ZM448.394 624.17C452.217 626.134 454.932 628.708 456.979 632.119L494.709 609.481C488.355 598.892 479.471 590.666 468.493 585.03L448.394 624.17ZM456.979 632.119C458.501 634.656 460.144 639.463 460.144 648.1H504.144C504.144 634.337 501.586 620.944 494.709 609.481L456.979 632.119ZM460.144 648.1C460.144 657.629 457.985 664.37 454.716 669.382L491.571 693.418C500.303 680.03 504.144 664.571 504.144 648.1H460.144ZM454.839 669.197C451.497 674.209 446.467 678.54 438.678 681.879L456.01 722.321C470.62 716.06 482.79 706.591 491.449 693.603L454.839 669.197ZM438.856 681.803C431.204 685.003 421.042 687 407.744 687V731C425.246 731 441.483 728.397 455.831 722.397L438.856 681.803ZM407.744 687H332.444V731H407.744V687ZM354.444 709V494.8H310.444V709H354.444ZM332.444 516.8H393.644V472.8H332.444V516.8ZM399.044 608C418.039 608 437.848 605.359 451.121 594.038L422.567 560.562C422.79 560.372 421.646 561.399 417.359 562.386C413.198 563.343 407.22 564 399.044 564V608ZM451.399 593.796C464.183 582.517 469.044 566.928 469.044 550.9H425.044C425.044 558.072 423.105 560.083 422.288 560.804L451.399 593.796ZM469.044 550.9C469.044 533.226 462.233 516.639 445.696 506.796L423.191 544.604C423.929 545.044 424.079 545.313 424.216 545.589C424.448 546.052 425.044 547.561 425.044 550.9H469.044ZM446.226 507.121C432.577 498.466 414.121 495.9 394.844 495.9V539.9C411.967 539.9 419.91 542.534 422.662 544.279L446.226 507.121ZM394.844 495.9H359.444V539.9H394.844V495.9ZM337.444 517.9V586H381.444V517.9H337.444ZM359.444 608H399.044V564H359.444V608ZM337.444 608.5V686.2H381.444V608.5H337.444ZM359.444 708.2H402.644V664.2H359.444V708.2ZM402.644 708.2C423.15 708.2 443.986 704.471 457.8 690.656L426.687 659.544C425.702 660.529 420.137 664.2 402.644 664.2V708.2ZM457.8 690.656C469.939 678.517 475.344 662.906 475.344 646H431.344C431.344 653.094 429.348 656.883 426.687 659.544L457.8 690.656ZM475.344 646C475.344 635.028 472.854 624.344 467.049 614.782L429.438 637.618C430.433 639.256 431.344 641.772 431.344 646H475.344ZM467.345 615.285C460.968 604.124 450.754 597.041 439.641 592.766L423.846 633.834C428.333 635.559 429.12 637.076 429.142 637.115L467.345 615.285ZM440.281 593.024C428.842 588.208 415.121 586.5 400.544 586.5V630.5C412.367 630.5 419.446 631.992 423.207 633.576L440.281 593.024ZM400.544 586.5H359.444V630.5H400.544V586.5ZM622.061 709L601.464 716.732L606.821 731H622.061V709ZM551.561 521.2L572.157 513.468L566.801 499.2H551.561V521.2ZM550.361 521.2V499.2H526.051L528.47 523.389L550.361 521.2ZM551.261 536.5L529.272 537.209L529.284 537.563L529.307 537.916L551.261 536.5ZM552.161 556.9L530.169 557.494L530.169 557.503L530.169 557.511L552.161 556.9ZM552.461 709V731H574.461V709H552.461ZM527.561 709H505.561V731H527.561V709ZM527.561 494.8V472.8H505.561V494.8H527.561ZM567.461 494.8L588.053 487.056L582.692 472.8H567.461V494.8ZM633.461 670.3L612.869 678.044L618.23 692.3H633.461V670.3ZM634.661 670.3V692.3H649.795L655.206 678.167L634.661 670.3ZM701.861 494.8V472.8H686.727L681.316 486.933L701.861 494.8ZM741.461 494.8H763.461V472.8H741.461V494.8ZM741.461 709V731H763.461V709H741.461ZM714.761 709H692.761V731H714.761V709ZM715.061 556.6L737.051 557.247L737.052 557.238L737.052 557.228L715.061 556.6ZM715.961 537.1L737.912 538.563L737.914 538.54L737.915 538.516L715.961 537.1ZM716.861 521.5L738.836 522.546L739.933 499.5H716.861V521.5ZM715.661 521.5V499.5H700.497L695.101 513.671L715.661 521.5ZM644.261 709V731H659.424L664.821 716.829L644.261 709ZM642.657 701.268L572.157 513.468L530.964 528.932L601.464 716.732L642.657 701.268ZM551.561 499.2H550.361V543.2H551.561V499.2ZM528.47 523.389C528.802 526.709 529.081 531.27 529.272 537.209L573.25 535.791C573.041 529.33 572.72 523.691 572.252 519.011L528.47 523.389ZM529.307 537.916C529.686 543.797 529.975 550.319 530.169 557.494L574.153 556.306C573.947 548.681 573.636 541.603 573.215 535.084L529.307 537.916ZM530.169 557.511C530.363 564.497 530.461 571.693 530.461 579.1H574.461C574.461 571.307 574.358 563.703 574.152 556.289L530.169 557.511ZM530.461 579.1V709H574.461V579.1H530.461ZM552.461 687H527.561V731H552.461V687ZM549.561 709V494.8H505.561V709H549.561ZM527.561 516.8H567.461V472.8H527.561V516.8ZM546.869 502.544L612.869 678.044L654.053 662.556L588.053 487.056L546.869 502.544ZM633.461 692.3H634.661V648.3H633.461V692.3ZM655.206 678.167L722.406 502.667L681.316 486.933L614.116 662.433L655.206 678.167ZM701.861 516.8H741.461V472.8H701.861V516.8ZM719.461 494.8V709H763.461V494.8H719.461ZM741.461 687H714.761V731H741.461V687ZM736.761 709V577.3H692.761V709H736.761ZM736.761 577.3C736.761 570.509 736.858 563.825 737.051 557.247L693.07 555.953C692.864 562.975 692.761 570.091 692.761 577.3H736.761ZM737.052 557.228C737.245 550.463 737.533 544.245 737.912 538.563L694.01 535.637C693.588 541.955 693.277 548.737 693.07 555.972L737.052 557.228ZM737.915 538.516C738.32 532.245 738.628 526.913 738.836 522.546L694.886 520.454C694.694 524.487 694.402 529.555 694.007 535.684L737.915 538.516ZM716.861 499.5H715.661V543.5H716.861V499.5ZM695.101 513.671L623.701 701.171L664.821 716.829L736.221 529.329L695.101 513.671ZM644.261 687H622.061V731H644.261V687ZM911.929 684.4L929.914 697.071L929.98 696.976L930.046 696.881L911.929 684.4ZM885.229 704.8L876.817 684.472L876.754 684.498L876.692 684.524L885.229 704.8ZM821.629 710.8L819.199 732.665L819.232 732.669L819.264 732.673L821.629 710.8ZM801.829 707.5L796.16 728.757L796.494 728.846L796.83 728.925L801.829 707.5ZM785.929 701.8H763.929V715.665L776.437 721.647L785.929 701.8ZM785.929 676L794.864 655.896L763.929 642.147V676H785.929ZM812.629 684.7L807.388 706.067L807.434 706.078L807.48 706.089L812.629 684.7ZM872.629 684.4L864.655 663.896L864.655 663.896L872.629 684.4ZM888.829 672.4L870.741 659.877L870.741 659.877L888.829 672.4ZM889.729 636.4L871.073 648.06L871.073 648.06L889.729 636.4ZM874.129 623.2L863.044 642.203L863.353 642.383L863.668 642.554L874.129 623.2ZM843.829 610L836.203 630.636L836.346 630.689L836.49 630.74L843.829 610ZM819.529 599.2L808.374 618.163L808.7 618.354L809.033 618.535L819.529 599.2ZM791.929 568.6L771.124 575.752L771.223 576.04L771.33 576.325L791.929 568.6ZM797.329 517.3L815.14 530.213L815.216 530.109L815.29 530.004L797.329 517.3ZM821.329 498.4L812.757 478.139L812.686 478.169L812.615 478.199L821.329 498.4ZM889.429 495.1L894.248 473.634L894.248 473.634L889.429 495.1ZM916.129 503.8L936.804 511.318L943.785 492.121L925.157 483.738L916.129 503.8ZM907.729 526.9L898.997 547.093L920.426 556.359L928.404 534.418L907.729 526.9ZM883.429 518.8L877.977 540.114L878.035 540.129L878.093 540.143L883.429 518.8ZM820.429 530.5L838.856 542.518L838.972 542.34L839.085 542.16L820.429 530.5ZM820.429 564.7L839.085 553.04L839.085 553.04L820.429 564.7ZM835.129 577.6L824.397 596.805L824.397 596.805L835.129 577.6ZM862.729 589.9L854.927 610.47L855.055 610.519L855.184 610.566L862.729 589.9ZM894.529 604.9L882.83 623.532L883.081 623.689L883.337 623.84L894.529 604.9ZM914.329 623.8L895.419 635.044L895.53 635.23L895.645 635.415L914.329 623.8ZM899.229 651.7C899.229 660.826 897.072 667.186 893.812 671.919L930.046 696.881C939.185 683.614 943.229 668.174 943.229 651.7H899.229ZM893.944 671.729C890.522 676.587 885.217 680.996 876.817 684.472L893.641 725.128C908.441 719.004 920.936 709.813 929.914 697.071L893.944 671.729ZM876.692 684.524C868.6 687.931 858.135 690 844.729 690V734C862.523 734 879.058 731.269 893.766 725.076L876.692 684.524ZM844.729 690C837.461 690 830.552 689.637 823.994 688.927L819.264 732.673C827.505 733.563 835.997 734 844.729 734V690ZM824.058 688.935C817.577 688.214 811.849 687.247 806.828 686.075L796.83 728.925C803.809 730.553 811.281 731.786 819.199 732.665L824.058 688.935ZM807.497 686.243C802.54 684.921 798.562 683.455 795.421 681.953L776.437 721.647C782.496 724.545 789.118 726.879 796.16 728.757L807.497 686.243ZM807.929 701.8V676H763.929V701.8H807.929ZM776.994 696.104C785.741 699.992 795.966 703.265 807.388 706.067L817.87 663.333C808.092 660.935 800.517 658.408 794.864 655.896L776.994 696.104ZM807.48 706.089C820.01 709.105 832.84 710.6 845.929 710.6V666.6C836.218 666.6 826.848 665.495 817.778 663.311L807.48 706.089ZM845.929 710.6C858.31 710.6 870.106 708.986 880.603 704.904L864.655 663.896C860.751 665.414 854.748 666.6 845.929 666.6V710.6ZM880.603 704.904C890.979 700.869 900.311 694.464 906.917 684.923L870.741 659.877C870.146 660.736 868.679 662.331 864.655 663.896L880.603 704.904ZM906.917 684.923C913.334 675.653 916.229 665.076 916.229 654.1H872.229C872.229 657.124 871.524 658.747 870.741 659.877L906.917 684.923ZM916.229 654.1C916.229 643.951 914.035 633.78 908.385 624.74L871.073 648.06C871.423 648.62 872.229 650.249 872.229 654.1H916.229ZM908.385 624.74C902.617 615.511 893.83 608.841 884.59 603.846L863.668 642.554C869.228 645.559 870.841 647.689 871.073 648.06L908.385 624.74ZM885.214 604.197C876.304 598.999 864.743 594.064 851.168 589.26L836.49 630.74C848.915 635.136 857.554 639.001 863.044 642.203L885.214 604.197ZM851.455 589.364C843.026 586.249 835.918 583.064 830.025 579.865L809.033 618.535C817.14 622.936 826.232 626.951 836.203 630.636L851.455 589.364ZM830.683 580.237C825.459 577.164 821.536 573.975 818.619 570.805L786.238 600.595C792.522 607.425 799.999 613.236 808.374 618.163L830.683 580.237ZM818.619 570.805C815.949 567.902 813.94 564.64 812.528 560.875L771.33 576.325C774.718 585.36 779.709 593.498 786.238 600.595L818.619 570.805ZM812.734 561.448C811.49 557.828 810.629 552.93 810.629 546.4H766.629C766.629 556.67 767.968 566.572 771.124 575.752L812.734 561.448ZM810.629 546.4C810.629 538.899 812.467 533.901 815.14 530.213L779.517 504.387C770.591 516.699 766.629 531.101 766.629 546.4H810.629ZM815.29 530.004C818.513 525.448 823.15 521.574 830.043 518.601L812.615 478.199C799.108 484.026 787.745 492.752 779.368 504.596L815.29 530.004ZM829.901 518.661C837.132 515.602 846.034 513.8 857.029 513.8V469.8C841.224 469.8 826.326 472.398 812.757 478.139L829.901 518.661ZM857.029 513.8C867.481 513.8 876.638 514.776 884.61 516.566L894.248 473.634C882.62 471.024 870.176 469.8 857.029 469.8V513.8ZM884.61 516.566C893.167 518.487 900.631 520.951 907.101 523.862L925.157 483.738C915.627 479.449 905.291 476.113 894.248 473.634L884.61 516.566ZM895.453 496.282L887.053 519.382L928.404 534.418L936.804 511.318L895.453 496.282ZM916.461 506.707C907.836 502.977 898.585 499.912 888.765 497.457L878.093 540.143C885.873 542.088 892.822 544.423 898.997 547.093L916.461 506.707ZM888.881 497.486C878.398 494.805 867.56 493.5 856.429 493.5V537.5C864.098 537.5 871.26 538.395 877.977 540.114L888.881 497.486ZM856.429 493.5C845.481 493.5 834.773 495.057 825.182 499.214L842.676 539.586C845.084 538.543 849.377 537.5 856.429 537.5V493.5ZM825.182 499.214C815.745 503.303 807.487 509.697 801.773 518.84L839.085 542.16C839.37 541.703 840.112 540.697 842.676 539.586L825.182 499.214ZM802.001 518.482C796.378 527.104 793.929 536.8 793.929 546.7H837.929C837.929 544.2 838.479 543.096 838.856 542.518L802.001 518.482ZM793.929 546.7C793.929 556.913 796.066 567.229 801.773 576.36L839.085 553.04C838.792 552.571 837.929 550.887 837.929 546.7H793.929ZM801.773 576.36C807.337 585.262 815.521 591.845 824.397 596.805L845.861 558.395C841.137 555.755 839.521 553.738 839.085 553.04L801.773 576.36ZM824.397 596.805C832.521 601.345 842.834 605.883 854.927 610.47L870.531 569.33C859.424 565.117 851.336 561.455 845.861 558.395L824.397 596.805ZM855.184 610.566C866.765 614.794 875.879 619.167 882.83 623.532L906.228 586.268C895.979 579.833 883.893 574.206 870.274 569.234L855.184 610.566ZM883.337 623.84C889.554 627.514 893.23 631.361 895.419 635.044L933.239 612.556C926.628 601.439 917.104 592.686 905.721 585.96L883.337 623.84ZM895.645 635.415C897.539 638.463 899.229 643.45 899.229 651.7H943.229C943.229 637.55 940.318 623.937 933.013 612.185L895.645 635.415Z"                fill="#0B112E"              />            </g>          </g>        </svg>      </a>      <button        class="navbar-toggler"        type="button"        data-bs-toggle="collapse"        data-bs-target="#navbarSupportedContent"        aria-controls="navbarSupportedContent"        aria-expanded="false"        aria-label="Toggle navigation"      >        <span class="navbar-toggler-icon"></span>      </button>      <div class="collapse navbar-collapse" id="navbarSupportedContent">        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-start">          <li class="nav-item">            <a              class="nav-link"              routerLink="/dashboard"              [skipLocationChange]="true"              routerLinkActive="active-link"              >Dashboard</a            >          </li>          <li class="nav-item dropdown" id="device-dropdown-nav-item">            <a              class="nav-link"              routerLink="/devices"              [skipLocationChange]="true"              routerLinkActive="active-link"              id="device-dropdown-button"              aria-expanded="false"              >Devices</a            >            <ul              class="dropdown-menu dropdown-menu-end"              id="device-dropdown-menu"              aria-labelledby="device-dropdown-button"            >              <li                class="dropdown-item nav-item"                routerLink="/devices/test-chambers"                [skipLocationChange]="true"                routerLinkActive="active-link"              >                Test Chambers              </li>              <li                class="dropdown-item"                routerLink="/devices/cells"                [skipLocationChange]="true"                routerLinkActive="active-link"              >                Cells              </li>              <li                class="dropdown-item"                routerLink="/devices/battery-packs"                [skipLocationChange]="true"                routerLinkActive="active-link"              >                Battery Packs              </li>            </ul>          </li>          <li class="nav-item">            <a              class="nav-link"              routerLink="/battery-test"              [skipLocationChange]="true"              routerLinkActive="active-link"              >Battery Test</a            >          </li>          <li class="nav-item">            <a              class="nav-link"              routerLink="/docs"              [skipLocationChange]="true"              routerLinkActive="active-link"              >Documentation</a            >          </li>          <li            *ngIf="authUser as user; else loggedOut"            class="nav-item dropdown"          >            <a              class="nav-link dropdown-toggle dropdown-profile"              href="#"              id="navbarDropdown"              role="button"              data-bs-toggle="dropdown"              aria-expanded="false"            >              <div                class="user-picture"                style="background-image: url(\'{{ user.picture }}\');"              ></div>            </a>            <ul              class="dropdown-menu dropdown-menu-end"              aria-labelledby="navbarDropdown"            >              <li class="user-info dropdown-item">                <span>{{ user.name }}</span                ><br />                <span>{{ user.email }}</span>              </li>              <li>                <hr class="dropdown-divider" />              </li>              <li>                <a                  class="dropdown-item"                  routerLink="./profile_info"                  [skipLocationChange]="true"                  >Your profile</a                >              </li>              <li>                <a class="dropdown-item" (click)="logOut()" id="log-out-btn"                  >Log out</a                >              </li>            </ul>          </li>          <ng-template #loggedOut>            <li class="nav-item">              <button type="button" class="btn btn-primary" (click)="logIn()">                Log in              </button>            </li>          </ng-template>        </ul>      </div>    </div>  </nav></div></div>'
+    var COMPONENTS = [{'name': 'AddBatteryPackComponent', 'selector': 'app-add-battery-pack'},{'name': 'AddCellsComponent', 'selector': 'app-add-cells'},{'name': 'AddTestChamberComponent', 'selector': 'app-add-test-chamber'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BatteryPacksComponent', 'selector': 'app-battery-packs'},{'name': 'BatteryTestComponent', 'selector': 'app-battery-test'},{'name': 'CellsComponent', 'selector': 'app-cells'},{'name': 'CreateNewTestComponent', 'selector': 'app-create-new-test'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DeviceDataComponent', 'selector': 'app-device-data'},{'name': 'DevicesComponent', 'selector': 'app-devices'},{'name': 'DevicesDefaultComponent', 'selector': 'app-devices-default'},{'name': 'DocsComponent', 'selector': 'app-docs'},{'name': 'EditBatteryPackComponent', 'selector': 'app-edit-battery-pack'},{'name': 'EditCellsComponent', 'selector': 'app-edit-cells'},{'name': 'EditTestChamberComponent', 'selector': 'app-edit-test-chamber'},{'name': 'FootNavComponent', 'selector': 'app-foot-nav'},{'name': 'HeadNavComponent', 'selector': 'app-head-nav'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'NoResultComponent', 'selector': 'app-no-result'},{'name': 'ShowAllTestsResultComponent', 'selector': 'app-show-all-tests-result'},{'name': 'ShowTestResultComponent', 'selector': 'app-show-test-result'},{'name': 'TestChambersComponent', 'selector': 'app-test-chambers'},{'name': 'ViewBatteryPacksComponent', 'selector': 'app-view-battery-packs'},{'name': 'ViewCellsComponent', 'selector': 'app-view-cells'},{'name': 'ViewTestChambersComponent', 'selector': 'app-view-test-chambers'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HeadNavComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HeadNavComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

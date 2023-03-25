@@ -8,8 +8,6 @@ import { Subject } from 'rxjs';
 export class ComponentStoreService {
   private toastMsgSource = new Subject<ToastMsg>(); //Store for pushing toast msgs
   public toastMsg$ = this.toastMsgSource.asObservable(); //use it to listen for toast.
-  private styleChangeSource = new Subject<boolean>();
-  public styleMsg$ = this.styleChangeSource.asObservable();
   constructor() {}
   public sendToastMsg(msg: ToastMsg) {
     //Use it to push any msg to the store
@@ -20,8 +18,5 @@ export class ComponentStoreService {
     };
     let _msg = { ...defaultMsg, ...msg };
     this.toastMsgSource.next(_msg);
-  }
-  changeStyleForDoc(flag: boolean) {
-    this.styleChangeSource.next(flag);
   }
 }

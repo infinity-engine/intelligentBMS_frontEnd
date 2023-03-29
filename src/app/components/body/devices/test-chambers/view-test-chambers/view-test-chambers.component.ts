@@ -17,6 +17,8 @@ export class ViewTestChambersComponent implements OnInit, OnDestroy {
   searchStr: string = '';
   selectedTestChamber: _TestChamber | undefined = undefined;
   placeHolderMsg: string = "You don't have any Test Chambers.";
+  apiKey: string = '**********';
+  isApiVisible: boolean = false;
 
   constructor(private _testChamberService: TestChamberService) {}
   ngOnInit(): void {
@@ -70,5 +72,8 @@ export class ViewTestChambersComponent implements OnInit, OnDestroy {
     } catch {
       this.selectedTestChamber = undefined;
     }
+  }
+  changeView() {
+    this.isApiVisible = !this.isApiVisible;
   }
 }

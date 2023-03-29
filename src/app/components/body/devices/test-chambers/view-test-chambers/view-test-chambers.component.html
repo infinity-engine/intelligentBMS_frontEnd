@@ -150,7 +150,7 @@
           <div class="col-md-4">Assigned Users</div>
           <div class="col-md-8">
             <span
-              class="badge user"
+              class="badge user align-center"
               [class]="
                 user.accessType === 'admin'
                   ? 'bg-danger'
@@ -161,6 +161,47 @@
               *ngFor="let user of selectedTestChamber.assignedUsers"
               >{{ user.name }}</span
             >
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="selectedTestChamber.accessType != 'read'">
+        <div class="row mt-4">
+          <div class="col-md-4">API Key</div>
+          <div class="col-md-4">
+            <div class="input-group mb-3">
+              <span class="input-group-text api-copy" id="basic-addon1"
+                ><span class="material-symbols-outlined align-center">
+                  content_copy
+                </span></span
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                disabled
+                [ngModel]="apiKey"
+              />
+              <span
+                class="input-group-text eye"
+                id="basic-addon2"
+                *ngIf="isApiVisible"
+                (click)="changeView()"
+                ><span class="material-symbols-outlined align-center">
+                  visibility
+                </span></span
+              >
+              <span
+                class="input-group-text eye"
+                id="basic-addon3"
+                *ngIf="!isApiVisible"
+                (click)="changeView()"
+                ><span class="material-symbols-outlined align-center">
+                  visibility_off
+                </span></span
+              >
+            </div>
           </div>
         </div>
       </ng-container>

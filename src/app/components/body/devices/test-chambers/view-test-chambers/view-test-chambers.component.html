@@ -169,7 +169,11 @@
           <div class="col-md-4">API Key</div>
           <div class="col-md-4">
             <div class="input-group mb-3">
-              <span class="input-group-text api-copy" id="basic-addon1"
+              <span
+                class="input-group-text api-copy"
+                id="basic-addon1"
+                *ngIf="isApiVisible"
+                (click)="clipBoard()"
                 ><span class="material-symbols-outlined align-center">
                   content_copy
                 </span></span
@@ -181,7 +185,7 @@
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 disabled
-                [ngModel]="apiKey"
+                [ngModel]="selectedTestChamber.apiKey"
               />
               <span
                 class="input-group-text eye"

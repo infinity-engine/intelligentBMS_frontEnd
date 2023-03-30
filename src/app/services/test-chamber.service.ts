@@ -81,6 +81,17 @@ export class TestChamberService {
       .pipe(retry(3), catchError(this.errorHandler));
   }
 
+  getAPIKey(chamberId: string) {
+    let params = new HttpParams();
+    if (chamberId) {
+      params = params.set('chamberId', chamberId);
+    }
+    return this.http
+      .get(`${environment.apiUri}/api/protected/test-chamber/api-key`, {
+        params: params,
+      })
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
   getQuickResponse(
     chamberId: string,
     testId: string,

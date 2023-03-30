@@ -17,6 +17,7 @@ export interface _TestChamber {
   isConnected?: Boolean;
   lastSeen?: Date;
   accessType?: 'admin' | 'write' | 'read'; //only specific to front end
+  apiKey?:string;
 }
 
 //what you need to send while creating a new chamber

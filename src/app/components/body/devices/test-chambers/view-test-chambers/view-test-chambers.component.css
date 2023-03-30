@@ -27,8 +27,9 @@
 .edit {
   margin: 0px 6px;
 }
-.eye:hover,
-.api-copy:hover {
-  color: red;
+.api-copy:hover,
+.eye:hover {
   cursor: pointer;
+  color: rgb(48, 16, 65);
+  font-weight: bold;
 }

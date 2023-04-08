@@ -65,7 +65,11 @@
               <span class="material-symbols-outlined align-middle"> play </span>
             </button>
           </ng-template>
-          <ng-container *ngIf="testInfo.status !== 'Scheduled'">
+          <ng-container
+            *ngIf="
+              testInfo.status !== 'Scheduled' && testInfo.status !== 'Completed'
+            "
+          >
             <button type="button" class="btn btn-danger">
               <span
                 class="material-symbols-outlined align-middle"

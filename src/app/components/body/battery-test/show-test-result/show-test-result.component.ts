@@ -321,6 +321,9 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           );
           this.charts?.forEach((chart) => chart.update());
           this.chartSub?.unsubscribe();
+          if (data.status === 'Completed' || data.status === 'Stopped') {
+            clearInterval(this.measurementUpdateIntervalId);
+          }
         });
     }, 2000);
   }
@@ -376,6 +379,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
       this.testInfo = testInfo;
       this.testInfoSub?.unsubscribe();
     });
+
     this.testInfoIntervalId = setInterval(() => {
       if (this.testId && this.chamberId) {
         this.testInfoSub?.unsubscribe();
@@ -384,10 +388,17 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           .subscribe((testInfo) => {
             this.testInfo = testInfo;
             this.testInfoSub?.unsubscribe();
+            if (
+              this.testInfo?.status === 'Completed' ||
+              this.testInfo?.status === 'Stopped'
+            ) {
+              clearInterval(this.testInfoIntervalId);
+            }
           });
       }
     }, 10000);
   }
+
   edit() {}
   play() {
     this.changeStatus('Running');

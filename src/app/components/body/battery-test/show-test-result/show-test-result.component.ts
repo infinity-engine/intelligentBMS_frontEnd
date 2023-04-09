@@ -49,6 +49,9 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   testInfoSub?: Subscription;
   modalTitle?: string;
   modalBody?: string;
+  isConnected: boolean = false;
+  isConnectedIntervalId: any;
+  connSub?: Subscription;
 
   @ViewChildren(BaseChartDirective) charts?: QueryList<BaseChartDirective>;
   @ViewChild('myModal') modal: any;
@@ -321,6 +324,9 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           );
           this.charts?.forEach((chart) => chart.update());
           this.chartSub?.unsubscribe();
+          if (data.status === 'Completed' || data.status === 'Stopped') {
+            clearInterval(this.measurementUpdateIntervalId);
+          }
         });
     }, 2000);
   }
@@ -376,6 +382,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
       this.testInfo = testInfo;
       this.testInfoSub?.unsubscribe();
     });
+
     this.testInfoIntervalId = setInterval(() => {
       if (this.testId && this.chamberId) {
         this.testInfoSub?.unsubscribe();
@@ -384,10 +391,41 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           .subscribe((testInfo) => {
             this.testInfo = testInfo;
             this.testInfoSub?.unsubscribe();
+            if (
+              this.testInfo?.status === 'Completed' ||
+              this.testInfo?.status === 'Stopped'
+            ) {
+              clearInterval(this.testInfoIntervalId);
+            }
           });
       }
     }, 10000);
+
+    this.updateConnection();
+
+    this.isConnectedIntervalId = setInterval(
+      () => this.updateConnection(),
+      10000
+    );
   }
+
+  updateConnection() {
+    if (this.chamberId) {
+      this.connSub?.unsubscribe();
+      this.connSub = this._testChamberService
+        .getConnectionStatus(this.chamberId as any)
+        .subscribe({
+          next: (pay: any) => {
+            this.isConnected = pay.isConnected;
+            this.connSub?.unsubscribe();
+          },
+          error: (err) => {
+            this.isConnected = false;
+          },
+        });
+    }
+  }
+
   edit() {}
   play() {
     this.changeStatus('Running');
@@ -447,5 +485,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
     this.chartSub?.unsubscribe();
     clearInterval(this.measurementUpdateIntervalId);
     clearInterval(this.testInfoIntervalId);
+    this.connSub?.unsubscribe();
+    clearInterval(this.isConnectedIntervalId);
   }
 }

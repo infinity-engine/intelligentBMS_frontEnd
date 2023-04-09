@@ -80,6 +80,20 @@ export class TestChamberService {
       })
       .pipe(retry(3), catchError(this.errorHandler));
   }
+  getConnectionStatus(chamberId: string, delay: number = 10000) {
+    let params = new HttpParams();
+    if (chamberId) {
+      params = params.set('chamberId', chamberId);
+    }
+    if (delay) {
+      params = params.set('delay', delay);
+    }
+    return this.http
+      .get(`${environment.apiUri}/api/protected/test-chamber/is-connected`, {
+        params: params,
+      })
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
 
   getAPIKey(chamberId: string) {
     let params = new HttpParams();
@@ -92,6 +106,7 @@ export class TestChamberService {
       })
       .pipe(retry(3), catchError(this.errorHandler));
   }
+
   getQuickResponse(
     chamberId: string,
     testId: string,

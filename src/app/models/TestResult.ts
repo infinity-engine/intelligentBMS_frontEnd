@@ -16,11 +16,11 @@ export interface TestChannel {
   statusCh: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
   chMultiplierIndex: number;
   chMultiplier: number;
-  onRows: number;
-  totalRows: number;
-  statusRow: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
-  rowMultiplierIndex: number;
-  rowMultiplier: number;
+  onRows?: number;
+  totalRows?: number;
+  statusRow?: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
+  rowMultiplierIndex?: number;
+  rowMultiplier?: number;
 }
 export interface TestChannelDeepChannel {
   channelNumber: number;
@@ -28,7 +28,7 @@ export interface TestChannelDeepChannel {
   currentMultiplierIndex: number;
   multiplier: number;
   testFormats: TestFormat[];
-  rows: RowInfo[];
+  rows?: RowInfo[];
   chStartDate?: Date;
   chEndDate?: Date;
 }
@@ -71,7 +71,7 @@ export interface RowInfo {
 }
 
 export interface Channel {
-  rows: RowInfo[];
+  rows?: RowInfo[];
   channelNo: number;
   status: 'Completed' | 'Running' | 'Scheduled' | 'Stopped' | 'Paused';
   currentMultiplierIndex?: number;

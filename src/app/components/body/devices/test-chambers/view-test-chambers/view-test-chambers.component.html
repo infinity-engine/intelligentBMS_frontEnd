@@ -76,8 +76,8 @@
       <div class="row justify-content-between">
         <div class="col">Test Chamber</div>
         <div class="col text-end">
-          <span
-            >Connected
+          <span *ngIf="isConnected; else not_connected"
+            >Online
             <div
               class="spinner-grow spinner-grow-sm text-primary"
               role="status"
@@ -86,6 +86,9 @@
               <span class="sr-only">Loading...</span>
             </div>
           </span>
+          <ng-template #not_connected>
+            <span>Offline</span>
+          </ng-template>
           <ng-container *ngIf="selectedTestChamber.accessType === 'admin'">
             <span
               class="material-symbols-outlined align-middle edit"

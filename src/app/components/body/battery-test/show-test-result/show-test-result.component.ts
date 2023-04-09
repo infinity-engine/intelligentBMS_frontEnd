@@ -49,6 +49,9 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   testInfoSub?: Subscription;
   modalTitle?: string;
   modalBody?: string;
+  isConnected: boolean = false;
+  isConnectedIntervalId: any;
+  connSub?: Subscription;
 
   @ViewChildren(BaseChartDirective) charts?: QueryList<BaseChartDirective>;
   @ViewChild('myModal') modal: any;
@@ -397,6 +400,30 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           });
       }
     }, 10000);
+
+    this.updateConnection();
+
+    this.isConnectedIntervalId = setInterval(
+      () => this.updateConnection(),
+      10000
+    );
+  }
+
+  updateConnection() {
+    if (this.chamberId) {
+      this.connSub?.unsubscribe();
+      this.connSub = this._testChamberService
+        .getConnectionStatus(this.chamberId as any)
+        .subscribe({
+          next: (pay: any) => {
+            this.isConnected = pay.isConnected;
+            this.connSub?.unsubscribe();
+          },
+          error: (err) => {
+            this.isConnected = false;
+          },
+        });
+    }
   }
 
   edit() {}
@@ -458,5 +485,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
     this.chartSub?.unsubscribe();
     clearInterval(this.measurementUpdateIntervalId);
     clearInterval(this.testInfoIntervalId);
+    this.connSub?.unsubscribe();
+    clearInterval(this.isConnectedIntervalId);
   }
 }

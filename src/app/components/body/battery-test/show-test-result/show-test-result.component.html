@@ -2,7 +2,22 @@
   <div class="card-header">
     <div class="row">
       <div class="col">Test Data</div>
-      <div class="col text-end">Connected</div>
+      <div class="col text-end">
+        Chamber -
+        <span *ngIf="isConnected; else not_connected"
+          >Online
+          <div
+            class="spinner-grow spinner-grow-sm text-light"
+            role="status"
+            *ngIf="true"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </span>
+        <ng-template #not_connected>
+          <span>Offline</span>
+        </ng-template>
+      </div>
     </div>
   </div>
   <div class="card-body">

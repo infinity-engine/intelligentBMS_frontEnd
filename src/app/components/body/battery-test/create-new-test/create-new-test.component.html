@@ -484,16 +484,19 @@
       </div>
       <div class="row align-items-center">
         <div class="col">
-          <span style="vertical-align: sub"
-            >Connected
-            <div
-              class="spinner-grow spinner-grow-sm text-primary"
-              role="status"
-              *ngIf="showSpinnerConnection"
-            >
-              <span class="sr-only">Loading...</span>
-            </div>
-          </span>
+          <span *ngIf="isConnected; else not_connected"
+          >Online
+          <div
+            class="spinner-grow spinner-grow-sm text-primary"
+            role="status"
+            *ngIf="true"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </span>
+        <ng-template #not_connected>
+          <span>Offline</span>
+        </ng-template>
         </div>
         <div class="col-md-2 justify-content-end mb-2">
           <input

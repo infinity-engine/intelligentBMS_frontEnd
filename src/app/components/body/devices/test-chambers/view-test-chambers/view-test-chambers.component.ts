@@ -19,6 +19,9 @@ export class ViewTestChambersComponent implements OnInit, OnDestroy {
   selectedTestChamber: _TestChamber | undefined = undefined;
   placeHolderMsg: string = "You don't have any Test Chambers.";
   isApiVisible: boolean = false;
+  isConnected: boolean = false;
+  isConnectedIntervalId: any;
+  connSub?: Subscription;
 
   constructor(
     private _testChamberService: TestChamberService,
@@ -41,7 +44,32 @@ export class ViewTestChambersComponent implements OnInit, OnDestroy {
       },
     });
     this.subs.push(sub);
+
+    this.updateConnection();
+
+    this.isConnectedIntervalId = setInterval(
+      () => this.updateConnection(),
+      10000
+    );
   }
+
+  updateConnection() {
+    if (this.selectedTestChamber?._id) {
+      this.connSub?.unsubscribe();
+      this.connSub = this._testChamberService
+        .getConnectionStatus(this.selectedTestChamber._id as any)
+        .subscribe({
+          next: (pay: any) => {
+            this.isConnected = pay.isConnected;
+            this.connSub?.unsubscribe();
+          },
+          error: (err) => {
+            this.isConnected = false;
+          },
+        });
+    }
+  }
+
   filter() {
     if (
       this.availableTestChambersSource.length > 0 &&
@@ -67,6 +95,8 @@ export class ViewTestChambersComponent implements OnInit, OnDestroy {
     this.subs.forEach((sub) => {
       sub.unsubscribe();
     });
+    this.connSub?.unsubscribe();
+    clearInterval(this.isConnectedIntervalId);
   }
   selectTestChamber(chamberId: string | undefined) {
     try {

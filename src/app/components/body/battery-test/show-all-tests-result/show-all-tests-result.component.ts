@@ -17,6 +17,8 @@ export class ShowAllTestsResultComponent implements OnInit, OnDestroy {
   page = 1;
   searchId: string = '';
   isTestInfoViewEnabled: boolean = false;
+  allTestIntervalId: any;
+  allTestSub?: Subscription;
 
   constructor(
     private _testChamberService: TestChamberService,
@@ -34,6 +36,15 @@ export class ShowAllTestsResultComponent implements OnInit, OnDestroy {
         this.filter();
       });
     this.subs.push(sub);
+    this.allTestIntervalId = setInterval(() => {
+      this.allTestSub?.unsubscribe();
+      this.allTestSub = this._testChamberService
+        .getAllTests()
+        .subscribe((tests: any) => {
+          this.allTestsSource = tests;
+          this.filter();
+        });
+    }, 15000);
   }
 
   filter() {
@@ -52,12 +63,22 @@ export class ShowAllTestsResultComponent implements OnInit, OnDestroy {
       this.allTests = [...this.allTestsSource];
     }
   }
+
   ngOnDestroy(): void {
     this.subs?.forEach((subs) => {
       subs.unsubscribe();
     });
+    this.allTestSub?.unsubscribe();
+    clearInterval(this.allTestIntervalId);
   }
   changeView() {
     this.isTestInfoViewEnabled = !this.isTestInfoViewEnabled;
+    const sub = this._testChamberService
+      .getAllTests()
+      .subscribe((tests: any) => {
+        this.allTestsSource = tests;
+        this.filter();
+      });
+    this.subs.push(sub);
   }
 }

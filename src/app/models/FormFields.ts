@@ -215,8 +215,8 @@ export interface ChannelFields {
 }
 export interface PayLoad {
   channels: ChannelFields[] | undefined;
-  isConAmTe: boolean | undefined;
-  ambTemp: number | undefined;
+  isConAmTe: boolean;
+  ambTemp: number;
 }
 
 export { testFormats };

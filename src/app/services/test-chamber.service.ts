@@ -80,6 +80,18 @@ export class TestChamberService {
       })
       .pipe(retry(3), catchError(this.errorHandler));
   }
+
+  deleteTest(chamberId: string, testId: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('chamberId', chamberId);
+    params = params.set('testId', testId);
+    return this.http
+      .delete(`${environment.apiUri}/api/protected/test-chamber/delete-test`, {
+        params: params,
+      })
+      .pipe(retry(3), catchError(this.errorHandler));
+  }
+
   getConnectionStatus(chamberId: string, delay: number = 10000) {
     let params = new HttpParams();
     if (chamberId) {

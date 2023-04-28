@@ -36,7 +36,6 @@ export class BatteryTestComponent implements OnInit, OnDestroy {
     this.sub = this._testChamberService.getLiveTests().subscribe({
       next: (tests: any) => {
         this.liveTests = tests;
-        this.liveTests.sort((a: any, b: any) => (a._id > b._id ? 1 : -1));
         this.sub?.unsubscribe();
       },
       error: (err) => {

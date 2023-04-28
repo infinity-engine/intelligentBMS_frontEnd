@@ -119,6 +119,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   removeRow(ch_index: number) {
     let selectedChannel = this.allSelectedChannel[ch_index];
     let selectedTestFormat = selectedChannel.testFormats;
+    selectedChannel.allTestFormat.pop();
     let l = selectedTestFormat.length;
     if ((l as number) > 1) {
       selectedTestFormat.pop();
@@ -234,6 +235,13 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   save() {
     this.showSpinnerButton = true;
     this.isSaveDisabled = true;
+    if (this.currentPayload?.isConAmTe) {
+      this.currentPayload.channels?.forEach((ch) => {
+        ch.testFormats.forEach((test) => {
+          test.ambTemp = <any>this.currentPayload?.ambTemp;
+        });
+      });
+    }
     const currentTest: Test = {
       testConfig: this.currentPayload,
       testScheduleDate: this.scheduledDate,
@@ -246,7 +254,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
         next: (v) => {
           this.showSpinnerButton = false;
           this.isSaveDisabled = false;
-          console.log(v);
+          //console.log(v);
           this._componentStoreService.sendToastMsg({
             msg: 'Test added successfully',
             color: 'green',

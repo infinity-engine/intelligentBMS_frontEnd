@@ -7,7 +7,7 @@ import {
 } from './../../../../models/TestResult';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { of, Subscription, switchMap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { saveAs } from 'file-saver';
 
@@ -52,6 +52,9 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   isConnected: boolean = false;
   isConnectedIntervalId: any;
   connSub?: Subscription;
+  maxNoOfDataPoints: number = 1000;
+  targetSampleSize: number = 700;
+  updatedUptoIndex = 0;
 
   @ViewChildren(BaseChartDirective) charts?: QueryList<BaseChartDirective>;
   @ViewChild('myModal') modal: any;
@@ -61,7 +64,8 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
     private _testChamberService: TestChamberService,
     private _componentStoreService: ComponentStoreService,
     private modalService: NgbModal,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   toggleShowChart() {
@@ -77,6 +81,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   onClickParent(event: MouseEvent) {
     this.toggleShowChart();
   }
+
   showChartView(channelNo: number) {
     this.allCharts = [];
     this.toggleShowChart();
@@ -104,21 +109,25 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
         });
     }
   }
+
   createChart(channelQuickResponse: QuickResponseMeasurement) {
+    let blankData: MeasuredParameters = {};
+    blankData.time = [];
     if (
       channelQuickResponse.measuredParameters.current &&
       channelQuickResponse.measuredParameters.current.length > 0
     ) {
+      blankData.current = [];
       let chart: Charts = {
         name: 'Current',
         chartData: {
           datasets: [
             {
-              data: channelQuickResponse.measuredParameters.current,
+              data: blankData.current,
               label: 'Current',
             },
           ],
-          labels: channelQuickResponse.measuredParameters.time,
+          labels: blankData.time,
         },
         ChartOptions: {
           scales: {
@@ -148,16 +157,17 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
       channelQuickResponse.measuredParameters.voltage &&
       channelQuickResponse.measuredParameters.voltage.length > 0
     ) {
+      blankData.voltage = [];
       let chart: Charts = {
         name: 'Voltage',
         chartData: {
           datasets: [
             {
-              data: channelQuickResponse.measuredParameters.voltage,
+              data: blankData.voltage,
               label: 'Voltage',
             },
           ],
-          labels: channelQuickResponse.measuredParameters.time,
+          labels: blankData.time,
         },
         ChartOptions: {
           scales: {
@@ -187,16 +197,17 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
       channelQuickResponse.measuredParameters.chamberTemp &&
       channelQuickResponse.measuredParameters.chamberTemp.length > 0
     ) {
+      blankData.chamberTemp = [];
       let chart: Charts = {
         name: 'Chamber Temperature',
         chartData: {
           datasets: [
             {
-              data: channelQuickResponse.measuredParameters.chamberTemp,
+              data: blankData.chamberTemp,
               label: 'Chamber Temperature',
             },
           ],
-          labels: channelQuickResponse.measuredParameters.time,
+          labels: blankData.time,
         },
         ChartOptions: {
           scales: {
@@ -226,16 +237,17 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
       channelQuickResponse.measuredParameters.chamberHum &&
       channelQuickResponse.measuredParameters.chamberHum.length > 0
     ) {
+      blankData.chamberHum = [];
       let chart: Charts = {
         name: 'Chamber Humidity',
         chartData: {
           datasets: [
             {
-              data: channelQuickResponse.measuredParameters.chamberHum,
+              data: blankData.chamberHum,
               label: 'Chamber Humidity',
             },
           ],
-          labels: channelQuickResponse.measuredParameters.time,
+          labels: blankData.time,
         },
         ChartOptions: {
           scales: {
@@ -266,11 +278,12 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
       channelQuickResponse.measuredParameters.cellTemp &&
       channelQuickResponse.measuredParameters.cellTemp.length > 0
     ) {
+      blankData.cellTemp = [];
       let chart: Charts = {
         name: 'Cell Temperature',
         chartData: {
           datasets: [],
-          labels: channelQuickResponse.measuredParameters.time,
+          labels: blankData.time,
         },
         ChartOptions: {
           scales: {
@@ -296,15 +309,19 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
       };
       channelQuickResponse.measuredParameters.cellTemp.forEach(
         (tempObj: SensorObj) => {
+          let d: SensorObj = { sensorId: tempObj.sensorId, values: [] };
+          blankData.cellTemp?.push(d);
           chart.chartData.datasets.push({
-            data: tempObj.values,
+            data: d.values,
             label: 'Sensor' + tempObj.sensorId,
           });
         }
       );
       this.allCharts.push(chart);
     }
+    this.appendNewData(blankData, channelQuickResponse.measuredParameters);
   }
+
   keepUpdatingChart(channelQuickResponse: QuickResponseMeasurement) {
     clearInterval(this.measurementUpdateIntervalId);
     this.measurementUpdateIntervalId = setInterval(() => {
@@ -313,9 +330,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           this.chamberId as any,
           this.testId as any,
           channelQuickResponse.channelNo as any,
-          channelQuickResponse.measuredParameters.time
-            ? channelQuickResponse.measuredParameters.time?.length - 1
-            : 0
+          this.updatedUptoIndex - 1
         )
         .subscribe((data: any) => {
           this.appendNewData(
@@ -330,6 +345,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
         });
     }, 2000);
   }
+
   appendNewData(
     prevMeasurements: MeasuredParameters,
     newMeasurements: MeasuredParameters
@@ -362,9 +378,48 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
         prevMeasurements.cellTemp?.push(tempObjNew);
       }
     });
+    this.updatedUptoIndex += newMeasurements.time
+      ? newMeasurements.time.length
+      : 0;
+
+    if (
+      prevMeasurements.time &&
+      prevMeasurements.time.length > this.maxNoOfDataPoints
+    ) {
+      // Use sampling technique
+      const samplingRate = prevMeasurements.time.length / this.targetSampleSize;
+
+      this.sampleData(prevMeasurements.time, samplingRate);
+      this.sampleData(prevMeasurements.current, samplingRate);
+      this.sampleData(prevMeasurements.voltage, samplingRate);
+      this.sampleData(prevMeasurements.chamberHum, samplingRate);
+      this.sampleData(prevMeasurements.chamberTemp, samplingRate);
+
+      prevMeasurements.cellTemp?.forEach((tempObj) => {
+        this.sampleData(tempObj.values, samplingRate);
+      });
+    }
+  }
+
+  sampleData(data: number[] | undefined, samplingRate: number): void {
+    if (!data || samplingRate <= 1) {
+      return;
+    }
+
+    let writeIndex = 0;
+    for (
+      let readIndex = 0;
+      readIndex < data.length;
+      readIndex += samplingRate
+    ) {
+      data[writeIndex++] = data[Math.floor(readIndex)];
+    }
+
+    data.length = writeIndex;
   }
 
   ngOnInit(): void {
+    //console.log(this.router.url);
     if (window.location.hostname != 'localhost') {
       this.location.replaceState('./'); //on prod
     }
@@ -406,6 +461,35 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
     this.isConnectedIntervalId = setInterval(
       () => this.updateConnection(),
       10000
+    );
+  }
+
+  deleteTest() {
+    this.modalTitle = 'Alert';
+    this.modalBody =
+      'Are you sure you want to delete all the information related to this experiment? Once you do it, you can never retrieve it.';
+    this.modalService.open(this.modal, { centered: true }).result.then(
+      (result) => {
+        //console.log('accepted');
+        this._testChamberService
+          .deleteTest(this.chamberId as any, this.testId as any)
+          .subscribe((res) => {
+            let url = '';
+            let path = this.router.url;
+            if (path.indexOf('view-all') > 0) {
+              url = '../../../../';
+            } else {
+              url = '../../../';
+            }
+            this.router.navigate([url], {
+              relativeTo: this.route,
+              skipLocationChange: true,
+            });
+          });
+      },
+      (reason) => {
+        //console.log('closed');
+      }
     );
   }
 

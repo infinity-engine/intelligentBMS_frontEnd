@@ -67,3 +67,11 @@
 .control button {
   margin: 0px 2px;
 }
+
+.delete {
+  margin: 0px 2px;
+}
+.delete:hover {
+  color: red;
+  cursor: pointer;
+}

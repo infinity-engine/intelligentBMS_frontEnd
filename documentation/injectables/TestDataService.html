@@ -40,7 +40,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li >DeviceDataService</li>
+  <li >TestDataService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -58,7 +58,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/services/device-data.service.ts</code>
+            <code>src/app/services/test-data.service.ts</code>
         </p>
 
 
@@ -83,7 +83,10 @@
                                 <a href="#errorHandler" >errorHandler</a>
                             </li>
                             <li>
-                                <a href="#getDeviceDataLight" >getDeviceDataLight</a>
+                                <a href="#getTestDataDeep" >getTestDataDeep</a>
+                            </li>
+                            <li>
+                                <a href="#getTestDataLight" >getTestDataLight</a>
                             </li>
                         </ul>
                     </td>
@@ -108,7 +111,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/services/device-data.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/services/test-data.service.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -173,8 +176,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/app/services/device-data.service.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/services/test-data.service.ts:22</a></div>
                 </td>
             </tr>
 
@@ -226,16 +229,53 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getDeviceDataLight"></a>
+                    <a name="getTestDataDeep"></a>
                     <span class="name">
-                        <span ><b>getDeviceDataLight</b></span>
-                        <a href="#getDeviceDataLight"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getTestDataDeep</b></span>
+                        <a href="#getTestDataDeep"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getDeviceDataLight()</code>
+<code>getTestDataDeep()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">src/app/services/test-data.service.ts:18</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTestDataLight"></a>
+                    <span class="name">
+                        <span ><b>getTestDataLight</b></span>
+                        <a href="#getTestDataLight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTestDataLight()</code>
                 </td>
             </tr>
 
@@ -243,7 +283,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="14"
-                            class="link-to-prism">src/app/services/device-data.service.ts:14</a></div>
+                            class="link-to-prism">src/app/services/test-data.service.ts:14</a></div>
                 </td>
             </tr>
 
@@ -265,21 +305,25 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DeviceDataLight } from &#x27;./../models/DeviceData&#x27;;
-import { HttpClient, HttpErrorResponse, HttpResponse } from &#x27;@angular/common/http&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { TestResultDeep, TestResultLight } from &#x27;./../models/TestResult&#x27;;
+import { catchError,retry } from &#x27;rxjs/operators&#x27;;
+import { throwError } from &#x27;rxjs&#x27;;
+import { HttpClient, HttpErrorResponse } from &#x27;@angular/common/http&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
-import { Observable,throwError } from &#x27;rxjs&#x27;;
-import { retry,catchError } from &#x27;rxjs/operators&#x27;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
-export class DeviceDataService {
+export class TestDataService {
 
   constructor(private http:HttpClient) { }
 
-  getDeviceDataLight(){
-    return this.http.get&lt;DeviceDataLight[]&gt;(&#x27;/e_mobility/i-bms/assets/DevicesDataLight.json&#x27;).pipe(retry(3),catchError(this.errorHandler));
+  getTestDataLight(){
+    return this.http.get&lt;TestResultLight[]&gt;(&#x27;/e_mobility/i-bms/assets/TestDataLight.json&#x27;).pipe(retry(3),catchError(this.errorHandler));
+  }
+
+  getTestDataDeep(){
+    return this.http.get&lt;TestResultDeep[&#x27;Charge/discharge experiment&#x27;]&gt;(&#x27;/e_mobility/i-bms/assets/TestDataDeep.json&#x27;).pipe(retry(3),catchError(this.errorHandler));
   }
 
   private errorHandler(error:HttpErrorResponse){
@@ -334,7 +378,7 @@ export class DeviceDataService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'DeviceDataService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'TestDataService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

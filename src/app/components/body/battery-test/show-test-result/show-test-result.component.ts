@@ -7,7 +7,7 @@ import {
 } from './../../../../models/TestResult';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
 import { of, Subscription, switchMap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { saveAs } from 'file-saver';
 
@@ -64,7 +64,8 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
     private _testChamberService: TestChamberService,
     private _componentStoreService: ComponentStoreService,
     private modalService: NgbModal,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   toggleShowChart() {
@@ -418,6 +419,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    //console.log(this.router.url);
     if (window.location.hostname != 'localhost') {
       this.location.replaceState('./'); //on prod
     }
@@ -459,6 +461,35 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
     this.isConnectedIntervalId = setInterval(
       () => this.updateConnection(),
       10000
+    );
+  }
+
+  deleteTest() {
+    this.modalTitle = 'Alert';
+    this.modalBody =
+      'Are you sure you want to delete all the information related to this experiment? Once you do it, you can never retrieve it.';
+    this.modalService.open(this.modal, { centered: true }).result.then(
+      (result) => {
+        //console.log('accepted');
+        this._testChamberService
+          .deleteTest(this.chamberId as any, this.testId as any)
+          .subscribe((res) => {
+            let url = '';
+            let path = this.router.url;
+            if (path.indexOf('view-all') > 0) {
+              url = '../../../../';
+            } else {
+              url = '../../../';
+            }
+            this.router.navigate([url], {
+              relativeTo: this.route,
+              skipLocationChange: true,
+            });
+          });
+      },
+      (reason) => {
+        //console.log('closed');
+      }
     );
   }
 

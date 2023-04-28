@@ -254,7 +254,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
         next: (v) => {
           this.showSpinnerButton = false;
           this.isSaveDisabled = false;
-          console.log(v);
+          //console.log(v);
           this._componentStoreService.sendToastMsg({
             msg: 'Test added successfully',
             color: 'green',

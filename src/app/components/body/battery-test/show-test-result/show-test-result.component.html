@@ -311,6 +311,19 @@
         <div class="col">
           <small>@ Progress shows in terms of multiplier count.</small>
         </div>
+        <div
+          class="col text-end align-middle"
+          *ngIf="
+            (testInfo.status == 'Scheduled' ||
+              testInfo.status == 'Completed' ||
+              testInfo.status == 'Stopped') &&
+            testInfo.accessType == 'admin'
+          "
+        >
+          <span class="material-symbols-outlined delete" (click)="deleteTest()">
+            delete_forever
+          </span>
+        </div>
       </div>
     </div>
   </div>

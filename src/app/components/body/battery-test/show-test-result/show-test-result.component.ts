@@ -54,7 +54,6 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   connSub?: Subscription;
   maxNoOfDataPoints: number = 1000;
   targetSampleSize: number = 700;
-  updatedUptoIndex = 0;
 
   @ViewChildren(BaseChartDirective) charts?: QueryList<BaseChartDirective>;
   @ViewChild('myModal') modal: any;
@@ -81,16 +80,22 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
   onClickParent(event: MouseEvent) {
     this.toggleShowChart();
   }
-
+  /**
+   * Show chart view for a particular channel
+   * @param channelNo
+   */
   showChartView(channelNo: number) {
+    let blankData: MeasuredParameters = {};
     this.allCharts = [];
     this.toggleShowChart();
     const channelQuickResponse = this.quickResponses.find(
       (res) => res.channelNo === channelNo
     );
     if (channelQuickResponse) {
-      this.createChart(channelQuickResponse);
-      this.keepUpdatingChart(channelQuickResponse);
+      let blankResponse = { ...channelQuickResponse };
+      blankResponse.measuredParameters = blankData;
+      this.createChart(channelQuickResponse, blankResponse); //after calling this blankResponse will have all the updated data
+      this.keepUpdatingChart(blankResponse);
     } else {
       const sub = this._testChamberService
         .getQuickResponse(
@@ -99,19 +104,29 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           channelNo as any
         )
         .subscribe((data: QuickResponseMeasurement) => {
-          this.createChart(data);
+          let blankResponse: QuickResponseMeasurement = { ...data };
+          blankResponse.measuredParameters = blankData;
+          data.updatedUptoIndex = data.measuredParameters.time?.length;
+          this.createChart(data, blankResponse);
           this.quickResponses.push(data);
           if (data.statusCh === 'Running') {
             //if channel is running then only keep updating the channel
-            this.keepUpdatingChart(data);
+            this.keepUpdatingChart(blankResponse);
           }
           sub.unsubscribe();
         });
     }
   }
 
-  createChart(channelQuickResponse: QuickResponseMeasurement) {
-    let blankData: MeasuredParameters = {};
+  /**
+   * Creates Chart Object With existing data if available or fetches new data
+   * @param channelQuickResponse
+   */
+  createChart(
+    channelQuickResponse: QuickResponseMeasurement,
+    prevResponse: QuickResponseMeasurement
+  ) {
+    let blankData = prevResponse.measuredParameters;
     blankData.time = [];
     if (
       channelQuickResponse.measuredParameters.current &&
@@ -128,26 +143,6 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
             },
           ],
           labels: blankData.time,
-        },
-        ChartOptions: {
-          scales: {
-            xAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Time(S)',
-                },
-              },
-            ],
-            yAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Cell Current (A)',
-                },
-              },
-            ],
-          },
         },
         ChartType: 'line',
       };
@@ -169,26 +164,6 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           ],
           labels: blankData.time,
         },
-        ChartOptions: {
-          scales: {
-            xAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Time(S)',
-                },
-              },
-            ],
-            yAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Cell Voltage(V)',
-                },
-              },
-            ],
-          },
-        },
         ChartType: 'line',
       };
       this.allCharts.push(chart);
@@ -208,26 +183,6 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
             },
           ],
           labels: blankData.time,
-        },
-        ChartOptions: {
-          scales: {
-            xAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Time(S)',
-                },
-              },
-            ],
-            yAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Chamber Temperature (°C)',
-                },
-              },
-            ],
-          },
         },
         ChartType: 'line',
       };
@@ -249,26 +204,6 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           ],
           labels: blankData.time,
         },
-        ChartOptions: {
-          scales: {
-            xAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Time(S)',
-                },
-              },
-            ],
-            yAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Chamber Humidity(%)',
-                },
-              },
-            ],
-          },
-        },
         ChartType: 'line',
       };
       this.allCharts.push(chart);
@@ -284,26 +219,6 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
         chartData: {
           datasets: [],
           labels: blankData.time,
-        },
-        ChartOptions: {
-          scales: {
-            xAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Time(S)',
-                },
-              },
-            ],
-            yAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Cell Temperatures(°C)',
-                },
-              },
-            ],
-          },
         },
         ChartType: 'line',
       };
@@ -330,16 +245,28 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           this.chamberId as any,
           this.testId as any,
           channelQuickResponse.channelNo as any,
-          this.updatedUptoIndex - 1
+          channelQuickResponse.updatedUptoIndex
+            ? channelQuickResponse.updatedUptoIndex - 1
+            : 0
         )
-        .subscribe((data: any) => {
+        .subscribe((data: QuickResponseMeasurement) => {
           this.appendNewData(
             channelQuickResponse.measuredParameters,
             data.measuredParameters as MeasuredParameters
           );
+
+          //update the index
+          channelQuickResponse.updatedUptoIndex
+            ? (channelQuickResponse.updatedUptoIndex += data.measuredParameters
+                .time
+                ? data.measuredParameters.time.length
+                : 0)
+            : null;
+
           this.charts?.forEach((chart) => chart.update());
+          //console.log(channelQuickResponse.measuredParameters.time?.length);
           this.chartSub?.unsubscribe();
-          if (data.status === 'Completed' || data.status === 'Stopped') {
+          if (data.statusCh === 'Completed' || data.statusCh === 'Stopped') {
             clearInterval(this.measurementUpdateIntervalId);
           }
         });
@@ -378,9 +305,6 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
         prevMeasurements.cellTemp?.push(tempObjNew);
       }
     });
-    this.updatedUptoIndex += newMeasurements.time
-      ? newMeasurements.time.length
-      : 0;
 
     if (
       prevMeasurements.time &&

@@ -83,7 +83,8 @@ export interface TestResultDocument {
 }
 
 export interface QuickResponseMeasurement {
-  channelNo: Number;
+  channelNo: number;
   statusCh: 'Running' | 'Paused' | 'Stopped' | 'Scheduled' | 'Completed';
   measuredParameters: MeasuredParameters;
+  updatedUptoIndex?: number;
 }

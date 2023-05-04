@@ -85,17 +85,14 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
    * @param channelNo
    */
   showChartView(channelNo: number) {
-    let blankData: MeasuredParameters = {};
     this.allCharts = [];
     this.toggleShowChart();
     const channelQuickResponse = this.quickResponses.find(
       (res) => res.channelNo === channelNo
     );
     if (channelQuickResponse) {
-      let blankResponse = { ...channelQuickResponse };
-      blankResponse.measuredParameters = blankData;
-      this.createChart(channelQuickResponse, blankResponse); //after calling this blankResponse will have all the updated data
-      this.keepUpdatingChart(blankResponse);
+      this.createChart(channelQuickResponse); //after calling this blankResponse will have all the updated data
+      this.keepUpdatingChart(channelQuickResponse);
     } else {
       const sub = this._testChamberService
         .getQuickResponse(
@@ -104,14 +101,12 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
           channelNo as any
         )
         .subscribe((data: QuickResponseMeasurement) => {
-          let blankResponse: QuickResponseMeasurement = { ...data };
-          blankResponse.measuredParameters = blankData;
           data.updatedUptoIndex = data.measuredParameters.time?.length;
-          this.createChart(data, blankResponse);
+          this.createChart(data);
           this.quickResponses.push(data);
           if (data.statusCh === 'Running') {
             //if channel is running then only keep updating the channel
-            this.keepUpdatingChart(blankResponse);
+            this.keepUpdatingChart(data);
           }
           sub.unsubscribe();
         });
@@ -122,11 +117,8 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
    * Creates Chart Object With existing data if available or fetches new data
    * @param channelQuickResponse
    */
-  createChart(
-    channelQuickResponse: QuickResponseMeasurement,
-    prevResponse: QuickResponseMeasurement
-  ) {
-    let blankData = prevResponse.measuredParameters;
+  createChart(channelQuickResponse: QuickResponseMeasurement) {
+    let blankData: MeasuredParameters = {};
     blankData.time = [];
     if (
       channelQuickResponse.measuredParameters.current &&
@@ -235,6 +227,9 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
       this.allCharts.push(chart);
     }
     this.appendNewData(blankData, channelQuickResponse.measuredParameters);
+    //at this stage blankData will have refined data now
+    //update the reference
+    channelQuickResponse.measuredParameters = blankData;
   }
 
   keepUpdatingChart(channelQuickResponse: QuickResponseMeasurement) {
@@ -250,20 +245,21 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
             : 0
         )
         .subscribe((data: QuickResponseMeasurement) => {
-          this.appendNewData(
-            channelQuickResponse.measuredParameters,
-            data.measuredParameters as MeasuredParameters
-          );
+          if (data && data.measuredParameters.time?.length) {
+            this.appendNewData(
+              channelQuickResponse.measuredParameters,
+              data.measuredParameters as MeasuredParameters
+            );
+            //update the index
+            channelQuickResponse.updatedUptoIndex
+              ? (channelQuickResponse.updatedUptoIndex += data
+                  .measuredParameters.time
+                  ? data.measuredParameters.time.length
+                  : 0)
+              : null;
+            this.charts?.forEach((chart) => chart.update());
+          }
 
-          //update the index
-          channelQuickResponse.updatedUptoIndex
-            ? (channelQuickResponse.updatedUptoIndex += data.measuredParameters
-                .time
-                ? data.measuredParameters.time.length
-                : 0)
-            : null;
-
-          this.charts?.forEach((chart) => chart.update());
           //console.log(channelQuickResponse.measuredParameters.time?.length);
           this.chartSub?.unsubscribe();
           if (data.statusCh === 'Completed' || data.statusCh === 'Stopped') {
@@ -273,53 +269,59 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
     }, 2000);
   }
 
+  /**
+   *
+   * @param newMeasurementsRef New Measurement Reference Which has been used to create charts
+   * @param newMeasurements New Measurement Data
+   */
   appendNewData(
-    prevMeasurements: MeasuredParameters,
+    newMeasurementsRef: MeasuredParameters,
     newMeasurements: MeasuredParameters
   ) {
     if (newMeasurements.current && newMeasurements.current?.length > 0) {
-      prevMeasurements.current?.push(...newMeasurements.current);
+      newMeasurementsRef.current?.push(...newMeasurements.current);
     }
     if (newMeasurements.voltage && newMeasurements.voltage?.length > 0) {
-      prevMeasurements.voltage?.push(...newMeasurements.voltage);
+      newMeasurementsRef.voltage?.push(...newMeasurements.voltage);
     }
     if (newMeasurements.chamberHum && newMeasurements.chamberHum?.length > 0) {
-      prevMeasurements.chamberHum?.push(...newMeasurements.chamberHum);
+      newMeasurementsRef.chamberHum?.push(...newMeasurements.chamberHum);
     }
     if (
       newMeasurements.chamberTemp &&
       newMeasurements.chamberTemp?.length > 0
     ) {
-      prevMeasurements.chamberTemp?.push(...newMeasurements.chamberTemp);
+      newMeasurementsRef.chamberTemp?.push(...newMeasurements.chamberTemp);
     }
     if (newMeasurements.time && newMeasurements.time?.length > 0) {
-      prevMeasurements.time?.push(...newMeasurements.time);
+      newMeasurementsRef.time?.push(...newMeasurements.time);
     }
     newMeasurements.cellTemp?.forEach((tempObjNew, i) => {
-      const tempObjOld = prevMeasurements.cellTemp?.find(
+      const tempObjOld = newMeasurementsRef.cellTemp?.find(
         (tempObj) => tempObj.sensorId === tempObjNew.sensorId
       );
       if (tempObjOld) {
         tempObjOld.values.push(...tempObjNew.values);
       } else {
-        prevMeasurements.cellTemp?.push(tempObjNew);
+        newMeasurementsRef.cellTemp?.push(tempObjNew);
       }
     });
 
     if (
-      prevMeasurements.time &&
-      prevMeasurements.time.length > this.maxNoOfDataPoints
+      newMeasurementsRef.time &&
+      newMeasurementsRef.time.length > this.maxNoOfDataPoints
     ) {
       // Use sampling technique
-      const samplingRate = prevMeasurements.time.length / this.targetSampleSize;
+      const samplingRate =
+        newMeasurementsRef.time.length / this.targetSampleSize;
 
-      this.sampleData(prevMeasurements.time, samplingRate);
-      this.sampleData(prevMeasurements.current, samplingRate);
-      this.sampleData(prevMeasurements.voltage, samplingRate);
-      this.sampleData(prevMeasurements.chamberHum, samplingRate);
-      this.sampleData(prevMeasurements.chamberTemp, samplingRate);
+      this.sampleData(newMeasurementsRef.time, samplingRate);
+      this.sampleData(newMeasurementsRef.current, samplingRate);
+      this.sampleData(newMeasurementsRef.voltage, samplingRate);
+      this.sampleData(newMeasurementsRef.chamberHum, samplingRate);
+      this.sampleData(newMeasurementsRef.chamberTemp, samplingRate);
 
-      prevMeasurements.cellTemp?.forEach((tempObj) => {
+      newMeasurementsRef.cellTemp?.forEach((tempObj) => {
         this.sampleData(tempObj.values, samplingRate);
       });
     }
@@ -384,7 +386,7 @@ export class ShowTestResultComponent implements OnInit, OnDestroy {
 
     this.isConnectedIntervalId = setInterval(
       () => this.updateConnection(),
-      10000
+      20000
     );
   }
 

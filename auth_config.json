@@ -2,7 +2,7 @@
   "domain": "dev-n8d0f7yf.au.auth0.com",
   "clientId": "HQALfHzRhd1GCuAnMIGAptkYsXTdQW2n",
   "audience": "https://express.sample",
-  "apiUri": "https://node-api-ibms-infinity-engine.cloud.okteto.net",
+  "apiUri": "https://ibms-api-0qso.onrender.com",
   "appUri": "https://www.iitg.ac.in/e_mobility/i-bms",
   "errorPath": "/error"
 }

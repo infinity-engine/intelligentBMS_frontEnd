@@ -21,59 +21,63 @@
   </div>
 </div>
 <div class="all-chambers">
-  <div class="table-responsive">
-    <table class="table-hover table caption-top">
-      <caption>
-        List of assgined test chambers to you.
-      </caption>
-      <thead>
-        <tr>
-          <th scope="col">Chamber Name</th>
-          <th scope="col">Max. Channels</th>
-          <th scope="col">Access Type</th>
-          <th scope="col">Created On</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container
-          *ngFor="
-            let testChamber of availableTestChambers
-              | slice : (page - 1) * pageSize : page * pageSize;
-            let i = index
-          "
-        >
-          <tr (click)="selectTestChamber(testChamber._id)">
-            <td>{{ testChamber.name }}</td>
-            <td>{{ testChamber.maxNoOfChannels }}</td>
-            <td>{{ testChamber.accessType }}</td>
-            <td>{{ testChamber.createdOn }}</td>
+  <ng-container
+    *ngIf="availableTestChambersSource.length > 0; else default_msg"
+  >
+    <div class="table-responsive">
+      <table class="table-hover table caption-top">
+        <caption>
+          List of assgined test chambers to you.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Chamber Name</th>
+            <th scope="col">Max. Channels</th>
+            <th scope="col">Access Type</th>
+            <th scope="col">Created On</th>
           </tr>
-        </ng-container>
-      </tbody>
-    </table>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col pagination justify-content-center">
-      <ngb-pagination
-        [(page)]="page"
-        [pageSize]="pageSize"
-        [collectionSize]="availableTestChambers.length"
-        [maxSize]="2"
-        [rotate]="true"
-        [ellipses]="true"
-        [boundaryLinks]="true"
-      ></ngb-pagination>
+        </thead>
+        <tbody>
+          <ng-container
+            *ngFor="
+              let testChamber of availableTestChambers
+                | slice : (page - 1) * pageSize : page * pageSize;
+              let i = index
+            "
+          >
+            <tr (click)="selectTestChamber(testChamber._id)">
+              <td>{{ testChamber.name }}</td>
+              <td>{{ testChamber.maxNoOfChannels }}</td>
+              <td>{{ testChamber.accessType }}</td>
+              <td>{{ testChamber.createdOn | date : "MMM d, y, h:mm a" }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
     </div>
-  </div>
+    <ngb-pagination
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="availableTestChambers.length"
+      [maxSize]="2"
+      [rotate]="true"
+      [ellipses]="true"
+      [boundaryLinks]="true"
+      class="d-flex justify-content-center"
+    ></ngb-pagination>
+  </ng-container>
+  <ng-template #default_msg>
+    <span>{{ placeHolderMsg }}</span>
+  </ng-template>
 </div>
 <ng-container *ngIf="selectedTestChamber">
   <div class="card chamber-details">
     <div class="card-header">
       <div class="row justify-content-between">
         <div class="col">Test Chamber</div>
-        <div class="col-md-2 text-end">
-          <span style="vertical-align: sub"
-            >Connected
+        <div class="col text-end">
+          <span *ngIf="isConnected; else not_connected"
+            >Online
             <div
               class="spinner-grow spinner-grow-sm text-primary"
               role="status"
@@ -82,6 +86,18 @@
               <span class="sr-only">Loading...</span>
             </div>
           </span>
+          <ng-template #not_connected>
+            <span>Offline</span>
+          </ng-template>
+          <ng-container *ngIf="selectedTestChamber.accessType === 'admin'">
+            <span
+              class="material-symbols-outlined align-middle edit"
+              [routerLink]="['../edit', selectedTestChamber._id]"
+              skipLocationChange="true"
+            >
+              edit
+            </span>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -89,6 +105,10 @@
       <div class="row">
         <div class="col-md-4">Name</div>
         <div class="col-md-8">{{ selectedTestChamber.name }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Id</div>
+        <div class="col-md-8">{{ selectedTestChamber._id }}</div>
       </div>
       <div class="row">
         <div class="col-md-4">Controller</div>
@@ -116,7 +136,9 @@
       </div>
       <div class="row">
         <div class="col-md-4">Created On</div>
-        <div class="col-md-8">{{ selectedTestChamber.createdOn }}</div>
+        <div class="col-md-8">
+          {{ selectedTestChamber.createdOn | date : "MMM d, y, h:mm a" }}
+        </div>
       </div>
       <div class="row">
         <div class="col-md-4">Maximum No. of Channels</div>
@@ -131,10 +153,62 @@
           <div class="col-md-4">Assigned Users</div>
           <div class="col-md-8">
             <span
-              class="badge bg-secondary user"
+              class="badge user align-center"
+              [class]="
+                user.accessType === 'admin'
+                  ? 'bg-danger'
+                  : user.accessType === 'write'
+                  ? 'bg-warning'
+                  : 'bg-primary'
+              "
               *ngFor="let user of selectedTestChamber.assignedUsers"
               >{{ user.name }}</span
             >
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="selectedTestChamber.accessType != 'read'">
+        <div class="row mt-4">
+          <div class="col-md-4">API Key</div>
+          <div class="col-md-4">
+            <div class="input-group mb-3">
+              <span
+                class="input-group-text api-copy"
+                id="basic-addon1"
+                *ngIf="isApiVisible"
+                (click)="clipBoard()"
+                ><span class="material-symbols-outlined align-center">
+                  content_copy
+                </span></span
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                disabled
+                [ngModel]="selectedTestChamber.apiKey"
+              />
+              <span
+                class="input-group-text eye"
+                id="basic-addon2"
+                *ngIf="isApiVisible"
+                (click)="changeView()"
+                ><span class="material-symbols-outlined align-center">
+                  visibility
+                </span></span
+              >
+              <span
+                class="input-group-text eye"
+                id="basic-addon3"
+                *ngIf="!isApiVisible"
+                (click)="changeView()"
+                ><span class="material-symbols-outlined align-center">
+                  visibility_off
+                </span></span
+              >
+            </div>
           </div>
         </div>
       </ng-container>

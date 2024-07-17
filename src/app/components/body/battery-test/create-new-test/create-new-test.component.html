@@ -1,3 +1,15 @@
+<div class="row justify-content-start">
+  <div class="col-md-2">
+    <button
+      type="button"
+      class="btn btn-dark"
+      routerLink="../"
+      skipLocationChange="true"
+    >
+      Live Tests
+    </button>
+  </div>
+</div>
 <form #testScript="ngForm" (ngSubmit)="save()">
   <div class="card">
     <div class="card-header">
@@ -57,7 +69,6 @@
             id="testId"
             aria-describedby="info_testId"
             disabled
-            [(ngModel)]="currentPayload!.testId"
             name="testId"
           />
         </div>
@@ -69,7 +80,7 @@
       </div>
       <div class="row">
         <div class="col-md-4">
-          <label for="testName">Test Name</label>
+          <label for="testName" class="required-ast">Test Name</label>
         </div>
         <div class="col-md-3">
           <input
@@ -79,8 +90,9 @@
             id="testName"
             aria-describedby="info_testName"
             placeholder="e.g. Cyclic Charge Discharge"
-            [(ngModel)]="currentPayload!.testName"
+            [(ngModel)]="testName"
             name="testName"
+            required=""
           />
         </div>
         <div class="col-md-5">
@@ -100,7 +112,7 @@
             rows="4"
             id="testDesc"
             placeholder="Put a detailed description of your test."
-            [(ngModel)]="currentPayload!.testDesc"
+            [(ngModel)]="testDesc"
             name="testDesc"
           ></textarea>
         </div>
@@ -108,7 +120,9 @@
       <ng-container *ngIf="currentPayload?.isConAmTe">
         <div class="row">
           <div class="col-md-4">
-            <label for="field__conAmTem">Ambient Temperature</label>
+            <label for="field__conAmTem" class="required-ast"
+              >Ambient Temperature</label
+            >
           </div>
           <div class="col-md-3">
             <input
@@ -120,6 +134,7 @@
               placeholder="e.g. 25"
               [(ngModel)]="currentPayload!.ambTemp"
               name="field_conAmTem"
+              required
             />
           </div>
           <div class="col-md-5">
@@ -141,7 +156,9 @@
         >
           <div class="row">
             <div class="col-md-4">
-              <label for="select_ch_{{ ch_index }}" class="form-label"
+              <label
+                for="select_ch_{{ ch_index }}"
+                class="form-label required-ast"
                 >Channel Number</label
               >
             </div>
@@ -152,6 +169,7 @@
                 name="channel_select_{{ ch_index }}"
                 class="form-select"
                 id="select_ch_{{ ch_index }}"
+                required
               >
                 <option [ngValue]="undefined" disabled>Choose</option>
                 <option
@@ -171,7 +189,9 @@
 
           <div class="row">
             <div class="col-md-4">
-              <label for="cell_id_{{ ch_index }}" class="form-label"
+              <label
+                for="cell_id_{{ ch_index }}"
+                class="form-label required-ast"
                 >Cell ID</label
               >
             </div>
@@ -185,6 +205,7 @@
                 placeholder="Select Cell"
                 (clear)="findCells()"
                 (focus)="findCells()"
+                required
               >
                 <ng-option
                   *ngFor="let cell of availableCells"
@@ -205,19 +226,20 @@
             <div class="col-md-8"><p>Specify the test sequence.</p></div>
           </div>
           <div class="row">
-            <div class="col-4 align-self-center">
+            <div class="col-md-4 align-self-center">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col">
                   <small class="form-text" id="overall-multiplier"
                     >Overall multiplier.</small
                   >
                 </div>
-                <div class="col-md-6">
+                <div class="col">
                   <input
                     class="form-control"
                     type="number"
                     [(ngModel)]="currentChannel.overallRowMultiplier"
                     name="overall_multiplier_{{ ch_index }}"
+                    required
                   />
                 </div>
               </div>
@@ -356,6 +378,7 @@
                                 name="row_multiplier-of-row-{{
                                   row_id
                                 }}-of-ch-{{ ch_index }}"
+                                required
                               />
                             </div>
                           </div>
@@ -396,7 +419,7 @@
               </ng-container>
 
               <div class="row justify-content-end">
-                <div class="col-md-3 text-end">
+                <div class="col-md-3 text-end mb-2">
                   <button
                     class="btn btn-success"
                     (click)="addRow(ch_index)"
@@ -409,7 +432,7 @@
                     <span class="align-middle"> Add</span>
                   </button>
                 </div>
-                <div class="col-md-3 text-end">
+                <div class="col-md-3 text-end mb-2">
                   <button
                     class="btn btn-warning"
                     (click)="removeRow(ch_index)"
@@ -428,7 +451,7 @@
         </div>
         <ng-container *ngIf="currentPayload?.isConAmTe">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
               <button
                 type="button"
                 class="btn btn-secondary"
@@ -443,7 +466,7 @@
                 <span class="align-middle"> Add Channel</span>
               </button>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
               <button
                 type="button"
                 class="btn btn-danger"
@@ -461,18 +484,21 @@
       </div>
       <div class="row align-items-center">
         <div class="col">
-          <span style="vertical-align: sub"
-            >Connected
-            <div
-              class="spinner-grow spinner-grow-sm text-primary"
-              role="status"
-              *ngIf="showSpinnerConnection"
-            >
-              <span class="sr-only">Loading...</span>
-            </div>
-          </span>
+          <span *ngIf="isConnected; else not_connected"
+          >Online
+          <div
+            class="spinner-grow spinner-grow-sm text-primary"
+            role="status"
+            *ngIf="true"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </span>
+        <ng-template #not_connected>
+          <span>Offline</span>
+        </ng-template>
         </div>
-        <div class="col-md-2 justify-content-end">
+        <div class="col-md-2 justify-content-end mb-2">
           <input
             class="form-control"
             type="date"
@@ -481,7 +507,7 @@
             name="date"
           />
         </div>
-        <div class="col-md-2 justify-content-end">
+        <div class="col-md-2 justify-content-end mb-2">
           <input
             class="form-control"
             type="time"
@@ -490,8 +516,12 @@
             name="time"
           />
         </div>
-        <div class="col-md-2 justify-content-end text-end">
-          <button type="submit" class="btn btn-danger">
+        <div class="col-md-2 justify-content-end text-end mb-2">
+          <button
+            type="submit"
+            [disabled]="!testScript.valid || isSaveDisabled"
+            class="btn btn-danger"
+          >
             Schedule
             <div
               class="spinner-grow spinner-grow spinner-grow-sm text-light"

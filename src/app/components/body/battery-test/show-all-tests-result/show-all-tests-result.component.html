@@ -1,0 +1,131 @@
+<ng-container *ngIf="!isTestInfoViewEnabled; else testInfoView">
+  <div class="row justify-content-between mb-3 header">
+    <div class="col-6 mb-2">
+      <button
+        type="button"
+        class="btn btn-light"
+        routerLink="../"
+        skipLocationChange="true"
+      >
+        Back
+      </button>
+    </div>
+    <div class="col-6 mb-2 text-end">
+      <button
+        class="btn btn-danger"
+        type="button"
+        routerLink="../add"
+        skipLocationChange="true"
+      >
+        Create new test
+      </button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="row justify-content-between">
+        <div class="col-md-2">All Tests</div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by test id"
+            name="search-id"
+            [(ngModel)]="searchId"
+            (ngModelChange)="filter()"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="card-body all-test">
+      <div class="table-responsive">
+        <table class="table-hover table caption-top">
+          <ng-container *ngIf="allTestsSource.length == 0; else test_list">
+            <caption>
+              No tests found.
+            </caption>
+          </ng-container>
+          <ng-template #test_list>
+            <caption>
+              List of tests assigned to you.
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Test Id</th>
+                <th scope="col">Test Name</th>
+                <th scope="col">Chamber Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Created On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container
+                *ngFor="
+                  let test of allTests
+                    | slice : (page - 1) * pageSize : page * pageSize;
+                  let i = index
+                "
+              >
+                <tr
+                  [routerLink]="['view', test.createdOnChamber, test._id]"
+                  skipLocationChange="true"
+                  (click)="changeView()"
+                >
+                  <td>{{ test._id }}</td>
+                  <td>{{ test.testName }}</td>
+                  <td>{{ test.chamberName }}</td>
+                  <td>{{ test.status }}</td>
+                  <td>{{ test.createdOn | date : "MMM d, y, h:mm a" }}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </ng-template>
+        </table>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col pagination justify-content-center">
+          <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="allTests.length"
+            [maxSize]="2"
+            [rotate]="true"
+            [ellipses]="true"
+            [boundaryLinks]="true"
+          ></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #testInfoView>
+  <div class="row justify-content-between">
+    <div class="col-6">
+      <button
+        class="btn btn-light"
+        type="button"
+        routerLink="./"
+        skipLocationChange="true"
+        (click)="changeView()"
+      >
+        Back
+      </button>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col text-end">
+          <button
+            class="btn btn-danger"
+            type="button"
+            routerLink="../add"
+            skipLocationChange="true"
+          >
+            Create new test
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</ng-template>

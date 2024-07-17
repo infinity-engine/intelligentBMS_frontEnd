@@ -16,7 +16,7 @@
     <div class="card-body">
       <div class="row align-items-center">
         <div class="col-md-3">
-          <label for="select_cell_temp">Use existant template?</label>
+          <label for="select_cell_temp">Use existent template?</label>
         </div>
         <div class="col-md-3">
           <select
@@ -83,7 +83,9 @@
 
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_quant" class="required-ast">Cell Quantity</label>
+            <label for="input_cell_quant" class="required-ast"
+              >Cell Quantity</label
+            >
           </div>
           <div class="col-md-3">
             <input
@@ -100,8 +102,8 @@
           <div class="col">
             <small id="info_cell_quant" class="form-text"
               >If > 1, then it will generate unique sequence of cell records,
-              with name {{ cell.cellName }}-1 , {{ cell.cellName }}-2
-              , ...</small
+              with name {{ cell.cellName }}-1 , {{ cell.cellName }}-2 ,
+              ...</small
             >
           </div>
         </div>
@@ -221,7 +223,9 @@
       <div class="card-text">
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_vol" class="required-ast">Nominal Voltage(V)</label>
+            <label for="input_cell_vol" class="required-ast"
+              >Nominal Voltage(V)</label
+            >
           </div>
           <div class="col-md-3">
             <input
@@ -244,7 +248,9 @@
 
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_cap" class="required-ast">Nominal Capacity(mAh)</label>
+            <label for="input_cell_cap" class="required-ast"
+              >Nominal Capacity(mAh)</label
+            >
           </div>
           <div class="col-md-3">
             <input
@@ -289,7 +295,9 @@
 
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_max_vol" class="required-ast">Max Voltage Rating(V)</label>
+            <label for="input_cell_max_vol" class="required-ast"
+              >Max Voltage Rating(V)</label
+            >
           </div>
           <div class="col-md-3">
             <input
@@ -313,7 +321,9 @@
 
         <div class="row align-items-center">
           <div class="col-md-3">
-            <label for="input_cell_min_vol" class="required-ast">Min Voltage Rating(V)</label>
+            <label for="input_cell_min_vol" class="required-ast"
+              >Min Voltage Rating(V)</label
+            >
           </div>
           <div class="col-md-3">
             <input
@@ -340,8 +350,14 @@
             <label for="input_cell_min_users">Assigned Users</label>
           </div>
           <div class="col-md-3">
-            <ng-select [(ngModel)]="selectedUser" [multiple]="true"
-            (search)="getUsers($event.term)" name="select_users" (clear)="getUsers()" (focus)="getUsers()">
+            <ng-select
+              [(ngModel)]="selectedUser"
+              [multiple]="true"
+              (search)="getUsers($event.term)"
+              name="select_users"
+              (clear)="getUsers()"
+              (focus)="getUsers()"
+            >
               <ng-option *ngFor="let user of users" [value]="user">{{
                 user.name
               }}</ng-option>
@@ -359,7 +375,7 @@
           <div class="col-md-2 text-end">
             <button
               class="btn btn-success"
-              type="button"
+              type="submit"
               [disabled]="isSaveDisabled || !myForm.valid"
             >
               Add

@@ -1,6 +1,5 @@
 import { ComponentStoreService } from './../../../../../services/component-store.service';
 import { TestChamberService } from 'src/app/services/test-chamber.service';
-import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {
   _User,
@@ -9,6 +8,7 @@ import {
 } from './../../../../../services/user.service';
 import { TestChamber } from './../../../../../models/TestChamber';
 import { Component, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-test-chamber',
@@ -27,7 +27,9 @@ export class AddTestChamberComponent implements OnDestroy {
   constructor(
     private _userService: UserService,
     private _testChamberService: TestChamberService,
-    private _componentStoreService: ComponentStoreService
+    private _componentStoreService: ComponentStoreService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   getUsers(searchStr: string = '') {
@@ -58,7 +60,7 @@ export class AddTestChamberComponent implements OnDestroy {
   save() {
     this.showSpinnerButton = true;
     let assignedUsers: _UserLight[] = [];
-    this.users.forEach((user: _User) => {
+    this.selectedUser?.forEach((user: _User) => {
       assignedUsers.push({ _id: user._id, accessType: 'read' });
     });
     this.chamber.assignedUsers = assignedUsers;
@@ -71,6 +73,10 @@ export class AddTestChamberComponent implements OnDestroy {
           this._componentStoreService.sendToastMsg({
             msg: 'Chamber created successfully',
             color: 'green',
+          });
+          this.router.navigate(['../view'], {
+            relativeTo: this.route,
+            skipLocationChange: true,
           });
         },
         error: (e) => {

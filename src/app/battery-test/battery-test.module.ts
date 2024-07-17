@@ -1,3 +1,5 @@
+import { RouterModule } from '@angular/router';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { NgChartsModule } from 'ng2-charts';
 import { ShowTestResultComponent } from './../components/body/battery-test/show-test-result/show-test-result.component';
 import { NoResultComponent } from './../components/body/battery-test/no-result/no-result.component';
@@ -9,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BatteryTestRoutingModule } from './battery-test-routing.module';
+import { ShowAllTestsResultComponent } from '../components/body/battery-test/show-all-tests-result/show-all-tests-result.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +19,16 @@ import { BatteryTestRoutingModule } from './battery-test-routing.module';
     CreateNewTestComponent,
     NoResultComponent,
     ShowTestResultComponent,
+    ShowAllTestsResultComponent,
   ],
   imports: [
     CommonModule,
     BatteryTestRoutingModule,
     NgSelectModule,
     SharedModule,
-    NgChartsModule
+    NgChartsModule,
+    NgbPagination,
+    RouterModule,
   ],
 })
 export class BatteryTestModule {}

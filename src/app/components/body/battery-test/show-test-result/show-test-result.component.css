@@ -1,11 +1,77 @@
-.all-tests,.single-test{
-    border: 1px solid gray;
-    margin-top: 20px;
-    border-radius: 5px;
+.test-info-container {
+  margin-top: 10px;
 }
-.all-tests>table>tbody tr{
-    cursor: pointer;
+.test-info-container > .card-header {
+  background-color: #010305cf;
+  color: white;
 }
-.card{
-    margin: 10px;
+.channel-container {
+  border-top: 5px solid #91699b57;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.badge .material-symbols-outlined {
+  font-size: inherit;
+}
+.badge > span {
+  height: 100%;
+  padding: 0px 2px;
+  vertical-align: middle;
+  font-size: large;
+}
+.badge {
+  margin: 2px 2px;
+}
+.overall .row {
+  margin-bottom: 3px;
+  font-family: Verdana, sans-serif;
+}
+.show-chart,
+.download,
+.cross {
+  margin: 0px 10px;
+}
+.show-chart:hover,
+.download:hover,
+.cross:hover {
+  color: red;
+  cursor: pointer;
+}
+.chart-background {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 7;
+  background: rgba(255, 255, 255, 0.192);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+.cross {
+  float: right;
+}
+
+.charts {
+  position: relative;
+  top: 10%;
+  z-index: 8;
+  margin: auto;
+  width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+.chart-background .card {
+  margin: 0px 10px;
+}
+.control button {
+  margin: 0px 2px;
+}
+
+.delete {
+  margin: 0px 2px;
+}
+.delete:hover {
+  color: red;
+  cursor: pointer;
 }

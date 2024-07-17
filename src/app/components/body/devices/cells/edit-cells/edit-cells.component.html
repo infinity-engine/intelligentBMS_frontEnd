@@ -1,1 +1,444 @@
-<p>edit-cells works!</p>
+<div class="row justify-content-start">
+  <div class="col-md-1">
+    <button
+      type="button"
+      class="btn btn-dark"
+      routerLink="../../view"
+      skipLocationChange="true"
+    >
+      Back
+    </button>
+  </div>
+</div>
+<form #myForm="ngForm" (ngSubmit)="save()">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-6">Edit the Cell</div>
+        <div class="col-6 text-end align-middle">
+          <span
+            class="material-symbols-outlined delete"
+            (click)="deleteChannel()"
+          >
+            delete_forever
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-3">
+          <label for="select_cell_temp">Use existant template?</label>
+        </div>
+        <div class="col-md-3">
+          <select
+            class="form-select"
+            id="select_cell_temp"
+            [(ngModel)]="selectedCellTemplate"
+            (ngModelChange)="populate()"
+            name="select_cell_temp"
+          >
+            <option *ngFor="let tem of cellTemplates" [ngValue]="tem">
+              {{ tem.templateName }}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <small id="info_cell_id" class="form-text"
+            >Select any template to auto-populate some of the fields.</small
+          >
+        </div>
+      </div>
+      <div class="card-tittle">About the cell's physical information.</div>
+      <div class="card-text">
+        <div class="row align-items-center">
+          <div class="col-md-3"><label for="input_cell_id">Cell Id</label></div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_cell_id"
+              id="input_cell_id"
+              [(ngModel)]="cell._id"
+              name="input_cell_id"
+              disabled
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_id" class="form-text"
+              >Unique identifier, generates automatically.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_name" class="required-ast">Cell Name</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_cell_name"
+              id="input_cell_name"
+              placeholder="e.g. XYZM0-AB"
+              [(ngModel)]="cell.cellName"
+              name="input_cell_name"
+              required=""
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_name" class="form-text"
+              >Give a name/base-name to your cell, should be unique among the
+              cells that you have access to.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_manu">Manufacturer</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_cell_manu"
+              id="input_cell_manu"
+              placeholder="e.g. Samsung"
+              [(ngModel)]="cell.manufacturer"
+              name="input_cell_manu"
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_manu" class="form-text"
+              >Name of the manufacturer.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_batch">Batch No.</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_cell_batch"
+              id="input_cell_batch"
+              placeholder="e.g. Q065CXX00.."
+              [(ngModel)]="cell.batchNo"
+              name="input_cell_batch"
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_batch" class="form-text"
+              >Batch no. for the inventory management.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_type">Type</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_cell_type"
+              id="input_cell_type"
+              placeholder="e.g. Cylindrical"
+              [(ngModel)]="cell.type"
+              name="input_cell_type"
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_type" class="form-text"
+              >Shape of the cell.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_form_factor">Form Factor</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_cell_form_factor"
+              id="input_cell_form_factor"
+              placeholder="e.g. 18650"
+              [(ngModel)]="cell.formFactor"
+              name="input_cell_form_factor"
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_form_factor" class="form-text"
+              >Express the physical size of the cell.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_chem">Cell Chemistry</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="info_cell_chem"
+              id="input_cell_chem"
+              placeholder="e.g. Li-ion NMC"
+              [(ngModel)]="cell.cellChemistry"
+              name="input_cell_chem"
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_chem" class="form-text"
+              >Cell chemistry of the cell.</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="card-title">About the cell's electrical information.</div>
+      <div class="card-text">
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_vol" class="required-ast"
+              >Nominal Voltage(V)</label
+            >
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              aria-describedby="info_cell_vol"
+              id="input_cell_vol"
+              placeholder="e.g. 3.5"
+              [(ngModel)]="cell.nomVolt"
+              name="input_cell_vol"
+              required=""
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_vol" class="form-text"
+              >Manufacturer specified nominal cell voltage.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_cap" class="required-ast"
+              >Nominal Capacity(mAh)</label
+            >
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              aria-describedby="info_cell_cap"
+              id="input_cell_cap"
+              placeholder="e.g. 3600"
+              [(ngModel)]="cell.nomCap"
+              name="input_cell_cap"
+              required=""
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_cur" class="form-text"
+              >Manufacturer specified nominal cell capacity.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_cur">Nominal Current(A)</label>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              aria-describedby="info_cell_cur"
+              id="input_cell_cur"
+              placeholder="e.g. 2.0"
+              [(ngModel)]="cell.nomCurr"
+              name="input_cell_cur"
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_cur" class="form-text"
+              >Manufacturer specified nominal cell current.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_max_vol" class="required-ast"
+              >Max Voltage Rating(V)</label
+            >
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              aria-describedby="info_cell_max_vol"
+              id="input_cell_max_vol"
+              placeholder="e.g. 4.2"
+              [(ngModel)]="cell.maxVolt"
+              name="input_cell_max_vol"
+              required
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_max_vol" class="form-text"
+              >Manufacturer specified maximum cell voltage, might be useful
+              while perforiming test.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_cell_min_vol" class="required-ast"
+              >Min Voltage Rating(V)</label
+            >
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              aria-describedby="info_cell_min_vol"
+              id="input_cell_min_vol"
+              placeholder="e.g. 2.8"
+              [(ngModel)]="cell.minVolt"
+              name="input_cell_min_vol"
+              required
+            />
+          </div>
+          <div class="col">
+            <small id="info_cell_min_vol" class="form-text"
+              >Manufacturer specified minimum cell voltage, might be useful
+              while perforiming test.</small
+            >
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_users"
+              >Assigned Users
+              <span class="badge bg-primary align-middle" title="Access Type"
+                >read</span
+              >
+            </label>
+          </div>
+          <div class="col-md-3">
+            <ng-select
+              [(ngModel)]="selectedUsersRead"
+              [multiple]="true"
+              (search)="getUsers($event.term)"
+              name="select_users_read"
+              (clear)="getUsers()"
+              (focus)="getUsers()"
+              id="input_chamber_users_read"
+              aria-describedby="info_chamber_users_read"
+              [items]="users"
+              bindLabel="name"
+            >
+            </ng-select>
+          </div>
+
+          <div class="col">
+            <small id="info_chamber_users_read" class="form-text"
+              >User can only view the cell information.</small
+            >
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label for="input_chamber_users"
+              >Assigned Users
+              <span class="badge bg-warning align-middle" title="Access Type"
+                >write</span
+              >
+            </label>
+          </div>
+          <div class="col-md-3">
+            <ng-select
+              [(ngModel)]="selectedUsersWrite"
+              [multiple]="true"
+              (search)="getUsers($event.term)"
+              name="select_users_write"
+              (clear)="getUsers()"
+              (focus)="getUsers()"
+              id="input_chamber_users_write"
+              aria-describedby="info_chamber_users_write"
+              [items]="users"
+              bindLabel="name"
+            >
+            </ng-select>
+          </div>
+
+          <div class="col">
+            <small id="info_chamber_users_write" class="form-text"
+              >User can view the cell information as well as place an experiment
+              on this cell.</small
+            >
+          </div>
+        </div>
+
+        <div class="row justify-content-end">
+          <div class="col-md-2 text-end">
+            <button
+              class="btn btn-success"
+              type="submit"
+              [disabled]="isSaveDisabled || !myForm.valid"
+            >
+              Save
+              <div
+                class="spinner-grow spinner-grow spinner-grow-sm text-light"
+                role="status"
+                *ngIf="showSpinnerButton"
+              >
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #myModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ modalTitle }}</h4>
+    <button
+      type="button"
+      class="close btn btn-danger"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">X</span>
+    </button>
+  </div>
+  <div class="modal-body">{{ modalBody }}</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>

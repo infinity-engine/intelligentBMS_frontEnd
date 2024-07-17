@@ -1,0 +1,23 @@
+.header-black {
+  background-color: #010305cf;
+  color: white;
+}
+.header-black * {
+  vertical-align: middle;
+}
+.live-tests-container .card {
+  margin-top: 20px;
+}
+.progress {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.live-test {
+  cursor: pointer;
+}
+.live-test:hover .card-header {
+  background-color: rgba(85, 117, 120, 0.452);
+}
+.header-control .btn {
+  width: 100%;
+}

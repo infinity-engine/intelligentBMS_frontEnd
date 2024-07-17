@@ -7,25 +7,25 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'add',
-    component:AddCellsComponent
+    path: 'add',
+    component: AddCellsComponent,
   },
   {
-    path:'edit',
-    component:EditCellsComponent
+    path: 'edit/:cellId',
+    component: EditCellsComponent,
   },
   {
-    path:'view',
-    component:ViewCellsComponent
+    path: 'view',
+    component: ViewCellsComponent,
   },
   {
-    path:"",
-    component:CellsComponent
-  }
+    path: '',
+    component: CellsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CellsRoutingModule { }
+export class CellsRoutingModule {}

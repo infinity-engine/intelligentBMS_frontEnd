@@ -1,1 +1,167 @@
-<p>view-cells works!</p>
+<div class="row justify-content-between">
+  <div class="col">
+    <button
+      class="btn btn-dark"
+      type="button"
+      routerLink="../"
+      skipLocationChange="true"
+    >
+      Back
+    </button>
+  </div>
+  <div class="col">
+    <input
+      [(ngModel)]="searchStr"
+      name="search-field"
+      type="text"
+      class="form-control"
+      placeholder="Search by name.."
+      (ngModelChange)="filter()"
+    />
+  </div>
+</div>
+
+<div class="all-cells">
+  <ng-container *ngIf="this.availableCellsSource.length > 0; else default_msg">
+    <div class="table-responsive">
+      <table class="table-hover table caption-top">
+        <caption>
+          List of assgined test cells to you.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Nominal Voltage (V)</th>
+            <th scope="col">Nominal Capacity (mAh)</th>
+            <th scope="col">Cell Chemistry</th>
+            <th scope="col">Access Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container
+            *ngFor="
+              let cell of availableCells
+                | slice : (page - 1) * pageSize : page * pageSize;
+              let i = index
+            "
+          >
+            <tr (click)="selectCell(cell._id)">
+              <td>{{ cell.cellName }}</td>
+              <td>{{ cell.nomVolt }}</td>
+              <td>{{ cell.nomCap }}</td>
+              <td>{{ cell.cellChemistry }}</td>
+              <td>{{ cell.accessType }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <ngb-pagination
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="availableCells.length"
+      [maxSize]="2"
+      [rotate]="true"
+      [ellipses]="true"
+      [boundaryLinks]="true"
+      class="d-flex justify-content-center"
+    ></ngb-pagination>
+  </ng-container>
+</div>
+<ng-template #default_msg>
+  <span>{{ placeHolderMsg }}</span>
+</ng-template>
+
+<ng-container *ngIf="selectedCell">
+  <div class="card cell-details">
+    <div class="card-header">
+      <div class="row" justify-content-between>
+        <div class="col-6">About the Cell</div>
+        <div class="col-6 text-end">
+          <ng-container *ngIf="selectedCell.accessType === 'admin'">
+            <span
+              class="material-symbols-outlined align-middle edit"
+              [routerLink]="['../edit', selectedCell._id]"
+              skipLocationChange="true"
+            >
+              edit
+            </span>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">Name</div>
+        <div class="col-md-8">{{ selectedCell.cellName }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Cell Id</div>
+        <div class="col-md-8">{{ selectedCell._id }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Quantity</div>
+        <div class="col-md-8">{{ selectedCell.cellQuantity }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Manufacturer</div>
+        <div class="col-md-8">{{ selectedCell.manufacturer }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Batch Number</div>
+        <div class="col-md-8">{{ selectedCell.batchNo }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Type</div>
+        <div class="col-md-8">{{ selectedCell.type }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Form Factor</div>
+        <div class="col-md-8">{{ selectedCell.formFactor }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Cell Chemistry</div>
+        <div class="col-md-8">{{ selectedCell.cellChemistry }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Nominal Voltage</div>
+        <div class="col-md-8">{{ selectedCell.nomVolt }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Nominal Capacity</div>
+        <div class="col-md-8">{{ selectedCell.nomCap }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Nominal Current</div>
+        <div class="col-md-8">{{ selectedCell.nomCurr }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Maximum Voltage</div>
+        <div class="col-md-8">{{ selectedCell.maxVolt }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Minimum Voltage</div>
+        <div class="col-md-8">{{ selectedCell.minVolt }}</div>
+      </div>
+      <ng-container *ngIf="selectedCell.accessType == 'admin'">
+        <div class="row">
+          <div class="col-md-4">Assigned Users</div>
+          <div class="col-md-8">
+            <span
+              class="badge user"
+              [class]="
+                user.accessType === 'admin'
+                  ? 'bg-danger'
+                  : user.accessType === 'write'
+                  ? 'bg-warning'
+                  : 'bg-primary'
+              "
+              *ngFor="let user of selectedCell.assignedUsers"
+              >{{ user.name }}</span
+            >
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

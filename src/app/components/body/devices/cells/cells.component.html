@@ -1,2 +1,95 @@
-<p>cells-works!</p>
-<router-outlet></router-outlet>
+<div class="intro-container">
+  <div class="row justify-content-center">
+    <div class="col-md-3 test-icon text-center">
+      <span class="material-symbols-outlined align-middle">
+        battery_profile
+      </span>
+    </div>
+  </div>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-7">
+      <h4 class="text-center">Battery Cells</h4>
+      <p class="about text-center">
+        Our battery cell management page provides a simple and effective way to
+        maintain detailed records of your battery cells, ensuring that you have
+        the information you need to succeed.
+      </p>
+    </div>
+  </div>
+  <div class="control">
+    <div class="row justify-content-center">
+      <div class="col-md-2 text-center">
+        <button
+          type="button"
+          class="btn btn-primary"
+          routerLink="add"
+          skipLocationChange="true"
+        >
+          Add a new cell
+        </button>
+      </div>
+      <div class="col-md-2 text-center" *ngIf="isAnyCellAvailable">
+        <button
+          type="button"
+          class="btn btn-primary"
+          routerLink="view"
+          skipLocationChange="true"
+        >
+          Existing cells
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <button
+    id="collapse-btn"
+    class="btn btn-danger"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#collapseExample"
+    aria-expanded="false"
+    aria-controls="collapseExample"
+  >
+    See Features
+  </button>
+</div>
+<div class="features-container collapse" id="collapseExample">
+  <div class="card card-body">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="cells-features">
+            <ul>
+              <li>
+                <strong>Battery Cell Tracking:</strong> Keep detailed records of
+                your battery cells for future testing and analysis.
+              </li>
+              <li>
+                <strong>Warehouse Management:</strong> Organize and manage your
+                battery cell inventory with ease.
+              </li>
+              <li>
+                <strong>Test Result Analysis:</strong> Analyze the results of
+                your battery cell tests to identify trends and patterns.
+              </li>
+              <li>
+                <strong>Easy Integration:</strong> Seamlessly integrate with
+                other pages, such as testchamber, to streamline your battery
+                testing process.
+              </li>
+              <li>
+                <strong>Customizable:</strong> Tailor the page to your specific
+                needs with flexible options for adding and organizing battery
+                cells.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="image-container" id="cells-image"></div>
+      </div>
+    </div>
+  </div>
+</div>

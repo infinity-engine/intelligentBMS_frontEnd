@@ -1,8 +1,7 @@
-import { APP_BASE_HREF } from '@angular/common';
 import { TestService } from './services/test.service';
 import { ToastMsg } from './models/ToastMsg';
 import { ComponentStoreService } from './services/component-store.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -20,16 +19,14 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: ComponentStoreService,
-    private _testService: TestService,
-    @Inject(APP_BASE_HREF) public baseHref: string
+    private _testService: TestService
   ) {}
 
   ngOnInit(): void {
     this.store.toastMsg$.subscribe((msg) => {
       this.showToastMsg(msg);
-      console.log(msg);
+      //console.log(msg);
     });
-    console.log("base",this.baseHref)
   }
   showToastMsg(msg: ToastMsg) {
     this.toastMsg = msg.msg;

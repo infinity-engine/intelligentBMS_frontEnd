@@ -1,5 +1,4 @@
 import { _UserLight } from './../services/user.service';
-import { Test } from './Test';
 
 //what you get from the back end
 export interface _TestChamber {
@@ -12,26 +11,29 @@ export interface _TestChamber {
   minTemp?: number; //in °C
   location?: string;
   assignedUsers?: _UserLight[]; //could be present if the user is admin to this chamber, otherwise this won't be present
-  testPerformed?: Test[];
+  testPerformed?: { testId: string }[];
   createdOn?: Date;
   maxNoOfChannels?: number;
+  isConnected?: Boolean;
   lastSeen?: Date;
   accessType?: 'admin' | 'write' | 'read'; //only specific to front end
+  apiKey?:string;
 }
 
 //what you need to send while creating a new chamber
 export class TestChamber {
   constructor(
     public _id?: string,
-    public name?:string,
-    public controller?:string,
-    public version?:string,
-    public about?:string,
-    public maxTemp?:number,
-    public minTemp?:number,
-    public location?:string,
-    public assignedUsers?:any,
-    public maxNoOfChannels?:number) {
-      this.maxNoOfChannels = 1
-    }
+    public name?: string,
+    public controller?: string,
+    public version?: string,
+    public about?: string,
+    public maxTemp?: number,
+    public minTemp?: number,
+    public location?: string,
+    public assignedUsers?: any,
+    public maxNoOfChannels?: number
+  ) {
+    this.maxNoOfChannels = 1;
+  }
 }

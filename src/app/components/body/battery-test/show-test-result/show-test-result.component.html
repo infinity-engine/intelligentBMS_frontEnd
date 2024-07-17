@@ -1,136 +1,397 @@
-<div class="all-tests table-responsive">
-  <table class="table-hover table">
-    <thead>
-      <tr>
-        <th scope="col">Test Id</th>
-        <th scope="col">Test Method</th>
-        <th scope="col">Test Start Time</th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let item of allTestResultLight;let i=index;">
-        <tr (click)="setCurrentTestResult(item.testId)">
-          <th scope="row">{{i+1}}</th>
-          <td>{{item.testMethod}}</td>
-          <td>{{item.testStartDate}}</td>
-          <td>{{item.status}}</td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item disabled">
-        <a class="page-link">Previous</a>
-      </li>
-      <li class="page-item"><a class="page-link">1</a></li>
-      <li class="page-item"><a class="page-link">2</a></li>
-      <li class="page-item"><a class="page-link">3</a></li>
-      <li class="page-item">
-        <a class="page-link">Next</a>
-      </li>
-    </ul>
-  </nav>
+<div class="card test-info-container" *ngIf="testInfo">
+  <div class="card-header">
+    <div class="row">
+      <div class="col">Test Data</div>
+      <div class="col text-end">
+        Chamber -
+        <span *ngIf="isConnected; else not_connected"
+          >Online
+          <div
+            class="spinner-grow spinner-grow-sm text-light"
+            role="status"
+            *ngIf="true"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </span>
+        <ng-template #not_connected>
+          <span>Offline</span>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="overall">
+      <div class="row">
+        <div class="col-md-4"><strong>Test Id:</strong></div>
+        <div class="col-md-8">{{ testInfo._id }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Test Name:</strong></div>
+        <div class="col-md-8">{{ testInfo.testName }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Chamber Name:</strong></div>
+        <div class="col-md-8">{{ testInfo.chamberName }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Status:</strong></div>
+        <div class="col-md-8">{{ testInfo.status }}</div>
+      </div>
+      <div class="row" *ngIf="testInfo.testScheduleDate">
+        <div class="col-4"><strong>Test Scheduled Date</strong></div>
+        <div class="col-8">
+          {{ testInfo.testScheduleDate | date : "MMM d, y, h:mm a" }}
+        </div>
+      </div>
+      <div class="row" *ngIf="testInfo.testStartDate">
+        <div class="col-4"><strong>Test Start Date</strong></div>
+        <div class="col-8">
+          {{ testInfo.testStartDate | date : "MMM d, y, h:mm a" }}
+        </div>
+      </div>
+      <div class="row" *ngIf="testInfo.testEndDate">
+        <div class="col-4"><strong>Test End Date</strong></div>
+        <div class="col-8">
+          {{ testInfo.testEndDate | date : "MMM d, y, h:mm a" }}
+        </div>
+      </div>
+      <div
+        class="row control justify-content-end text-end"
+        *ngIf="
+          testInfo.accessType === 'write' || testInfo.accessType === 'admin'
+        "
+      >
+        <div class="col">
+          <ng-container *ngIf="testInfo.status === 'Scheduled'">
+            <button class="btn btn-info" type="button" (click)="edit()">
+              <span class="material-symbols-outlined align-middle"> edit </span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="testInfo.status === 'Running'">
+            <button class="btn btn-warning" type="button" (click)="pause()">
+              <span class="material-symbols-outlined align-middle">
+                pause
+              </span>
+            </button>
+          </ng-container>
+          <ng-template #resume_btn>
+            <button type="button" class="btn btn-success" (click)="play()">
+              <span class="material-symbols-outlined align-middle"> play </span>
+            </button>
+          </ng-template>
+          <ng-container
+            *ngIf="
+              testInfo.status !== 'Scheduled' && testInfo.status !== 'Completed'
+            "
+          >
+            <button type="button" class="btn btn-danger">
+              <span
+                class="material-symbols-outlined align-middle"
+                type="button"
+                (click)="stop()"
+              >
+                stop
+              </span>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-container">
+      <div class="row" *ngFor="let channel of testInfo.channels">
+        <div class="col">
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="row justify-content-between">
+                <div class="col">Channel {{ channel.channelNumber }}</div>
+                <div class="col text-end">
+                  <ng-container
+                    *ngIf="channel.status && channel.status !== 'Scheduled'"
+                  >
+                    <span class="text-nowrap">
+                      <span
+                        class="material-symbols-outlined show-chart align-middle text-center"
+                        (click)="showChartView(channel.channelNumber)"
+                      >
+                        monitoring
+                      </span>
+                      <span
+                        class="material-symbols-outlined download align-middle text-center"
+                        (click)="download(channel.channelNumber)"
+                      >
+                        download
+                      </span>
+                    </span>
+                  </ng-container>
+                  {{ channel.status }}
+                  <div
+                    class="spinner-border spinner-border-sm text-primary align-middle"
+                    role="status"
+                    *ngIf="channel.status === 'Running'"
+                  >
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div
+                class="row mb-3"
+                *ngFor="let row of channel.testFormats; let i = index"
+              >
+                <div class="col-md-1">
+                  <strong class="text-center">{{ i + 1 }}</strong>
+                </div>
+                <div class="col md-11">
+                  <div
+                    class="row mb-2 justify-content-between align-items-center"
+                  >
+                    <div class="col">
+                      <span class="badge bg-info">
+                        <ng-container *ngFor="let field of row.fields">
+                          <ng-container *ngIf="field.visibility">
+                            <span
+                              *ngIf="field.type !== 'file'; else drive_cycle"
+                              >{{ field.value }}</span
+                            >
+                            <ng-template #drive_cycle>
+                              <span>X</span>
+                            </ng-template>
+                          </ng-container>
+                        </ng-container>
+                      </span>
+                      <span class="badge bg-info">
+                        <span
+                          class="material-symbols-outlined align-middle field"
+                        >
+                          cycle
+                        </span>
+                        <span>{{ row.multiplier }}</span>
+                      </span>
+                      <span class="badge bg-info">
+                        <span
+                          class="material-symbols-outlined align-middle field"
+                        >
+                          device_thermostat
+                        </span>
+                        <span> {{ row.ambTemp }}°C</span>
+                      </span>
+                    </div>
+                    <div
+                      class="col-md-2 text-end"
+                      *ngIf="channel.rows && channel.rows[i]"
+                    >
+                      <small>{{ channel.rows[i].status }}</small>
+                    </div>
+                  </div>
+                  <div
+                    class="row mb-2 align-items-center"
+                    *ngIf="
+                      channel.rows && channel.rows[i];
+                      else default_template
+                    "
+                  >
+                    <div class="col-md-1 text-center">
+                      @ {{ channel.rows[i].currentMultiplierIndex }}
+                    </div>
+                    <div class="col">
+                      <div class="progress" style="padding: 0px">
+                        <div
+                          class="progress-bar progress-bar-striped"
+                          role="progressbar"
+                          [style.width.%]="
+                            (channel.rows[i].currentMultiplierIndex /
+                              channel.rows[i].multiplier) *
+                            100
+                          "
+                          [attr.aria-valuenow]="
+                            (channel.rows[i].currentMultiplierIndex /
+                              channel.rows[i].multiplier) *
+                            100
+                          "
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          [class]="
+                            channel.rows[i].status === 'Running'
+                              ? 'progress-bar-animated'
+                              : null
+                          "
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-template #default_template>
+                    <div class="row mb-2">
+                      <div class="col">
+                        <small style="padding-left: 3px"
+                          >Not yet started.</small
+                        >
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+              <div class="row mb-3" style="border-top: 1px solid gray">
+                <div class="col text-start">Overall</div>
+              </div>
+              <ng-container
+                *ngIf="
+                  channel.status && channel.status !== 'Scheduled';
+                  else default_overall
+                "
+              >
+                <div class="row mb-2">
+                  <div class="col-md-2">Current Cycle</div>
+                  <div class="col-md-10">
+                    <div class="row align-items-center">
+                      <div class="col-md-1">
+                        {{ channel.currentMultiplierIndex }}
+                      </div>
+                      <div class="col-md-11">
+                        <div class="progress" style="padding: 0px">
+                          <div
+                            class="progress-bar bg-danger progress-bar-striped"
+                            role="progressbar"
+                            [style.width.%]="
+                              channel.currentMultiplierIndex &&
+                              channel.multiplier
+                                ? (channel.currentMultiplierIndex /
+                                    channel.multiplier) *
+                                  100
+                                : 0
+                            "
+                            [attr.aria-valuenow]="
+                              channel.currentMultiplierIndex &&
+                              channel.multiplier
+                                ? (channel.currentMultiplierIndex /
+                                    channel.multiplier) *
+                                  100
+                                : 0
+                            "
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            [class]="
+                              channel.status === 'Running'
+                                ? 'progress-bar-animated'
+                                : null
+                            "
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="channel.chStartDate">
+                  <div class="col-md-2">Channel Start Date</div>
+                  <div class="col-md-10">
+                    {{ channel.chStartDate | date : "MMM d, y, h:mm a" }}
+                  </div>
+                </div>
+                <div class="row" *ngIf="channel.chEndDate">
+                  <div class="col-md-2">Channel End Date</div>
+                  <div class="col-md-10">
+                    {{ channel.chEndDate | date : "MMM d, y, h:mm a" }}
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-template #default_overall>
+                <div class="row mb-w">
+                  <div class="col">Channel result not available</div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3" style="border-top: 1px solid gray"></div>
+      <div class="row">
+        <div class="col">
+          <small>@ Progress shows in terms of multiplier count.</small>
+        </div>
+        <div
+          class="col text-end align-middle"
+          *ngIf="
+            (testInfo.status == 'Scheduled' ||
+              testInfo.status == 'Completed' ||
+              testInfo.status == 'Stopped') &&
+            testInfo.accessType == 'admin'
+          "
+        >
+          <span class="material-symbols-outlined delete" (click)="deleteTest()">
+            delete_forever
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div class="single-test" *ngIf="currentTestResultDeep">
-
-  <h5 style="padding:10px;">Test Result</h5>
-
-  <div class="row">
-    <div class="col">
+<ng-container *ngIf="showChart">
+  <div class="chart-background" (click)="onClickParent($event)">
+    <div class="charts" (click)="onClickChild($event)">
       <div class="card">
-        <div class="card-header text-center">
-          Test Info
+        <div class="card-header">
+          <div class="row justify-content-between">
+            <div class="col">
+              <span
+                class="material-symbols-outlined align-middle cross"
+                (click)="toggleShowChart()"
+              >
+                close
+              </span>
+              <span class="align-middle">Charts</span>
+            </div>
+          </div>
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col">Test method</div>
-            <div class="col">{{currentTestResultLight?.testMethod}}</div>
-          </div>
-          <div class="row">
-            <div class="col">Channel number</div>
-            <div class="col">{{currentTestResultLight?.channelId}}</div>
-          </div>
-          <div class="row">
-            <div class="col">Test name</div>
-            <div class="col">{{currentTestResultLight?.testName}}</div>
-          </div>
-          <div class="row">
-            <div class="col">Test number</div>
-            <div class="col">{{currentTestResultLight?.testNumber}}</div>
-          </div>
-          <div class="row">
-            <div class="col">Status</div>
-            <div class="col">{{currentTestResultLight?.status}}</div>
-          </div>
-          <div class="row">
-            <div class="col">Operating temperature</div>
-            <div class="col">{{currentTestResultDeep?.operatingTemperature}}
-              {{currentTestResultDeep?.operatingTemperatureUnit}}</div>
-          </div>
-          <div class="row">
-            <div class="col">Max voltage</div>
-            <div class="col">{{currentTestResultDeep?.maxVoltage}} {{currentTestResultDeep?.voltageUnit}}</div>
-          </div>
-          <div class="row">
-            <div class="col">Min voltage</div>
-            <div class="col">{{currentTestResultDeep?.minVoltage}} {{currentTestResultDeep?.voltageUnit}}</div>
-          </div>
-
-          <ng-container [ngSwitch]="currentTestResultLight?.testMethod">
-            <ng-container *ngSwitchCase="'Charge/discharge experiment'">
-              <div class="row">
-                <div class="col">Constant current</div>
-                <div class="col">{{currentTestResultDeep?.currentRate}} {{currentTestResultDeep?.currentUnit}}</div>
+          <ng-container *ngIf="allCharts.length > 0; else no_chart">
+            <div class="row justify-content-center">
+              <div
+                class="col-md-6"
+                *ngFor="let chart of allCharts; let i = index"
+              >
+                <canvas
+                  baseChart
+                  height="150"
+                  [data]="chart.chartData"
+                  [options]="chart.ChartOptions"
+                  [type]="chart.ChartType"
+                >
+                </canvas>
               </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'Pulse charging'">
-              <div class="row">
-                <div class="col">Average curent</div>
-                <div class="col">{{currentTestResultDeep?.currentRate}} {{currentTestResultDeep?.currentUnit}}</div>
-              </div>
-              <div class="row">
-                <div class="col">Frequency</div>
-                <div class="col">{{currentTestResultDeep?.frequency}} {{currentTestResultDeep?.frequencyUnit}}</div>
-              </div>
-              <div class="row">
-                <div class="col">Duty ratio</div>
-                <div class="col">{{currentTestResultDeep?.dutyRatio}} {{currentTestResultDeep?.dutyRatio}}</div>
-              </div>
-            </ng-container>
+            </div>
           </ng-container>
-
-          <div class="row" style="margin-top:10px ;">
-            <div class="col"><button type="button" class="btn btn-primary" (click)="cloneExp()">Clone</button></div>
-            <ng-container
-              *ngIf=" !(currentTestResultLight?.isCompleted) && (currentTestResultLight?.status != 'Stopped')">
-              <div class="col"><button type="button" class="btn btn-danger" (click)="stopExp()">Stop</button></div>
-              <div class="col"><input #btn type="button" class="btn btn-primary"
-                  (click)="changeButtonStatus(btn.value)" [style.background-color]="btnColor" value="{{btnValue}}">
-              </div>
-            </ng-container>
-          </div>
-
+          <ng-template #no_chart>
+            <span> Hold on, loading your charts.</span>
+          </ng-template>
         </div>
       </div>
     </div>
   </div>
+</ng-container>
 
-  <div class="chartjs-container">
-    <div class="row">
-      <div *ngFor="let chart of allCharts;let i=index;" class="col-md-6">
-        <div class="card">
-          <div class="card-header text-center">{{chart.name}}</div>
-          <div class="card-body">
-            <canvas baseChart height="150" [data]="chart.chartData" [options]="chart.ChartOptions"
-              [type]="chart.ChartType">
-            </canvas>
-          </div>
-        </div>
-      </div>
-
-    </div>
+<ng-template #myModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ modalTitle }}</h4>
+    <button
+      type="button"
+      class="close btn btn-danger"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">X</span>
+    </button>
   </div>
-</div>
+  <div class="modal-body">{{ modalBody }}</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>

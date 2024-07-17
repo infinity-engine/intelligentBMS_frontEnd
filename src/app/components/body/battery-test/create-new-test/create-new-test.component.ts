@@ -28,6 +28,8 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   isAddChBtnDisabled: boolean = true;
   isRemChBtnDisabled: boolean = true;
   currentPayload?: PayLoad;
+  testName?: string;
+  testDesc?: string;
   testChambers?: _TestChamber[] = [];
   selectedTestChamber: _TestChamber | null | any = null;
   scheduledDate: any = new Date();
@@ -36,6 +38,10 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   availableCells: Cell[] = [];
   subs: Subscription[] = [];
   cellSub: Subscription | undefined = undefined;
+  isSaveDisabled: boolean = false;
+  isConnected: boolean = false;
+  isConnectedIntervalId: any;
+  connSub?: Subscription;
 
   @ViewChild('csvReader') csvReader: any;
 
@@ -51,14 +57,31 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
         this.testChambers = data;
       }
     });
-    console.log(this.scheduledDate);
+    this.updateConnection();
+    this.isConnectedIntervalId = setInterval(
+      () => this.updateConnection(),
+      10000
+    );
   }
 
+  updateConnection() {
+    if (this.selectedTestChamber?._id) {
+      this.connSub?.unsubscribe();
+      this.connSub = this._testChamberService
+        .getConnectionStatus(this.selectedTestChamber._id as any)
+        .subscribe({
+          next: (pay: any) => {
+            this.isConnected = pay.isConnected;
+            this.connSub?.unsubscribe();
+          },
+          error: (err) => {
+            this.isConnected = false;
+          },
+        });
+    }
+  }
   init() {
     this.currentPayload = {
-      testId: undefined,
-      testDesc: undefined,
-      testName: undefined,
       channels: this.allSelectedChannel,
       isConAmTe: true,
       ambTemp: 25,
@@ -96,6 +119,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
   removeRow(ch_index: number) {
     let selectedChannel = this.allSelectedChannel[ch_index];
     let selectedTestFormat = selectedChannel.testFormats;
+    selectedChannel.allTestFormat.pop();
     let l = selectedTestFormat.length;
     if ((l as number) > 1) {
       selectedTestFormat.pop();
@@ -210,16 +234,27 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
 
   save() {
     this.showSpinnerButton = true;
+    this.isSaveDisabled = true;
+    if (this.currentPayload?.isConAmTe) {
+      this.currentPayload.channels?.forEach((ch) => {
+        ch.testFormats.forEach((test) => {
+          test.ambTemp = <any>this.currentPayload?.ambTemp;
+        });
+      });
+    }
     const currentTest: Test = {
       testConfig: this.currentPayload,
       testScheduleDate: this.scheduledDate,
+      testName: this.testName,
+      testDesc: this.testDesc,
     };
     let sub = this._testChamberService
       .createTest(this.selectedTestChamber._id, currentTest)
       .subscribe({
         next: (v) => {
           this.showSpinnerButton = false;
-          console.log(v);
+          this.isSaveDisabled = false;
+          //console.log(v);
           this._componentStoreService.sendToastMsg({
             msg: 'Test added successfully',
             color: 'green',
@@ -232,6 +267,7 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
             color: 'red',
           });
           this.showSpinnerButton = false;
+          this.isSaveDisabled = false;
         },
       });
     this.subs.push(sub);
@@ -336,5 +372,10 @@ export class CreateNewTestComponent implements OnInit, OnDestroy {
     this.subs.forEach((sub) => {
       sub.unsubscribe();
     });
+    this.connSub?.unsubscribe();
+    clearInterval(this.isConnectedIntervalId);
+  }
+  log(data: any) {
+    console.log(data);
   }
 }
